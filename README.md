@@ -22,7 +22,7 @@ Ensure that you update your code from master before development, and only push t
 > Master branch is our WORKING code, we use this to keep everyone in sync `git pull` often `git push` with extreme caution. 
 > Create a new branch with `git checkout -B <branchname>` it will inherit the code from whatever branch you are on when you execute this command
 > To look at your local changes compared to the point at your last commit `git status`
-> To add files to be committed `git add <filename1 filename2 ...> **OR** .`
+> To add files to be committed `git add <filename1 filename2 ...>` **OR** `git add .`
 > To save a checkpoint on a file status `git commit -m"<description of what this commit entails>"`
 > To push to a branch git push origin <branchname>
 
