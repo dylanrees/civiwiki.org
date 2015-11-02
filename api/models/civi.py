@@ -23,5 +23,4 @@ class Civi(models.Model):
     # this is just a textual representation of the civi's
     # hashtags, separate objects are also created which handle
     # processing
-    hashtag = models.CharField(max_length=255, default='')
-    category = model.CharField(max_length=16, choices=CATEGORIES)
+    category = models.CharField(max_length=16, choices=CATEGORIES)

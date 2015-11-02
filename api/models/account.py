@@ -4,6 +4,8 @@ from django.db import models
 # Create your models here.
 class Account(models.Model):
     '''
-    This is the model schema for the primary object in the application
+    This is a DUMMY user model until I can think of a good
+    way to implement this.
     '''
     objects = models.Manager()
+    name = models.CharField(max_length=31)

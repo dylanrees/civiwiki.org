@@ -16,4 +16,4 @@ class Attachment(models.Model):
     '''
     objects = models.Manager()
     civi = models.ForeignKey('Civi')
-    file = models.FileField()
+    attachment = models.FileField()

@@ -10,4 +10,4 @@ class Hashtag(models.Model):
     '''
     objects = models.Manager()
     civi = models.ForeignKey('Civi')
-    title = models.Charfield(max_length=31, default='')
+    title = models.CharField(max_length=31, default='')
