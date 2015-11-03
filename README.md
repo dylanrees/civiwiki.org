@@ -12,7 +12,7 @@ Create a postgres database (http://www.postgresql.org/) named **civiwiki**, user
 > ./setupCiviWiki
 
 **To run application locally:**
-> python manage.py runserver
+> python backend/manage.py runserver
 
 **For the front-end / objective-C developers**
 Ensure that any web request you make is pointed to your *localhost:8000*, this is how we will simulate our server calls.
