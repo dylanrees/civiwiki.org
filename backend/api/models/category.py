@@ -8,4 +8,3 @@ class Category(models.Model):
     '''
     objects = models.Manager()
     name = models.CharField(max_length=31, default='')
-    articles = models.ForeignKey('Article') # make this a list of articles

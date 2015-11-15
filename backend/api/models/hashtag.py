@@ -8,8 +8,8 @@ class Hashtag(models.Model):
     and the vote distribution of the civis they appear in.
     '''
     objects = models.Manager()
-    civi = models.ForeignKey('Civi')#make this a list of civis
     title = models.CharField(max_length=31, default='')
+    votes = models.IntegerField(default=0) #vote distribution
 
-    #vote distribution
+    
     

@@ -9,6 +9,6 @@ class Article(models.Model):
     the text.
     '''
     objects = models.Manager()
-    civi = models.ForeignKey('Civi') #list of civis/issue ids
+    category = models.ForeignKey('Category')
     topic = models.CharField(max_length=31, default='')
-    bill = models.URLField()
+    bill = models.URLField(null=True, default='')
