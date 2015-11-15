@@ -5,6 +5,8 @@ from models import Account, Article, Attachment, Category, Civi, Comment, Hashta
 # Create your views here.
 def foo(request):
 	civi = Civi.objects.filter(author_id=1).first()
+	
+
 
 	return JsonResponse({'title': civi.title,
 							'body': civi.body,

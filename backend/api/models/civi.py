@@ -10,7 +10,7 @@ class Civi(models.Model):
     references to other objects. Maybe not the fastest
     implementation but it simplifies things such as searching.
     '''
-    CATEGORIES = (
+    TYPES = (
         ('I', 'Issue'),
         ('C', 'Cause'),
         ('S', 'Solution')
@@ -30,3 +30,7 @@ class Civi(models.Model):
     votes_positive2 = models.IntegerField(default=0, null=True)
 
     visits = models.IntegerField(default=0, null=True)
+    REFERENCE = models.ForeignKey('Civi', related_name='REFERENCE_REL', default='', null=True)
+    AT = models.ForeignKey('Civi', related_name='AT_REL', default='', null=True)
+    AND_NEGATIVE = models.ForeignKey('Civi', related_name='AND_NEGATIVE_REL', default='', null=True)
+    AND_POSITIVE = models.ForeignKey('Civi', related_name='AND_POSITIVE_REL', default='', null=True)

@@ -9,6 +9,5 @@ class Account(models.Model):
     '''
     objects = models.Manager()
     name = models.CharField(max_length=31)
-    image = models.ImageField()
-    about_me = models.CharField(max_length=511, defualt='')
+    about_me = models.CharField(max_length=511, default='')
     pinned = models.ManyToManyField('Civi')
