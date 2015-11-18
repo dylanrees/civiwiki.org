@@ -10,5 +10,5 @@ class Article(models.Model):
     '''
     objects = models.Manager()
     category = models.ForeignKey('Category', default=None, null=True)
-    topic = models.CharField(max_length=31, default='')
+    topic = models.CharField(max_length=63, default='')
     bill = models.URLField(null=True, default='')

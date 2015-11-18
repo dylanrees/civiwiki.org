@@ -4,8 +4,9 @@ from models import Account, Article, Attachment, Category, Civi, Comment, Hashta
 
 # Create your views here.
 def foo(request):
-	civi = Civi.objects.filter(author_id=1).first()
-	
+	civiTitle = request.POST['title'] if 'title' in request.POST else 'TestCivi1'
+	civi = Civi.objects.get(title=civiTitle)
+
 
 
 	return JsonResponse({'title': civi.title,

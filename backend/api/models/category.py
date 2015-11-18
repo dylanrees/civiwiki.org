@@ -7,4 +7,4 @@ class Category(models.Model):
     Category holds all articles of a similar genre
     '''
     objects = models.Manager()
-    name = models.CharField(max_length=31, default='')
+    name = models.CharField(max_length=63, default='')
