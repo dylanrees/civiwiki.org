@@ -30,7 +30,20 @@ def calcPolarity(civi):
 	score /= SCALE_POLARITY #Scaling polarity so it is a value between 0 and 1 rather than 0 and 2
 	return score
 
-def aveScore(civi):
+def aveVotes(civis):
+	'''
+	All average scores for inputted civis
+	:param civis:
+	:return:
+	'''
+	averages=[]
+	for civi in civis:
+		averages.append((civi._check_id_field(), aveVote(civi)))
+
+	return averages
+
+
+def aveVote(civi):
 	'''
 	Returns average vote of civi
 	:param civi:
@@ -39,3 +52,14 @@ def aveScore(civi):
 	ave = civi.votes_negative1 + civi.votes_negative2 + civi.votes_positive2 + civi.votes_positive1
 	ave /= civi.visits
 	return ave
+
+def topNCivis(civis, N):
+	'''
+	Returns the top ranked N civis that are passed in
+	:param civis:
+	:return:
+	'''
+	# averages=aveVotes(civis)
+	# for thing in averages:
+	# 	if thing[ave] < -1.0:
+
