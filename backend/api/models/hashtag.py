@@ -4,10 +4,13 @@ from django.db import models
 # Create your models here.
 class Hashtag(models.Model):
     '''
-    Comments hold an id reference to the Civi they
-    are associated with. As well as their author and
-    the text.
+    Hashtags store the civis that they appear in, their text,
+    and the vote distribution of the civis they appear in.
     '''
     objects = models.Manager()
-    civi = models.ForeignKey('Civi')
-    title = models.CharField(max_length=31, default='')
+    title = models.CharField(max_length=63, default='')
+    votes_negative2 = models.IntegerField(default=0, null=True)
+    votes_negative1 = models.IntegerField(default=0, null=True)
+    votes_neutral = models.IntegerField(default=0, null=True)
+    votes_positive1 = models.IntegerField(default=0, null=True)
+    votes_positive2 = models.IntegerField(default=0, null=True)
