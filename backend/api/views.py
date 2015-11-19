@@ -3,9 +3,15 @@ from django.http import JsonResponse
 from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag
 
 # Create your views here.
+
+
+
 def foo(request):
-	civiTitle = request.POST['title'] if 'title' in request.POST else 'TestCivi1'
-	civi = Civi.objects.get(title=civiTitle)
+	'''
+		Given an article ID, returns the top ten Civi, Issues
+
+	'''
+	civi = Civi.objects.filter(title=civiTitle)
 
 
 
