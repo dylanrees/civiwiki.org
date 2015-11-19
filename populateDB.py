@@ -53,7 +53,7 @@ class Civi():
 		'''
 
 	def query(self):
-		string = "INSERT INTO \"api_civi\"(\"id\", \"title\", \"body\", \"author_id\", \"type\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES({id}, \'{title}\', \'{body}\', {author}, {visits}, {type} , {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
+		string = "INSERT INTO \"api_civi\"(\"id\", \"title\", \"body\", \"author_id\", \"type\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES({id}, \'{title}\', \'{body}\', {author}, \'{type}\', {visits} , {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
 		return string.format(
 			id=self.id,
 			title=self.title,
