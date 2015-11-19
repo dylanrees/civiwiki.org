@@ -38,7 +38,7 @@ class Civi():
 		self.votes_neutral = 0;
 		self.votes_positive1 = 0;
 		self.votes_positive2 = 0;
-
+		self.type = 'I';
 		self.article = None;
 		self.AT = None;
 		self.REFERENCE = None;
@@ -53,12 +53,13 @@ class Civi():
 		'''
 
 	def query(self):
-		string = "INSERT INTO \"api_civi\"(\"id\", \"title\", \"body\", \"author_id\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES({id}, \'{title}\', \'{body}\', {author}, {visits}, {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
+		string = "INSERT INTO \"api_civi\"(\"id\", \"title\", \"body\", \"author_id\", \"type\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES({id}, \'{title}\', \'{body}\', {author}, \'{type}\', {visits} , {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
 		return string.format(
 			id=self.id,
 			title=self.title,
 			body=self.body,
 			author=self.author,
+			type=self.type,
 			visits=self.visits,
 			votes_negative2=self.votes_negative2,
 			votes_negative1=self.votes_negative1,
@@ -145,6 +146,7 @@ def createCivis(ACCOUNTS):
 		if sum(votes) > ACCOUNTS:
 			overflow = int(math.ceil(sum(votes)%ACCOUNTS/5))
 			votes = [max(vote - overflow, 0) for vote in votes]
+		civi.type = random.choice(TYPES)
 		civi.visits = sum(votes)
 		civi.votes_negative2 = votes[0]
 		civi.votes_negative1 = votes[1]
