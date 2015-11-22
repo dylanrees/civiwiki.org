@@ -8,6 +8,11 @@ class Account(models.Model):
     way to implement this.
     '''
     objects = models.Manager()
-    name = models.CharField(max_length=63)
+    username = models.CharField(max_length=63, default='')
+    first_name = models.CharField(max_length=63, default='')
+    last_name = models.CharField(max_length=63, default='')
+    email = models.CharField(max_length=63, default='')
+    last_login = models.CharField(max_length=63, default='')
+    password = models.CharField(max_length=63, default='')
     about_me = models.CharField(max_length=511, default='')
     pinned = models.ManyToManyField('Civi')
