@@ -25,7 +25,8 @@ class Civi(models.Model):
     votes_positive2 = models.IntegerField(default=0, null=True)
 
     visits = models.IntegerField(default=0, null=True)
-    type = models.CharField(max_length=2, default='I')
+    type = models.CharField(max_length=2, default='I')#Possible values of I, C, or S for
+    #issue, cause, and solution
     REFERENCE = models.ForeignKey('Civi', related_name='REFERENCE_REL', default='', null=True)
     AT = models.ForeignKey('Civi', related_name='AT_REL', default='', null=True)
     AND_NEGATIVE = models.ForeignKey('Civi', related_name='AND_NEGATIVE_REL', default='', null=True)
