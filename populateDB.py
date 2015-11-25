@@ -1,4 +1,4 @@
-import random, math
+import random, math, datetime, requests
 ACCOUNTS = 0
 CIVIS = 0
 CATEGORIES = ["Business & Economy", "Taxes", "Civil & Human Rights", "Education", "United States Elections", "Enviornment", "Health & Welfare", "Laws & Crime", "Military & Defense", "Political & Economic Systems", "Religion", "Science & Technology", "Treaties & Agreements", "Wars & Conflicts", "Natural Disasters Prevention and Response"]
@@ -71,14 +71,15 @@ class Civi():
 
 
 def createAccounts():
+	NAMES = requests.get("https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.json").json()
 	ACCOUNTS = input("How many accounts do you want in the DB?:")
 	if ACCOUNTS < 1:
 		return ""
 
-	string = "INSERT INTO \"public\".\"api_account\"(\"id\", \"name\", \"about_me\") VALUES({id}, \'User{id}\', \'Hi!, My name is User{id}!\');\n"
+	string = "INSERT INTO \"public\".\"api_account\"(\"id\", \"username\", \"about_me\", \"email\", \"first_name\", \"last_name\", \"last_login\", \"password\") VALUES({id}, \'User{id}\', \'Hi!, My name is User{id}!\', \'user_{id}@email.com\', \'{first}\', \'{last}\', \'{date}\', \'\');\n"
 	query = "DELETE FROM \"api_account\" WHERE 1=1;\n"
 	for id in range(ACCOUNTS):
-		query += string.format(id=id)
+		query += string.format(id=id, first=random.choice(NAMES), last=random.choice(NAMES), date=datetime.datetime.now())
 
 	return ACCOUNTS, query
 

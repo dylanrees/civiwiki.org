@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^user$', views.getUser, name='get user'),
     url(r'^adduser$', views.addUser, name='add user'),
     url(r'^addcivi$', views.addCivi, name='add civi'),
-    url(r'^reportvote$', views.reportVote, name='report vote')
+    url(r'^reportvote$', views.reportVote, name='report vote'),
+    url(r'^backend/link$',views.linkCivis, name='link civis')
 ]
