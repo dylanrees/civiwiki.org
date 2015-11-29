@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Q
 from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag
-import json, pdb, random
+import sys, json, pdb, random, hashlib
 
 # Create your views here.
 def topTen(request):
@@ -10,7 +10,7 @@ def topTen(request):
 		Given an article ID, returns the top ten Civis of type Issue
 		(the chain heads)
 	'''
-	article_id = request.POST.get('article_id', 1)
+	article_id = request.POST.get('id', 1)
 	civi = Civi.objects.filter(article_id=article_id, type='I')
 	c_tuples = sorted([
 		(c,((2 * c.votes_positive2 + c.votes_positive1) - (2 * c.votes_negative2 + c.votes_negative1))/c.visits) for c in civi
@@ -21,7 +21,9 @@ def topTen(request):
 		"body": c[0].body,
 		"author": c[0].author.username,
 		"visits": c[0].visits,
-		"article": c[0].article.topic
+		"article": c[0].article.topic,
+		"type": c[0].type,
+		"id": c[0].id
 	} for c in c_tuples]
 
 	if len(result) > 10:
@@ -40,42 +42,79 @@ def getArticles(request):
 	'''
 		Takes in a category ID, returns a list of results
 	'''
-	category_id = request.POST.get('category_id', '')
+	category_id = request.POST.get('id', '')
 	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Article.objects.filter(category_id=category_id)]
 	return JsonResponse({"result":result})
-
 
 def getUser(request):
 	'''
 	takes in username and responds with all user fields
+
+	image fields are going to be urls in which you can access as base.com/media/<image_url>
+	
 	:param request: with username
 	:return: user object
 	'''
 	username=request.POST.get('username', '')
-	result = [{'id':a.id, 'username':a.username, 'password': a.password, 'about_me': a.about_me, 'last_name':a.last_name,
-			   'first_name':a.first_name, 'email':a.email} for a in Account.objects.filter(username=username)]
+	result = [{'id':a.id,
+				'username':a.username,
+				'password': a.password,
+				'about_me': a.about_me,
+				'last_name':a.last_name,
+			   	'first_name':a.first_name,
+				'email':a.email,
+				'cover': a.cover_image.url,
+				'profile': a.profile_image.url,
+				'statistics': a.statistics,
+				} for a in Account.objects.filter(username=username)]
 	return JsonResponse({"result":result})
 
 def addUser(request):
 	'''
 	takes in user information and adds it to the database
+	upload images as files in your post request
 	:param request:
 	:return: nothing
 	'''
-
+	username = request.POST.get('username', '')
+	password = request.POST.get('password', '')
 	user = Account()
-	user.id = Account.objects.all().order_by("-id")[0].id + 1
 	user.first_name = request.POST.get('first_name', '')
 	user.last_name = request.POST.get('last_name', '')
 	user.email = request.POST.get('email', '')
-	user.username = request.POST.get('username', '')
+	user.username = username
 	user.about_me = request.POST.get('about_me', '')
-	user.password = request.POST.get('password', '')
+	user.password = password
+	user.profile_image = request.FILES.get('profile')
+	user.cover_image = request.FILES.get('cover')
+	#create user secret key
+	m = hashlib.md5()
 
+	m.update("{username}{password}{int}".format(username=user.username, password=password, int=random.randint(0, sys.maxint)))
+	secret_key = m.hexdigest()
+	user.secret_key= secret_key
 	user.save()
+	try:
+		user.save()
+	except Exception as e:
+		return JsonResponse({'result': e})
 
-	return JsonResponse({'result': 'success'})
+	return JsonResponse({'status': 200, 'result': user.secret_key})
 
+def login(request):
+	'''
+	returns secret key from inserted username and password
+	'''
+	username = request.POST.get('username', '')
+	password = request.POST.get('password', '')
+	account = {}
+	try:
+		account = Account.objects.get(username=username, password=password)
+	except Exception as e:
+		return JsonResponse({'status': 400, 'result': 'User not found'})
+
+	key = account.secret_key
+	return JsonResponse({'status_code': 200, 'result': key})
 
 def addCivi(request):
 	'''
@@ -211,3 +250,19 @@ def linkCivis(request):
 			    chain_el.AND_NEGATIVE = c
 			    chain_el.save()
 	return JsonResponse({'status': 'success'})
+
+def getCivi(request):
+	id = request.POST.get('id', -1)
+	try:
+		c = Civi.objects.get(id=id)
+		result = {
+			'title': c.title,
+			'body': c.body,
+			'author': c.author.username,
+			'visits': c.visits,
+			'article': c.article.topic,
+			'type':c.type
+		}
+		return JsonResponse({'result': result})
+	except Exception as e:
+		return JsonResponse({'result': 'No Civi Returned matching that ID'})

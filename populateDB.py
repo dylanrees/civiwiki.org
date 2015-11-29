@@ -53,7 +53,7 @@ class Civi():
 		'''
 
 	def query(self):
-		string = "INSERT INTO \"api_civi\"(\"id\", \"title\", \"body\", \"author_id\", \"type\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES({id}, \'{title}\', \'{body}\', {author}, \'{type}\', {visits} , {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
+		string = "INSERT INTO \"api_civi\"(\"title\", \"body\", \"author_id\", \"type\", \"visits\", \"votes_negative1\", \"votes_negative2\", \"votes_neutral\", \"votes_positive1\", \"votes_positive2\", \"article_id\") VALUES(\'{title}\', \'{body}\', {author}, \'{type}\', {visits} , {votes_negative2}, {votes_negative1}, {votes_neutral}, {votes_positive1}, {votes_positive2}, {article});"
 		return string.format(
 			id=self.id,
 			title=self.title,
@@ -72,31 +72,31 @@ class Civi():
 
 def createAccounts():
 	NAMES = requests.get("https://raw.githubusercontent.com/dominictarr/random-name/master/first-names.json").json()
+	USERNAMES = requests.get("https://raw.githubusercontent.com/maryrosecook/commonusernames/master/usernames.txt").text.split('\r\n')
 	ACCOUNTS = input("How many accounts do you want in the DB?:")
 	if ACCOUNTS < 1:
 		return ""
-
-	string = "INSERT INTO \"public\".\"api_account\"(\"id\", \"username\", \"about_me\", \"email\", \"first_name\", \"last_name\", \"last_login\", \"password\") VALUES({id}, \'User{id}\', \'Hi!, My name is User{id}!\', \'user_{id}@email.com\', \'{first}\', \'{last}\', \'{date}\', \'\');\n"
-	query = "DELETE FROM \"api_account\" WHERE 1=1;\n"
+	query = ''
+	string = "INSERT INTO \"api_account\"(\"username\", \"about_me\", \"email\", \"first_name\", \"last_name\", \"last_login\", \"password\") VALUES(\'{username}\', \'Hi!, My name is {first} {last}!\', \'{last}.{first}@email.com\', \'{first}\', \'{last}\', \'{date}\', \'\');\n"
 	for id in range(ACCOUNTS):
-		query += string.format(id=id, first=random.choice(NAMES), last=random.choice(NAMES), date=datetime.datetime.now())
+		query += string.format(username=(random.choice(USERNAMES)+str(id)), first=random.choice(NAMES), last=random.choice(NAMES), date=datetime.datetime.now())
 
 	return ACCOUNTS, query
 
 
 def createCategories():
+	query = ''
+	string = "INSERT INTO \"api_category\"(\"id\", \"name\") VALUES(\'{id}\', \'{cat}\');\n"
 
-	string = "INSERT INTO \"api_category\"(\"id\",\"name\") VALUES({id},\'{cat}\');\n"
-	query = "DELETE FROM \"api_category\" WHERE 1=1;\n"
 	for idx in range(len(CATEGORIES)):
 		query += string.format(cat=CATEGORIES[idx], id=idx);
 
 	return query
 
 def createArticles():
+	query = ''
+	string = "INSERT INTO \"api_article\"(\"id\", \"topic\", \"category_id\") VALUES(\'{id}\', \'{cat}\', {idx});\n"
 
-	string = "INSERT INTO \"api_article\"(\"id\", \"topic\", \"category_id\") VALUES({id}, \'{cat}\', {idx});\n"
-	query = "DELETE FROM \"api_article\" WHERE 1=1;\n"
 	for id in range(len(ARTICLES)):
 		cat = ARTICLES[id]
 		query += string.format(id=id, cat=cat[0], idx=cat[1]);
@@ -134,16 +134,16 @@ def createCivis(ACCOUNTS):
 		print("Can't Create Civi's without accounts, creating some now...")
 		return False
 
-	query = "DELETE FROM \"api_civi\" WHERE 1=1;\n"
 
+	query = ''
 	body = "This is the {id}nd {type} regarding {article}"
 
 	for civi_id in range(CIVIS):
 		civi = Civi()
 		civi.id = civi_id
 		civi.title = "TestCivi{id}".format(id=civi_id)
-		civi.author = random.randrange(ACCOUNTS)
-		votes = [random.randrange(ACCOUNTS) for i in range(5)]
+		civi.author = random.randrange(ACCOUNTS) + 2
+		votes = [random.randrange(ACCOUNTS) + 2 for i in range(5)]
 		if sum(votes) > ACCOUNTS:
 			overflow = int(math.ceil(sum(votes)%ACCOUNTS/5))
 			votes = [max(vote - overflow, 0) for vote in votes]
@@ -163,12 +163,25 @@ def createCivis(ACCOUNTS):
 	return CIVIS, query
 
 query = ''
+query += "DELETE FROM \"api_civi\" WHERE 1=1;\n"
+query += "DELETE FROM \"api_account\" WHERE 1=1;\n"
+query += "DELETE FROM \"api_article\" WHERE 1=1;\n"
+query += "DELETE FROM \"api_category\" WHERE 1=1;\n"
+query += "SELECT setval('api_account_id_seq', 1);\n"
+query += "SELECT setval('api_civi_id_seq', 1);\n"
 query += createCategories()
 query += createArticles()
 (ACCOUNTS, a) = createAccounts()
 query += a
+
+text_file = open("prepDB.sql", "w")
+text_file.write(query)
+text_file.close()
+
+query = ''
 (CIVIS, c) = createCivis(ACCOUNTS)
 query += c
+
 
 text_file = open("populateDB.sql", "w")
 text_file.write(query)

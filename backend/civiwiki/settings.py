@@ -34,9 +34,9 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
     'api'
     # 'django.contrib.messages',
-    # 'django.contrib.staticfiles',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,3 +105,9 @@ USE_TZ = False #Eh deal with timezones on front-end, I dislike them
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT_URL = '/media/'
