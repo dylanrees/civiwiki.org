@@ -77,7 +77,8 @@ def createAccounts():
 	if ACCOUNTS < 1:
 		return ""
 	query = ''
-	string = "INSERT INTO \"api_account\"(\"username\", \"about_me\", \"email\", \"first_name\", \"last_name\", \"last_login\", \"password\") VALUES(\'{username}\', \'Hi!, My name is {first} {last}!\', \'{last}.{first}@email.com\', \'{first}\', \'{last}\', \'{date}\', \'\');\n"
+	string = "INSERT INTO \"api_account\"(\"username\", \"about_me\", \"email\", \"first_name\", \"last_name\", \"last_login\", \"password\", \"profile_image\", \"cover_image\", \"secret_key\", \"statistics\")"
+	string += "VALUES(\'{username}\', \'Hi!, My name is {first} {last}!\', \'{last}.{first}@email.com\', \'{first}\', \'{last}\', \'{date}\', \'\', \'profile/generic-profile.png\', \'cover/generic-cover.png\', \'\',\'\');\n"
 	for id in range(ACCOUNTS):
 		query += string.format(username=(random.choice(USERNAMES)+str(id)), first=random.choice(NAMES), last=random.choice(NAMES), date=datetime.datetime.now())
 
