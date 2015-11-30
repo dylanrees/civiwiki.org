@@ -198,6 +198,8 @@ def linkCivis(request):
 
 	for a in Articles:
 		Civi.objects.filter(article=a).update(REFERENCE=None, AT=None, AND_POSITIVE=None, AND_NEGATIVE=None)
+
+
 		Issues = Civi.objects.filter(type="I", article=a).order_by('votes_positive2')
 		Causes = Civi.objects.filter(type="C", article=a).order_by('votes_positive2')
 		Solutions = Civi.objects.filter(type="S", article=a).order_by('votes_positive2')
@@ -249,7 +251,49 @@ def linkCivis(request):
 			else:
 			    chain_el.AND_NEGATIVE = c
 			    chain_el.save()
+
+	for c in Civi.objects.all():#assign random and_positives and and_negatives
+
+		if c.AND_POSITIVE == None:
+			c.AND_POSITIVE_id = random.randint(2,Civi.objects.count())
+		if c.AND_NEGATIVE == None:
+			c.AND_NEGATIVE_id = random.randint(2, Civi.objects.count())
+		c.save()
+
 	return JsonResponse({'status': 'success'})
+
+def getBlock(request):
+	article_id = request.POST.get('article_id', -1)
+	civi = Civi.objects.filter(article_id=article_id, type='I')
+	c_tuples = sorted([
+		(c,((2 * c.votes_positive2 + c.votes_positive1) - (2 * c.votes_negative2 + c.votes_negative1))/c.visits) for c in civi
+	], key=lambda c: c[1])
+
+
+	if len(c_tuples) > 1:
+		del c_tuples[1:]
+
+	it = c_tuples[0][0]
+	result = []
+	result.append(it.string())
+
+	if it.AT != None:
+		result.append(it.AT.string())
+		if it.AT.AND_POSITIVE != None: result.append(it.AT.AND_POSITIVE.string())
+		if it.AT.AND_NEGATIVE != None: result.append(it.AT.AND_NEGATIVE.string())
+		if it.AT.AT != None:
+			result.append(it.AT.AT.string())
+			if it.AT.AT.AND_POSITIVE != None: result.append(it.AT.AT.AND_POSITIVE.string())
+			if it.AT.AT.AND_NEGATIVE != None: result.append(it.AT.AT.AND_NEGATIVE.string())
+
+
+	if it.AND_POSITIVE != None: result.append(it.AND_POSITIVE.string())
+	if it.AND_NEGATIVE != None: result.append(it.AND_NEGATIVE.string())
+
+
+
+	return JsonResponse({"result":result})
+
 
 def getCivi(request):
 	id = request.POST.get('id', -1)

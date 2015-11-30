@@ -31,3 +31,19 @@ class Civi(models.Model):
     AT = models.ForeignKey('Civi', related_name='AT_REL', default='', null=True)
     AND_NEGATIVE = models.ForeignKey('Civi', related_name='AND_NEGATIVE_REL', default='', null=True)
     AND_POSITIVE = models.ForeignKey('Civi', related_name='AND_POSITIVE_REL', default='', null=True)
+
+    def string(self):
+        result = {
+            "title": self.title,
+            "body": self.body,
+            "author": self.author.username,
+            "visits": self.visits,
+            "article": self.article.topic,
+            "type": self.type,
+            "id": self.id,
+            "REF": self.REFERENCE_id,
+            "AT": self.AT_id,
+            "AND_NEGATIVE": self.AND_NEGATIVE_id,
+            "AND_POSITIVE": self.AND_POSITIVE_id
+	    }
+        return result
