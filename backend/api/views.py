@@ -51,7 +51,7 @@ def getUser(request):
 	takes in username and responds with all user fields
 
 	image fields are going to be urls in which you can access as base.com/media/<image_url>
-	
+
 	:param request: with username
 	:return: user object
 	'''
@@ -164,11 +164,8 @@ def reportVote(request):
 	:return:
 	'''
 	civi_id = int(request.POST.get('civi_id', ''))
-	print civi_id
 	vote = int(request.POST.get('vote', ''))
-	print vote
 	civi = Civi.objects.get(id=civi_id)
-	print civi
 	civi.visits += 1
 	if(vote == -2):
 		civi.votes_negative2 += 1
@@ -217,8 +214,6 @@ def linkCivis(request):
 
 		sol = Solutions.filter(REFERENCE__isnull=True)
 		for idx in range(sol.count()):
-			if idx > len(sol):
-				print(idx, len(sol))
 			s = sol[idx]
 			c = Causes.filter(author=s.author, AT__isnull=True).first() if Causes.filter(author=i.author, AT__isnull=True).count() else Causes.filter(AT__isnull=True).first()
 			if c is not None:
@@ -231,8 +226,6 @@ def linkCivis(request):
 
 		cause = Causes.filter(AT__isnull=True)
 		for idx in range(cause.count()):
-			if idx > len(cause):
-				print(idx, len(cause))
 			c = cause[idx]
 			s = Solutions.filter(author=s.author).first() if Solutions.filter(author=i.author).count() else Solutions.first()
 			c.AT = s
@@ -297,16 +290,32 @@ def getBlock(request):
 
 def getCivi(request):
 	id = request.POST.get('id', -1)
-	try:
-		c = Civi.objects.get(id=id)
-		result = {
-			'title': c.title,
-			'body': c.body,
-			'author': c.author.username,
-			'visits': c.visits,
-			'article': c.article.topic,
-			'type':c.type
-		}
-		return JsonResponse({'result': result})
-	except Exception as e:
+	c = Civi.objects.filter(id=id)
+	if len(c):
+		if c[0].type == 'I':
+			return JsonResponse({'result':getCiviChain(c[0])})
+		else:
+			return JsonResponse({'result': c[0].string()})
+
+	else:
 		return JsonResponse({'result': 'No Civi Returned matching that ID'})
+
+def getCiviChain(it):
+
+	result = []
+	result.append(it.string())
+
+	if it.AT != None:
+		result.append(it.AT.string())
+		if it.AT.AND_POSITIVE != None: result.append(it.AT.AND_POSITIVE.string())
+		if it.AT.AND_NEGATIVE != None: result.append(it.AT.AND_NEGATIVE.string())
+		if it.AT.AT != None:
+			result.append(it.AT.AT.string())
+			if it.AT.AT.AND_POSITIVE != None: result.append(it.AT.AT.AND_POSITIVE.string())
+			if it.AT.AT.AND_NEGATIVE != None: result.append(it.AT.AT.AND_NEGATIVE.string())
+
+
+	if it.AND_POSITIVE != None: result.append(it.AND_POSITIVE.string())
+	if it.AND_NEGATIVE != None: result.append(it.AND_NEGATIVE.string())
+
+	return result
