@@ -2,55 +2,39 @@ Using the database:
 
 API calls available:
 
-The current url that Darius has the database linked to is:
-url = http://civiwiki.ngrok.io/
+The current url that Darius has the database linked to is: [http://civiwiki.ngrok.io/](http://civiwiki.ngrok.io/)
 
-url/api/topTen
-Hit this url (i.e. http://civiwiki.ngrok.io/api/topTen) with a POST key-pair of {'article_id', <article_id>}
-and it will respond with the top ten civis associated with that article
+> /api/topTen
 
-url/api/articles
-Hit this url (i.e. http://civiwiki.ngrok.io/api/articles) with a POST key-pair of {'category_id', <category_id>}
-and it will respond with the articles associated with that category
+*Returns top ten civis associated with the article ID* |
+**POST** requirements ['article_id']
 
-url/api/categories
-This url responds with a list of all current categories
+> /api/articles
 
-url/api/user
-POST key-pair of {'username', <username>}
-responds with all user information
+*Returns a list of articles associated with selected category* |
+**POST** requirements ['category_id']
 
-url/api/adduser
-fill in key-pair for the following POST fields
+> /api/categories
 
-'first_name'
-'last_name'
-'email'
-'username'
-'about_me'
-'password'
+*Returns a list of articles associated with selected category* |
+**POST** requirements []
 
-add the new user with those specifications will be created
+> /api/user
 
-url/api/addcivi
-fill in the key-pair for the following POST fields
+*Returns all user information for a specified user* |
+**POST** requirements ['username']
 
-'author_id'
-'article_id'
-'title'
-'body'
-'type'
-'reference_id'
-'at_id'
-'and_negative_id'
-'and_positive_id'
+> /api/adduser
 
-and the new civi will be created
+*Returns a users secret key, after successful creation of a new account in our database* |
+**POST** requirements ['first_name', 'last_name', 'email', 'username', 'about_me', 'password']
 
-url/api/reportvote
-fill in the key-pair for the following POST fields
+> /api/addcivi
 
-'civi_id'
-'vote'
+*Returns success if a user successfully adds a civi* |
+**POST** requirements ['author_id', 'article_id', 'title', 'body', 'type', 'reference_id', 'at_id', 'and_negative_id', 'and_positive_id']
 
-and the vote will be recorded
+> /api/reportvote
+
+*Returns success if a user successfully reports a vote on a civi* |
+**POST** requirements ['civi_id', 'vote']
