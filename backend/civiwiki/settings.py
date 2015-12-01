@@ -35,15 +35,13 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.staticfiles',
+    'api',
 	'corsheaders',
-    'api'
     # 'django.contrib.messages',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-	'corsheaders.middleware.CorsMiddleware',
-	'django.middleware.common.CommonMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware', TODO: uncomment and fix eventually
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -51,8 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+	'corsheaders.middleware.CorsMiddleware',
 )
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'civiwiki.urls'
 
 TEMPLATES = [
@@ -85,6 +84,7 @@ DATABASES = {
             'NAME': 'civiwiki',
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'USER': 'postgres',
+            'PASSWORD': 'postgres',
         },
     }
 
