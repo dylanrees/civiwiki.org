@@ -66,6 +66,9 @@ def getUser(request):
 				'cover': a.cover_image.url,
 				'profile': a.profile_image.url,
 				'statistics': a.statistics,
+				'friends': [f.username for f in json.loads(a.friends)],
+				'history': [c.id for c in json.loads(a.history)],
+				'awards': [a for a in json.loads(a.awards)]
 				} for a in Account.objects.filter(username=username)]
 	return JsonResponse({"result":result})
 
@@ -89,6 +92,11 @@ def addUser(request):
 	user.cover_image = request.FILES.get('cover')
 	#create user secret key
 	m = hashlib.md5()
+
+	user.friends = json.dumps(request.POST.get('friends', [])) #list of usernames
+	user.history = json.dumps(request.POST.get('history', [])) #list of civi's visited
+	user.awards = json.dumps(request.POST.get('awards', [])) #list of user awards
+
 
 	m.update("{username}{password}{int}".format(username=user.username, password=password, int=random.randint(0, sys.maxint)))
 	secret_key = m.hexdigest()

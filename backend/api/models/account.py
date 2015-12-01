@@ -22,3 +22,6 @@ class Account(models.Model):
     secret_key = models.CharField(max_length=255, default='')
     statistics = models.TextField(default='No statistics at this time.')
     pinned = models.ManyToManyField('Civi')
+    history = models.TextField(default='[]')
+    friends = models.TextField(default='[]')
+    awards = models.TextField(default='[]')
