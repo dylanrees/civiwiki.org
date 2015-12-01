@@ -66,9 +66,9 @@ def getUser(request):
 				'cover': a.cover_image.url,
 				'profile': a.profile_image.url,
 				'statistics': a.statistics,
-				'friends': [f.username for f in json.loads(a.friends)],
-				'history': [c.id for c in json.loads(a.history)],
-				'awards': [a for a in json.loads(a.awards)]
+				'friends': a.friends,
+				'history': a.history,
+				'awards': a.awards
 				} for a in Account.objects.filter(username=username)]
 	return JsonResponse({"result":result})
 
