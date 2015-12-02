@@ -1,8 +1,8 @@
 $(document).ready(function() {
   $("#passwordHint").hide();
-  $("#passwordHint2").hide();
+    $("#passwordHint2").hide();
 
-  });
+});
 
 $("#signUpBtn").click(function(event) {
   var firstName = document.getElementById("firstName").value;
@@ -12,6 +12,8 @@ $("#signUpBtn").click(function(event) {
   var password  = document.getElementById("password").value;
   var confirm   = document.getElementById("confirmPassword").value;
 
+  
+  
   if (!firstName || !lastName || !email || !password) {
     alert("Fill out all fields!");
     return;
@@ -55,8 +57,34 @@ if (goodPassword){
   if (samePass) {
     alert("Passwords don't match!");
     return;
+  }else{
+	  $.ajax({
+            url: 'civiwiki.ngrok.com/api/addUser',
+		data = {'first_name': firstName,
+		  'last_name': lastName,
+		  'email' email: ,
+		  'username':username ,
+		  'password' password: ,
+		  };
+		  type: 'POST',
+          dataType: 'json',
+            success: function(json) {
+				window.location.replace("index.html");
+			}
+			error: function(json){
+				window.location.replace("signup.html");
+			}
+			}
+		)
+
+
+	  $.post( , function( data ) {
+		$( ".result" ).html( data );		
+	});
+  
   }
 }else{
 	return;
 }
  });
+
