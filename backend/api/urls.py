@@ -1,5 +1,5 @@
 from django.conf.urls import url
-import views
+import views, step
 
 urlpatterns = [
     url(r'^getcivi$', views.getCivi, name='civi'),
@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^addcivi$', views.addCivi, name='add civi'),
     url(r'^reportvote$', views.reportVote, name='report vote'),
     url(r'^getblock$', views.getBlock, name='get block'),
+    url(r'^step$', step.stepTest, name='step algo'),
     url(r'^backend/link$',views.linkCivis, name='link civis')
 ]
