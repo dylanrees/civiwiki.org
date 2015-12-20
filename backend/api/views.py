@@ -13,8 +13,10 @@ def topTen(request):
 	article_id = request.POST.get('id', 1)
 	civi = Civi.objects.filter(article_id=article_id, type='I')
 	c_tuples = sorted([
-		(c,((2 * c.votes_positive2 + c.votes_positive1) - (2 * c.votes_negative2 + c.votes_negative1))/c.visits) for c in civi
-	], key=lambda c: c[1])
+		(c, c.rank()) for c in civi
+	], key=lambda c: c[1], reverse=True)
+
+	print c_tuples
 
 	result = [{
 		"title": c[0].title,
