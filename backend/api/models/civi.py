@@ -47,3 +47,55 @@ class Civi(models.Model):
             "AND_POSITIVE": self.AND_POSITIVE_id
 	    }
         return result
+
+    NEG2_WEIGHT = 2
+    NEG1_WEIGHT = 1
+    NEUTRAL_WEIGHT = 0
+    POS1_WEIGHT = 1
+    POS2_WEIGHT = 2
+    SCALE_POLARITY = 2
+
+    RANK_CUTOFF = -1
+
+    def calcPolarity(self):
+        '''
+        :param civi: Calculates polarity of the inputted civi
+        :return: polarity score
+        '''
+        score = self.votes_negative2 * self.NEG2_WEIGHT + self.votes_negative1 * self.NEG1_WEIGHT
+        score += self.votes_positive1 * self.POS1_WEIGHT + self.votes_positive2 * self.POS2_WEIGHT
+        score /= self.visits*1.0
+        score /= self.SCALE_POLARITY #Scaling polarity so it is a value between 0 and 1 rather than 0 and 2
+        return score
+
+
+    def aveVote(self):
+        '''
+        Returns average vote of civi
+        :param civi:
+        :return:
+        '''
+        ave = self.votes_negative1 + self.votes_negative2 + self.votes_positive2 + self.votes_positive1
+        ave /= self.visits
+        return ave
+
+    # def topNCivis(civis, N):
+    #     '''
+    #     Returns the top ranked N civis that are passed in
+    #     :param civis:
+    #     :return:
+    #     '''
+    #     # averages=aveVotes(civis)
+    #     # for thing in averages:
+    #     # 	if thing[ave] < -1.0:
+
+    def rank(self):
+        '''
+        Ranks civis on a 0 to 1 scale based on polarity score,
+        sets rank of civis with average votes to 0 (not polar)
+        :return:
+        '''
+        result = self.calcPolarity()
+        if self.aveVote() <= self.RANK_CUTOFF:
+            result = 0.0
+        return result
