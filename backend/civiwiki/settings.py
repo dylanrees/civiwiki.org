@@ -77,14 +77,26 @@ WSGI_APPLICATION = 'civiwiki.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DEBUG = True
-DATABASES = {
+if 'RDS_DB_NAME' in os.environ:
+    DATABASE = {
         'default': {
-            'HOST':'localhost',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.enviorn['RDS_DB_NAME'],
+            'USER': os.enviorn['RDS_USERNAME'],
+            'PASSWORD': os.enviorn['RDS_PASSWORD'],
+            'HOST': os.enviorn['RDS_HOSTNAME'],
+            'PORT': os.enviorn['RDS_PORT']
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'HOST':'civiwiki.cwnas2j52gab.us-west-2.rds.amazonaws.com',
             'PORT': '5432',
             'NAME': 'civiwiki',
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
+            'USER': 'civiwiki',
+            'PASSWORD': 'changecivic2',
         },
     }
 
