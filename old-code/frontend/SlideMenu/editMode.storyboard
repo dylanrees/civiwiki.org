@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="kSb-xW-Dpu">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--Edit Mode View Controller-->
+        <scene sceneID="YgQ-2Q-UUm">
+            <objects>
+                <viewController storyboardIdentifier="editmode_view" id="kSb-xW-Dpu" customClass="EditModeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="74S-AV-IFd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WKa-QO-pez"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="taS-dE-iJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-173" y="1096"/>
+        </scene>
+        <!--Category Selection View Controller-->
+        <scene sceneID="VqO-dI-HbZ">
+            <objects>
+                <collectionViewController storyboardIdentifier="csvc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LBz-f5-DF6" customClass="CategorySelectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="9Al-aZ-PbI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mrD-Ag-F4z">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells/>
+                        <connections>
+                            <outlet property="dataSource" destination="LBz-f5-DF6" id="nZZ-Tz-yw2"/>
+                            <outlet property="delegate" destination="LBz-f5-DF6" id="G3b-iv-xxN"/>
+                        </connections>
+                    </collectionView>
+                    <connections>
+                        <outlet property="myView" destination="9Al-aZ-PbI" id="K9N-cD-iae"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PnC-cv-QTb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-132" y="-256"/>
+        </scene>
+        <!--Article Selection View Controller-->
+        <scene sceneID="hCe-Mx-8lx">
+            <objects>
+                <tableViewController storyboardIdentifier="asvc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3di-wn-rpA" customClass="ArticleSelectionViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Z3y-Ml-lAq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <connections>
+                            <outlet property="dataSource" destination="3di-wn-rpA" id="Gl2-Ox-hKw"/>
+                            <outlet property="delegate" destination="3di-wn-rpA" id="0R3-gH-hcH"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="myView" destination="Z3y-Ml-lAq" id="1kX-Gx-cG9"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TwD-jh-Use" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="232" y="-256"/>
+        </scene>
+        <!--Civi Selection View Controller-->
+        <scene sceneID="JaD-Xl-VTC">
+            <objects>
+                <viewController storyboardIdentifier="vsvc" useStoryboardIdentifierAsRestorationIdentifier="YES" id="K3t-Hd-voC" customClass="CiviSelectionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8de-Mt-HHZ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kWX-7f-QSl">
+                                <rect key="frame" x="0.0" y="20" width="320" height="108"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UkF-LQ-OkS">
+                                    <size key="itemSize" width="83" height="76"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="K3t-Hd-voC" id="3ql-Bj-5V3"/>
+                                    <outlet property="delegate" destination="K3t-Hd-voC" id="yhi-8B-3xn"/>
+                                </connections>
+                            </collectionView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" id="2aJ-81-zcF">
+                                <rect key="frame" x="0.0" y="128" width="320" height="440"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="y8F-hD-5el" appends="YES" id="Bco-dj-Wzv"/>
+                            <outletCollection property="gestureRecognizers" destination="RyI-gQ-nAd" appends="YES" id="zdt-XX-AYs"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="leftSwipe" destination="RyI-gQ-nAd" id="ztC-b9-14b"/>
+                        <outlet property="myCollection" destination="kWX-7f-QSl" id="4e6-MO-8fS"/>
+                        <outlet property="myText" destination="2aJ-81-zcF" id="Dfg-uv-oYa"/>
+                        <outlet property="myView" destination="8de-Mt-HHZ" id="mcQ-Qj-csc"/>
+                        <outlet property="rightSwipe" destination="y8F-hD-5el" id="hNb-nC-ZaH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VL0-uW-lJ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="y8F-hD-5el"/>
+                <swipeGestureRecognizer direction="left" id="RyI-gQ-nAd"/>
+            </objects>
+            <point key="canvasLocation" x="602" y="-256"/>
+        </scene>
+    </scenes>
+    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+</document>
