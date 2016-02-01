@@ -14,3 +14,6 @@ def login(request):
 
 	key = account.secret_key
 	return JsonResponse({'status_code': 200, 'result': key})
+
+def register(request):
+    return JsonResponse({'status_code': 500, 'error': 'under construction'})

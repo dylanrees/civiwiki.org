@@ -20,12 +20,12 @@ from django.conf.urls.static import static
 from django.views.static import serve
 from api import api_urls, frontend_urls
 
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(api_urls)),
     url(r'^pages/',include(frontend_urls))
     #add frontend urls when we make web application
-
 ]
 
 if settings.DEBUG:
