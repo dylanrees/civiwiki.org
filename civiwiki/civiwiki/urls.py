@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-from api import urls as api_urls
+from api import api_urls, frontend_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include(api_urls))
+    url(r'^api/', include(api_urls)),
+    url(r'^pages/',include(frontend_urls))
     #add frontend urls when we make web application
 
 ]
