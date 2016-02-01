@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.template.response import TemplateResponse
 from django.http import JsonResponse
 from django.db.models import Q
 from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag
 import sys, json, pdb, random, hashlib
 
-def hello_view(request):
-	return TemplateResponse(request, 'hello.html', {})
+
 # Create your views here.
 def topTen(request):
 	'''
@@ -113,21 +111,6 @@ def addUser(request):
 		return JsonResponse({'result': e})
 
 	return JsonResponse({'status': 200, 'result': user.secret_key})
-
-def login(request):
-	'''
-	returns secret key from inserted username and password
-	'''
-	username = request.POST.get('username', '')
-	password = request.POST.get('password', '')
-	account = {}
-	try:
-		account = Account.objects.get(username=username, password=password)
-	except Exception as e:
-		return JsonResponse({'status': 400, 'result': 'User not found'})
-
-	key = account.secret_key
-	return JsonResponse({'status_code': 200, 'result': key})
 
 def addCivi(request):
 	'''
