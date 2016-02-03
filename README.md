@@ -1,41 +1,34 @@
-#CiviWIKI 
-######*CiviWiki is a nonprofit charitable organization dedicated to encouraging the growth, development and free distribution of internet based democratic engagement systems designed to educate and empower citizens, to increase government accountability and to promote the general welfare*
+Welcome to Civiwiki!
+-------------------
 
-###Setup your development enviornment
-**First and Foremost:** I recommend that you set up a [virtual enviornment](http://docs.python-guide.org/en/latest/dev/virtualenvs/) before you begin building. Django requires that you only have one version of it installed at a time, while different applications may use different versions based on their unique needs.
+We are a non-profit community working to develop a democratic engagement web system. 
 
-*We are using Postgres 9.3.5 and Django 1.8.5*
-*iOS targeted towards version 8.0, XCode 6.4*
+Why CiviWiki?
 
-**To setup locally**
-*(effective setup on an AWS server probably won't be implemented within the next month)*
-**:**
+* **Democratically Contributed Media.** As the name CiviWiki implies, our core content will be contributed by volunteers on our Wiki. Our article format is modular. The structure both allows a community of volunteers to collaborate on a single political issue, and reserves space for dissenting opinions. 
+* **Personalized Policy Feed.** CiviWiki intelligently personalizes users' feed in two meaningful ways. First, the issues promoted to users' feed will be personalized to the user's expressed interests, and the timeliness of the issue. Second, the structure of the issue articles break policy positions into bite-sized contentions we call Civies. Each Civi is logically related to the rest of the article. Based on the user's support, opposition, or neutrality to each Civi, CiviWiki promotes different relevant content. 
+* **Citizen/Representative Engagement.** CiviWiki's core goal is to engage citizens and their representatives, with the goal of making government more accountable. CiviWiki will achieves this goal in two ways. First, CiviWiki will organize user's policy profile and compare it to every political candidate in the user's district. This quick, detailed, comparison will help users make informed votes, and we believe increased voter confidence will increase voter turnout. Second, CiviWiki will collect anonymized user data and forward district level statistics to representatives. With a critical mass of users, we believe timely district level polling data will influence representatives' votes.
 
-Create a postgres database (http://www.postgresql.org/) named **civiwiki**, user **postgres**
-> ./setupCiviWiki
+For Developers.
+---------------
 
-**To run application locally:**
-> python backend/manage.py runserver
+**Setup**
+* Pull Master from origin and create a new branch.
+* Create a [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+* Run `pip install -r requirements.txt`.
+* Run `python civiwiki/manage.py runserver` to run the local server on port 8000.
+* Reference **civiwiki/README.txt** for a list of urls and a description.
 
-**For the front-end / objective-C developers**
-Ensure that any web request you make is pointed to your *localhost:8000*, this is how we will simulate our server calls.
+**Contribute**:
+Contact us on Twitter to join the team.
 
-Ensure that you update your code from master before development, and only push to master when you are 100% a feature is complete. Leave anything incomplete in a seperate branch. If you aren't sure how git works, there is alot of help online but the general structure is this.
+I want to keep track of how Civiwiki is doing.
+----------------------------------------------
 
-> Master branch is our WORKING code, we use this to keep everyone in sync `git pull` often `git push` with extreme caution. 
-> Create a new branch with `git checkout -B <branchname>` it will inherit the code from whatever branch you are on when you execute this command.
-> To look at your local changes compared to the point at your last commit `git status`.
-> To add files to be committed `git add <filename1 filename2 ...>` **OR** `git add .`.
-> To save a checkpoint on a file status `git commit -m"<description of what this commit entails>"`.
-> To push to a branch `git push origin <branchname>`.
+#### Contact info
 
+* **Twitter:** [@CiviWiki](https://twitter.com/civiwiki)
+* **Web:** http://civiwiki.launchrock.com/
 
 
-LICENSE:
 
-BTBreadcrumbView by Created by Meiwin Fu on 13/1/13
-BTBreadcrumbView is licensed under MIT License Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
