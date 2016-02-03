@@ -13,12 +13,13 @@ For Developers.
 ---------------
 
 **Setup**
-* Pull master code, create a [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
-* Run `pip install -r requirements.txt`
+* Pull Master from origin and create a new branch.
+* Create a [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+* Run `pip install -r requirements.txt`.
 * Run `python civiwiki/manage.py runserver` to run the local server on port 8000.
 * Reference **civiwiki/README.txt** for a list of urls and a description.
 
-**Contribute**
+**Contribute**:
 Contact us on Twitter to join the team.
 
 I want to keep track of how Civiwiki is doing.
