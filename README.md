@@ -12,7 +12,14 @@ Why CiviWiki?
 For Developers.
 ---------------
 
-Under Construction
+**Setup**
+* Pull master code, create a [virtual environment](http://docs.python-guide.org/en/latest/dev/virtualenvs/).
+* Run `pip install -r requirements.txt`
+* Run `python civiwiki/manage.py runserver` to run the local server on port 8000.
+* Reference **civiwiki/README.txt** for a list of urls and a description.
+
+**Contribute**
+Contact us on Twitter to join the team.
 
 I want to keep track of how Civiwiki is doing.
 ----------------------------------------------
