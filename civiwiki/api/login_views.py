@@ -8,15 +8,15 @@ def login(request):
 	username = request.POST.get('username', '')
 	password = request.POST.get('password', '')
 	user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            # Redirect to a success page.
-        else:
-            # Return a 'disabled account' error message
-            return JsonResponse({'status_code': 400, 'error': 'inactive account'})
-    else:
-        # Return an 'invalid login' error message.
+	if user is not None:
+		if user.is_active:
+			login(request, user)
+			# Redirect to a success page.
+		else:
+			# Return a 'disabled account' error message
+			return JsonResponse({'status_code': 400, 'error': 'inactive account'})
+	else:
+	# Return an 'invalid login' error message.
 		return JsonResponse({'status_code': 400, 'error': 'invalid username / password combination'})
 
 def register(request):
@@ -31,6 +31,6 @@ def register(request):
 		account.save()
 
 		login(request, user)
-	    return JsonResponse({'status_code': 200})
+		return JsonResponse({'status_code': 200})
 	except:
 		return JsonResponse({'status_code': 500})
