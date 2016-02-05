@@ -1,0 +1,83 @@
+<!doctype ht{ml>
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
+<link type="text/css" rel="stylesheet/less" href="{% static "less/styles.less" %}"/>
+<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<title>Support Us</title>
+
+<script id="supportus-template" type="text/template">
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+            <br><br>
+            <h1 class="header center teal-text text-lighten-2">Support Us!</h1>
+            <div class="row center">
+                <h5 class="header col s12 light">(Mitchells text) </h5>
+            </div>
+            <div class="row center">
+                <button data-target="modal1" class="btn-large modal-trigger waves-effect waves-light teal lighten-1">Donate</a>
+            </div>
+            <br><br>
+
+            </div>
+        </div>
+        <div class="parallax"><img src="{% static "img/test_img.png" %}" alt="Unsplashed background img 1"></div>
+     </div>
+
+    <div class="container">
+        <div class="section log-in-section">
+            <div class="row">
+                <div class="col s12 m12 l8 offset-l2">
+                <p>TESTING</p>  
+                </div>
+            </div>
+            <div class="row">
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <form id="checkout" method="post" action="/checkout">
+                <div id="payment-form"></div>
+                <input type="submit" value="Pay $10">
+            </form>
+        </div>
+    </div>
+</script>
+
+<body>
+    <div id="supportus">
+    </div>
+</body>
+
+<!-- Backbone Views File -->
+<script src="/static/views/support_us_view.js" type="text/javascript"></script>
+<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+<script type="text/javascript">
+
+// We generated a client token for you so you can test out this code
+// immediately. In a production-ready integration, you will need to
+// generate a client token on your server (see section below).
+var clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIyMTRkMTZlZmRmMmU5NTBkNGMyYWU1MTYxZDAzZDNkYWI1YjY3MjZkNWI2NzBmY2EyOGE0NDEzZjIyMGE1ZWM3fGNyZWF0ZWRfYXQ9MjAxNi0wMi0wNFQxOTo1Mjo1MC4yODgxMTU5ODErMDAwMFx1MDAyNm1lcmNoYW50X2lkPTM0OHBrOWNnZjNiZ3l3MmJcdTAwMjZwdWJsaWNfa2V5PTJuMjQ3ZHY4OWJxOXZtcHIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzM0OHBrOWNnZjNiZ3l3MmIvY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvMzQ4cGs5Y2dmM2JneXcyYi90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwiYmlsbGluZ0FncmVlbWVudHNFbmFibGVkIjp0cnVlLCJtZXJjaGFudEFjY291bnRJZCI6ImFjbWV3aWRnZXRzbHRkc2FuZGJveCIsImN1cnJlbmN5SXNvQ29kZSI6IlVTRCJ9LCJjb2luYmFzZUVuYWJsZWQiOmZhbHNlLCJtZXJjaGFudElkIjoiMzQ4cGs5Y2dmM2JneXcyYiIsInZlbm1vIjoib2ZmIn0=";
+
+braintree.setup(clientToken, "dropin", {
+  container: "payment-form"
+});
+
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+});
+
+
+</script>
+<html>
