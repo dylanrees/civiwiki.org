@@ -49,7 +49,8 @@ var LoginView = Backbone.View.extend({
                     } else {
                       Materialize.toast('Internal Server Error.');
                     }
-                }
+                },
+                context: this
             });
 
         } else {
@@ -102,7 +103,8 @@ var LoginView = Backbone.View.extend({
                         Materialize.toast('We already have a user with this email address!', 3000);
                     } else {
                     }
-                }
+                },
+                context: this
             });
 
         } else {
