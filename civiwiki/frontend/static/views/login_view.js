@@ -41,9 +41,8 @@ var LoginView = Backbone.View.extend({
                     password: password
                 },
                 success: function (data) {
-<<<<<<< HEAD
                     if(data.status_code == 200){
-
+                      window.location.href = '/';
                     } else if (data.status_code == 400) {
                       Materialize.toast(data.error);
                     } else {
@@ -68,16 +67,6 @@ var LoginView = Backbone.View.extend({
     },
 
     register: function () {
-        var email = $('#email').val(),
-            username = $('#username').val(),
-            password = $('#password').val(),
-            firstName = $('#first-name').val(),
-            lastName = $('#last-name').val();
-            birthday = $('#bday').val()
-        if (! this._calculateAge(birthday)) {
-          Materialize.toast('Must be 13+ to join civiwiki.', 3000);
-          return
-        }
 
         var email = this.$el.find('#email').val(),
             username = this.$el.find('#username').val(),
@@ -105,7 +94,9 @@ var LoginView = Backbone.View.extend({
                     birthday: birthday
                 },
                 success: function (data) {
-                    if (data.data === 'user_exists_error') {
+                    if(data.status_code == 200){
+                      window.location.href = '/';
+                    }else if (data.status_code == 500) {
                         Materialize.toast('We already have a user with this email address!', 3000);
                     } else {
                         //window.location.href = 'home';
@@ -117,7 +108,7 @@ var LoginView = Backbone.View.extend({
             Materialize.toast('Please fill all the fields!', 3000);
         }
     },
-    function _calculateAge(birthday) { // birthday is a date
+    _calculateAge: function(birthday) { // birthday is a date
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;

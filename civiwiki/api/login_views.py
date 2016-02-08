@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from models import Account
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, logout, login
 
@@ -26,7 +26,7 @@ def cw_login(request):
 
 def cw_logout(request):
 	logout(request)
-	return JsonResponse({'status_code': 200})
+	return HttpResponseRedirect('/')
 
 def cw_register(request):
 	username = request.POST.get('username', '')
@@ -38,8 +38,9 @@ def cw_register(request):
 		user = User.objects.create_user(username, email, password)
 		account = Account(user=user, email=email, first_name=first_name, last_name=last_name)
 		account.save()
-		print account.first_name
+		print account.first_name, account.last_name, account.email
 		login(request, user)
 		return JsonResponse({'status_code': 200})
-	except:
+	except Exception as e:
+		print e
 		return JsonResponse({'status_code': 500})
