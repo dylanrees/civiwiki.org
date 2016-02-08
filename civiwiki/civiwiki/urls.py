@@ -22,10 +22,10 @@ from api import urls_write, urls_read, urls_templates, urls_auth
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'',include(urls_templates)),
     url(r'^api/', include(urls_write)),
     url(r'^api/', include(urls_read)),
-    url(r'^api/', include(urls_auth))
+    url(r'^api/', include(urls_auth)),
+    url(r'^',include(urls_templates)),
 ]
 
 if settings.DEBUG:
