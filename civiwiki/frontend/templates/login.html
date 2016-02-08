@@ -1,15 +1,19 @@
 <!doctype html>
-{% load staticfiles %}
-<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
-<link type="text/css" rel="stylesheet/less" href="{% static "less/login.less" %}"/>
-<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<title>CiviWiki</title>
+<head>
+    {% load staticfiles %}
+    <script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/login.less" %}"/>
+    <script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <title>CiviWiki</title>
+</head>
+
 
 <script id="login-template" type="text/template">
     <div class="container">
@@ -32,12 +36,12 @@
                                 </div>
                             </div>
                             <div id="login-register-action-buttons" class="row">
-                                <div class="col s6 l4 offset-l4">
+                                <div class="col s12 l4">
                                     <button id="log-in-button" class="btn waves-effect waves-light custom-buttons">Log In
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-                                <div class="col s6 l4">
+                                <div class="col s12 offset-l4 l4 right-align">
                                     <button id="open-register-form-button" class="btn waves-effect waves-light custom-buttons">Register?</button>
                                 </div>
                             </div>
@@ -62,20 +66,22 @@
                                 </div>
                             </div>
                             <div class="row register">
-                                <div class="col s12 l4 offset-l4">
+                                <div class="col s12 l4">
                                     <button id="register-button" class="btn waves-effect waves-light custom-buttons">Register
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-                                <div class="col s12 l4">
-                                  <a id="open-login-form-button" href="#">Already have an account? log in.</a>
+                                <div class="col s12 l8 right-align">
+                                    <button id="open-login-form-button" class="btn waves-effect waves-light">
+                                        Already have an account? log in.
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </d iv>
+        </div>
     </div>
 </script>
 
@@ -87,4 +93,4 @@
 <!-- Backbone Views File -->
 <script src="/static/views/login_view.js" type="text/javascript"></script>
 
-<html>
+</html>
