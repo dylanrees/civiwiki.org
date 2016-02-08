@@ -42,7 +42,8 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code == 200){
-                      window.location.href = '/';
+                      window.location.href = this.find_url_parameter('next');
+                      //goes home if no redirect specified else redirects.
                     } else if (data.status_code == 400) {
                       Materialize.toast(data.error);
                     } else {
@@ -95,11 +96,11 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code == 200){
-                      window.location.href = '/';
+                      window.location.href = this.find_url_parameter('next');
+                      //goes home if no redirect specified else redirects.
                     }else if (data.status_code == 500) {
                         Materialize.toast('We already have a user with this email address!', 3000);
                     } else {
-                        //window.location.href = 'home';
                     }
                 }
             });
@@ -112,7 +113,19 @@ var LoginView = Backbone.View.extend({
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;
-    }
+    },
+    find_url_parameter: function(val) {
+    var result = "/",
+        tmp = [];
+    location.search
+    .substr(1)
+        .split("&")
+        .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+    });
+    return result;
+}
 
 
 });
