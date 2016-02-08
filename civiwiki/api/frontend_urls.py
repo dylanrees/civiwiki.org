@@ -3,5 +3,6 @@ import frontend_views as views
 
 urlpatterns = [
     url(r'^login$', views.login_view, name='login'),
-    url(r'^bar$',views.blah_view, name='blah')
+    url(r'^home$',views.home_view, name='home'),
+    url(r'',views.home_view, name='home')
 ]

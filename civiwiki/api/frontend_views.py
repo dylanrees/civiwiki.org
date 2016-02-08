@@ -5,5 +5,5 @@ def login_view(request):
 	return TemplateResponse(request, 'login.html', {})
 
 @login_required
-def blah_view(request):
-	return TemplateResponse(request, 'blah.html', {})
+def home_view(request):
+	return TemplateResponse(request, 'home.html', {})

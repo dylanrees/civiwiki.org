@@ -15,6 +15,7 @@ urlpatterns = [
     url(r'^getblock$', views.getBlock, name='get block'),
     url(r'^step$', step.stepTest, name='step algo'),
     url(r'^backend/link$',views.linkCivis, name='link civis'),
-    url(r'^login', access.login, name='login'),
-    url(r'^register', access.register, name='login')
+    url(r'^login', access.cw_login, name='login'),
+    url(r'^logout',access.cw_logout, name='logout'),
+    url(r'^register', access.cw_register, name='register')
 ]

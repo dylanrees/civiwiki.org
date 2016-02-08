@@ -19,7 +19,10 @@ var LoginView = Backbone.View.extend({
 
     events: {
         "click #log-in-button": "logIn",
-        "click #register-button": "register"
+        "click #open-register-form-button": "openRegisterForm",
+        "click #open-login-form-button": "closeRegisterForm",
+        "click #register-button": "register",
+
     },
 
     logIn: function () {
@@ -30,16 +33,18 @@ var LoginView = Backbone.View.extend({
 
             $.ajax({
                 type: 'POST',
-                url: 'login',
+                url: 'api/login',
                 data: {
                     username: username,
                     password: password
                 },
                 success: function (data) {
-                    if (data.data === 'invalid_login') {
-                        Materialize.toast('User does not exist!', 3000);
+                    if(data.status_code == 200){
+                      
+                    } else if (data.status_code == 400) {
+                      Materialize.toast(data.error);
                     } else {
-                        window.location.href = 'home';
+                      Materialize.toast('Internal Server Error.');
                     }
                 }
             });
@@ -48,7 +53,14 @@ var LoginView = Backbone.View.extend({
             Materialize.toast('Please input your email and password!', 3000);
         }
     },
-
+    openRegisterForm: function() {
+      $("#login-register-action-buttons").hide();
+      $(".register").show();
+    },
+    closeRegisterForm: function() {
+      $("#login-register-action-buttons").show();
+      $(".register").hide();
+    },
     register: function () {
         var email = $('#email').val(),
             username = $('#username').val(),
@@ -60,7 +72,7 @@ var LoginView = Backbone.View.extend({
 
             $.ajax({
                 type: 'POST',
-                url: 'register',
+                url: 'api/register',
                 data: {
                     email: email,
                     username: username,
