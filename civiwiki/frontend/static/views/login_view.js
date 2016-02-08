@@ -40,7 +40,7 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code == 200){
-                      
+
                     } else if (data.status_code == 400) {
                       Materialize.toast(data.error);
                     } else {
@@ -67,7 +67,11 @@ var LoginView = Backbone.View.extend({
             password = $('#password').val(),
             firstName = $('#first-name').val(),
             lastName = $('#last-name').val();
-
+            birthday = $('#bday').val()
+        if (! this._calculateAge(birthday)) {
+          Materialize.toast('Must be 13+ to join civiwiki.', 3000);
+          return
+        }
         if (email && password && firstName && lastName && username) {
 
             $.ajax({
@@ -78,7 +82,8 @@ var LoginView = Backbone.View.extend({
                     username: username,
                     password: password,
                     first_name: firstName,
-                    last_name: lastName
+                    last_name: lastName,
+                    birthday: birthday
                 },
                 success: function (data) {
                     if (data.data === 'user_exists_error') {
@@ -92,7 +97,13 @@ var LoginView = Backbone.View.extend({
         } else {
             Materialize.toast('Please fill all the fields!', 3000);
         }
+    },
+    function _calculateAge(birthday) { // birthday is a date
+        var ageDifMs = Date.now() - birthday.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;
     }
+
 
 });
 
