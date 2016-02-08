@@ -28,6 +28,8 @@ var LoginView = Backbone.View.extend({
     },
 
     logIn: function () {
+        var _this = this;
+
         var username = this.$el.find('#username').val(),
             password = this.$el.find('#password').val();
 
@@ -41,16 +43,15 @@ var LoginView = Backbone.View.extend({
                     password: password
                 },
                 success: function (data) {
-                    if(data.status_code == 200){
-                      window.location.href = this.find_url_parameter('next');
-                      //goes home if no redirect specified else redirects.
-                    } else if (data.status_code == 400) {
-                      Materialize.toast(data.error);
+                    if(data.status_code === 200){
+                        window.location.href = _this.findURLParameter('next');
+                        //goes home if no redirect specified else redirects.
+                    } else if (data.status_code === 400) {
+                        Materialize.toast(data.error);
                     } else {
-                      Materialize.toast('Internal Server Error.');
+                        Materialize.toast('Internal Server Error.');
                     }
-                },
-                context: this
+                }
             });
 
         } else {
@@ -70,6 +71,8 @@ var LoginView = Backbone.View.extend({
 
     register: function () {
 
+        var _this = this;
+
         var email = this.$el.find('#email').val(),
             username = this.$el.find('#username').val(),
             password = this.$el.find('#password').val(),
@@ -77,9 +80,9 @@ var LoginView = Backbone.View.extend({
             lastName = this.$el.find('#last-name').val(),
             birthday = this.$el.find('#bday').val();
 
-        if (! this._calculateAge(birthday)) {
-          Materialize.toast('Must be 13+ to join civiwiki.', 3000);
-          return
+        if (!this.calculateAge(birthday)) {
+            Materialize.toast('Must be 13+ to join civiwiki.', 3000);
+            return;
         }
 
         if (email && password && firstName && lastName && username) {
@@ -96,40 +99,42 @@ var LoginView = Backbone.View.extend({
                     birthday: birthday
                 },
                 success: function (data) {
-                    if(data.status_code == 200){
-                      window.location.href = this.find_url_parameter('next');
-                      //goes home if no redirect specified else redirects.
-                    }else if (data.status_code == 500) {
+                    if (data.status_code === 200) {
+                        window.location.href = _this.findURLParameter('next');
+                        //goes home if no redirect specified else redirects.
+
+                    } else if (data.status_code === 500) {
                         Materialize.toast('We already have a user with this email address!', 3000);
-                    } else {
                     }
-                },
-                context: this
+                }
             });
 
         } else {
             Materialize.toast('Please fill all the fields!', 3000);
         }
     },
-    _calculateAge: function(birthday) { // birthday is a date
+
+    calculateAge: function(birthday) { // birthday is a date
         birthday = new Date(birthday);
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;
     },
-    find_url_parameter: function(val) {
-    var result = "/",
-        tmp = [];
-    location.search
-    .substr(1)
-        .split("&")
-        .forEach(function (item) {
-        tmp = item.split("=");
-        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
-    });
-    return result;
-}
 
+    findURLParameter: function(val) {
+        var result = "/",
+            tmp = [];
+        location.search
+        .substr(1)
+            .split("&")
+            .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === val) {
+                result = decodeURIComponent(tmp[1]);
+            }
+        });
+        return result;
+    }
 
 });
 
