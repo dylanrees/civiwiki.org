@@ -35,10 +35,10 @@ def cw_register(request):
 	first_name = request.POST.get('first_name', '')
 	last_name = request.POST.get('last_name', '')
 	try:
-		user = User.objects.create_user(username, email, password)
+		User.objects.create_user(username, email, password)
+		user = authenticate(username=username, password=password)
 		account = Account(user=user, email=email, first_name=first_name, last_name=last_name)
 		account.save()
-		print account.first_name, account.last_name, account.email
 		login(request, user)
 		return JsonResponse({'status_code': 200})
 	except Exception as e:
