@@ -10,7 +10,7 @@ class Account(models.Model):
     way to implement this.
     '''
     objects = models.Manager()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=63, default='')
     last_name = models.CharField(max_length=63, default='')
     email = models.CharField(max_length=63, unique=True)
