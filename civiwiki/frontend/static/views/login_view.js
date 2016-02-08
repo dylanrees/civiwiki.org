@@ -1,14 +1,20 @@
 var LoginView = Backbone.View.extend({
 
-    el: '#hello',
+    el: '#login',
 
     initialize: function() {
-        this.template = _.template($('#hello-template').text());
+        this.template = _.template($('#login-template').text());
+
         this.render();
     },
 
     render: function() {
         this.$el.html(this.template());
+
+        $('.datepicker').pickadate({
+            selectYears: 116,
+            max: new Date()
+        });
     },
 
     events: {
@@ -17,16 +23,16 @@ var LoginView = Backbone.View.extend({
     },
 
     logIn: function () {
-        var email = $('#email').val(),
+        var username = $('#username').val(),
             password = $('#password').val();
 
-        if (email && password) {
+        if (username && password) {
 
             $.ajax({
                 type: 'POST',
-                url: 'log_in',
+                url: 'login',
                 data: {
-                    email: email,
+                    username: username,
                     password: password
                 },
                 success: function (data) {
@@ -45,17 +51,19 @@ var LoginView = Backbone.View.extend({
 
     register: function () {
         var email = $('#email').val(),
+            username = $('#username').val(),
             password = $('#password').val(),
             firstName = $('#first-name').val(),
             lastName = $('#last-name').val();
 
-        if (email && password && firstName && lastName) {
+        if (email && password && firstName && lastName && username) {
 
             $.ajax({
                 type: 'POST',
                 url: 'register',
                 data: {
                     email: email,
+                    username: username,
                     password: password,
                     first_name: firstName,
                     last_name: lastName
@@ -76,4 +84,4 @@ var LoginView = Backbone.View.extend({
 
 });
 
-var hello_view = new HelloView();
+var login_view = new LoginView();

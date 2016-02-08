@@ -11,20 +11,20 @@
 
 <title>CiviWiki</title>
 
-<script id="hello-template" type="text/template">
+<script id="login-template" type="text/template">
     <div class="container">
         <div class="section log-in-section">
             <div class="row">
                 <div class="col s12 m12 l8 offset-l2">
                     <div class="row">
                         <div class="branding">
-                            <h4>Hello Welcome to CiviWiki!</h4>
+                            <h4>Welcome to CiviWiki!</h4>
                         </div>
                         <div class="col s12">
                             <div class="row">
                                 <div class="input-field col s12 l6">
-                                    <input id="email" type="email" class="validate">
-                                    <label for="email">Email</label>
+                                    <input id="username" type="text" class="validate">
+                                    <label for="username">Username</label>
                                 </div>
                                 <div class="input-field col s12 l6">
                                     <input id="password" type="password" class="validate">
@@ -50,8 +50,12 @@
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 l6">
-                                    <input id="bday" type="date" class="datepicker">
+                                    <input id="email" type="email" class="validate">
+                                    <label for="email">Email</label>
+                                </div>
+                                <div class="input-field col s12 l6">
                                     <label for="bday">Birthday</label>
+                                    <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
                                 </div>
                             </div>
                             <div class="row">
@@ -65,16 +69,16 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </d iv>
     </div>
 </script>
 
 <body>
-    <div id="hello">
+    <div id="login">
     </div>
 </body>
 
 <!-- Backbone Views File -->
-<script src="/static/views/hello_view.js" type="text/javascript"></script>
+<script src="/static/views/login_view.js" type="text/javascript"></script>
 
 <html>
