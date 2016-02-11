@@ -16,5 +16,6 @@ urlpatterns = [
     url(r'^step$', step.stepTest, name='step algo'),
     url(r'^backend/link$',views.linkCivis, name='link civis'),
     url(r'^login', access.login, name='login'),
-    url(r'^register', access.register, name='login')
+    url(r'^register', access.register, name='login'),
+    url(r'^getlevel$', views.getCiviLevel, name='get level')
 ]

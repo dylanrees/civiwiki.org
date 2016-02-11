@@ -296,8 +296,8 @@ def getCivi(request):
 	else:
 		return JsonResponse({'result': 'No Civi Returned matching that ID'})
 
-def getCiviChain(it):
-
+def getCiviChain(request):
+        request
 	result = []
 	result.append(it.string())
 
@@ -315,3 +315,25 @@ def getCiviChain(it):
 	if it.AND_NEGATIVE != None: result.append(it.AND_NEGATIVE.string())
 
 	return result
+
+def getCiviLevel(request):
+        #fetches the top 15 (with optional offset) civis linked to the requested civi's AT
+        #Use to fetch relevant civis at the next level down a civi chain
+        id = request.POST.get('id', 1)
+        offset = request.POST.get('offset', 0) #the second argument is the default, right?
+        center = Civi.objects.filter(id=id)
+        if(len(center)==0 or center[0].AT==None):
+                return JsonResponse({'result':[]}) #if the requested civi has no children, just quit
+        result = set()
+        pending = set([center.AT]) #start with the requested civi's child
+
+        while(len(pending)>0):
+                current = pending.pop() #pick an arbitrary pending civi
+                result.add(current)
+                if(current.AND_POSITIVE != None): #queue the adjacent civis (if any)
+                        pending.add(current.AND_POSITIVE)
+                if(current.AND_NEGATIVE != None):
+                        pending.add(current.AND_NEGATIVE)
+        if(offset+15>=len(result)): #i'm choosing 15 as the number of civis to fetch per api call
+               return JsonResponse({'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), True)[-15:]]})
+        return JsonResponse({'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), True)[offset:offset+15]]})
