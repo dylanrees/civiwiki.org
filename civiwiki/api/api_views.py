@@ -296,8 +296,7 @@ def getCivi(request):
 	else:
 		return JsonResponse({'result': 'No Civi Returned matching that ID'})
 
-def getCiviChain(request):
-        request
+def getCiviChain(it):
 	result = []
 	result.append(it.string())
 
