@@ -335,5 +335,5 @@ def getCiviLevel(request):
                         pending.add(current.AND_NEGATIVE)
         if(offset+15>=len(result)): #i'm choosing 15 as the number of civis to fetch per api call
                 x = -1 * min(15, len(result))
-                return JsonResponse({'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), True)[x:]]})
-        return JsonResponse({'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), True)[offset:offset+15]]})
+                return JsonResponse({'has_more': False, 'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), reverse=True)[x:]]})
+        return JsonResponse({'has_more': True, 'result':[c.string() for c in sorted(a, key=lambda x:x.rank(), reverse=True)[offset:offset+15]]})

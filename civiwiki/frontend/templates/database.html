@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+	<head>
+		{% load staticfiles %}
+		<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+		<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+		<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"/>
+		<link type="text/css" rel="stylesheet/less" href="{% static "less/styles.less" %}"/>
+		<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<title>CiviWiki</title>
+	</head>
+
+	<script id="databse-template" type="text/template">
+		<form style="display: inline">
+			<input class="legislation-filters" type="checkbox" name="filters" value="federal" checked>Federal</input>
+			<input class="legislation-filters" type="checkbox" name="filters" value="state" checked>State</input>
+			<input class="legislation-filters" type="checkbox" name="filters" value="local" checked>Local</input>
+		</form>
+		<div class="container">
+			<ul name="category list">
+				<% _.each(categories, function(cat, i, arr){ %> <li><%=cat.get("name")%></li> <%});%>
+			</ul>
+		</div>
+	</script>
+		
+
+	<body>
+		<div id="content-main">
+		</div>
+	</body>
+
+	<!-- Backbone Views File -->
+	<script src="/static/views/database.js" type="text/javascript"></script>
+
+</html>
