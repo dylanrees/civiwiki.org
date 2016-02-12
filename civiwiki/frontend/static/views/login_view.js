@@ -116,6 +116,7 @@ var LoginView = Backbone.View.extend({
 
     calculateAge: function(birthday) { // birthday is a date
         birthday = new Date(birthday);
+        alert(birthday);
         var ageDifMs = Date.now() - birthday.getTime();
         var ageDate = new Date(ageDifMs); // miliseconds from epoch
         return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;

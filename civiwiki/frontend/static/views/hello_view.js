@@ -4,6 +4,7 @@ var HelloView = Backbone.View.extend({
 
     initialize: function() {
         this.template = _.template($('#hello-template').text());
+        this.$('#bday');
         this.render();
     },
 
@@ -48,10 +49,13 @@ var HelloView = Backbone.View.extend({
             password = $('#password').val(),
             firstName = $('#first-name').val(),
             lastName = $('#last-name').val();
+            bday = $('#bday').val();
 
-        if (email && password && firstName && lastName) {
-
-            $.ajax({
+        if (email && password && firstName && lastName && bday) {
+            if(this.calculateAge(bday)<13){
+                Materialize.toast("Sorry! You cannot sign up if you are under 13 years old. Please come back when you're of age!", 5000);
+            } else{
+                $.ajax({
                 type: 'POST',
                 url: 'register',
                 data: {
@@ -68,12 +72,41 @@ var HelloView = Backbone.View.extend({
                     }
                 }
             });
+            }
 
         } else {
             Materialize.toast('Please fill all the fields!', 3000);
         }
+    },
+   
+    calculateAge: function(bday){
+        var today = new Date(); 
+        var day = today.getDate(); 
+        var month = today.getMonth()+1; 
+        var year = today.getFullYear(); 
+        
+        var birthday = new Date(bday);
+        var bday_year = birthday.getFullYear();
+        var bday_month = birthday.getMonth()+1;
+        var bday_day = birthday.getDate();
+
+        var age = year - bday_year; 
+        if(bday_month > month){
+            age--; 
+        } 
+        else if (bday_month == month && bday_day > day){
+            age--;
+        }
+        return age; 
     }
 
 });
 
 var hello_view = new HelloView();
+
+$('#bday').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 200,  // Creates a dropdown of years to control year
+    formatSubmit: 'yyyy-mm-dd',
+    hiddenName: true
+});
