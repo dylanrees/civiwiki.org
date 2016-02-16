@@ -17,24 +17,25 @@
 
 <script id="login-template" type="text/template">
     <div class="container">
-        <div class="section log-in-section">
+        <div class="section log-in-section s12 z-depth-6 card-panel valign-wrapper">
+            <div class="card-content valign center-block">
             <div class="row">
-                <div class="col s12 m12 l8 offset-l2">
+                <div class="col s12">
                     <div class="row">
-                        <div class="branding">
-                            <h4>Welcome to CiviWiki!</h4>
+                        <div class="branding center-align">
+                            <h4>Login</h4>
                         </div>
                         <div class="col s12">
                             <div class="row login">
-                                <div class="input-field col s12 l6">
-                                    <i class="material-icons">perm_identity</i>
+                                <div class="input-field col s12 l12">
+                                    <i class="material-icons prefix">perm_identity</i>
                                     <input id="username" type="text" class="validate">
                                     <label for="username">Username</label>
                                 </div>
-                            </div>
-                            <div class="row login">
-                                <div class="input-field col s12 l6">
-                                    <i class="material-icons">lock_outline</i>
+                            <!--</div>
+                            <div class="row login">-->
+                                <div class="input-field col s12 l12">
+                                    <i class="material-icons prefix">lock_outline</i>
                                     <input id="password" type="password" class="validate">
                                     <label for="password">Password</label>
                                 </div>
@@ -45,16 +46,16 @@
                                         <i class="material-icons right">send</i>
                                     </button>
                                 </div>
-                                <div class="col s12 offset-l4 l4 right-align">
-                                    <button id="open-register-form-button" class="btn waves-effect waves-light custom-buttons">Register?</button>
+                                <div class="col s12 l8 right-align">
+                                    <button id="open-register-form-button" class="btn waves-effect waves-light custom-buttons">Need an account? Register!</button>
                                 </div>
                             </div>
                             <div class="row register">
-                                <div class="input-field col s12 l6">
+                                <div class="input-field col s12 m6 l6">
                                     <input id="first-name" type="text" class="validate">
                                     <label for="first-name">First Name</label>
                                 </div>
-                                <div class="input-field col s12 l6">
+                                <div class="input-field col s12 m6 l6">
                                     <input id="last-name" type="text" class="validate">
                                     <label for="last-name">Last Name</label>
                                 </div>
@@ -85,6 +86,7 @@
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </div>
 </script>
