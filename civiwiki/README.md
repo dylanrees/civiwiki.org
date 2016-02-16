@@ -25,6 +25,6 @@ Relative Urls (API)
 | **/api/articles** | returns a list of the article in circulation |
 | **/api/categories** | returns a list of the categories in circulation |
 | **/api/user** | returns a users information |
-| **/api/*getblock** | gets a block of interconnected civis |
+| **/api/getblock** | gets a block of interconnected civis |
 | **/api/addcivi** | create a new civi |
 | **/api/reportvote** | update the vote rating on a civi |
