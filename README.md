@@ -19,6 +19,15 @@ For Developers.
 * Run `python civiwiki/manage.py runserver` to run the local server on port 8000.
 * Reference **civiwiki/README.txt** for a list of urls and a description.
 
+load a local database (requires postgres installed)
+* `createuser civiwiki -P -d` insert password changecivic2
+* `createdb civiwiki_local -O civiwiki`
+* `export CIVIWIKI_LOCAL=1` set to 0 to use online db
+* `python manage.py syncdb`
+* `python manage.py makemigrations` we shouldn't have migrations locally!
+* `python manage.py migrate`
+
+
 **Contribute**:
 Contact us on Twitter to join the team.
 
