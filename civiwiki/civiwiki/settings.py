@@ -87,7 +87,7 @@ if 'RDS_DB_NAME' in os.environ:
             'PORT': os.enviorn['RDS_PORT']
         }
     }
-elif 'CIVIWIKI_LOCAL' in os.environ and os.environ['CIVIWIKI_LOCAL']:
+elif 'CIVIWIKI_LOCAL' in os.environ and int(os.environ['CIVIWIKI_LOCAL']):
     DATABASES = {
         'default': {
             'HOST':'localhost',
