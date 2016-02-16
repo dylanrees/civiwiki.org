@@ -16,7 +16,53 @@
 
 
 <script id="login-template" type="text/template">
-    <div class="container">
+        <!--LOGIN ROW-->
+        <div class="row login">
+            <!--LOGIN CONTENT-->
+            <div class="col s12 z-depth-6 card-panel">
+                <form class="login-form">
+                    <div class="row login">
+                        <div class="input-field col s12 center">
+                            <div class="branding center-align">
+                                <div id="login-img">
+                                <img src="{% static "img/civiwiki_tree.jpg" %}" class="responsive-img valign image-login">
+                                </div>
+                                <div id="login-text">
+                                    <h4>Login</h4>
+                                </div>
+                            </div>
+                            <div class="row login-margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">perm_identity</i>
+                                    <input id="username" type="text" class="validate">
+                                    <label for="username">Username</label>
+                                </div>
+                            </div>
+                            <div class="row login-margin">
+                                <div class="input-field col s12">
+                                    <i class="material-icons prefix">lock_outline</i>
+                                    <input id="password" type="password" class="validate">
+                                    <label for="password">Password</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="input-field col s12 m12 l12 login-text">
+                                    <input type="checkbox" id="remember-me">
+                                    <label for="remember-me">Remember Me</label>
+                                </div>
+                            </div>
+                            <div id="login-register-action-buttons" class="row center-align">
+                                <div class="col s12">
+                                    <button id="log-in-button center-align" class="btn waves-effect waves-light custom-button">Log In </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <!--<div class="container">
         <div class="section log-in-section s12 z-depth-6 card-panel valign-wrapper">
             <div class="card-content valign center-block">
             <div class="row">
@@ -32,8 +78,7 @@
                                     <input id="username" type="text" class="validate">
                                     <label for="username">Username</label>
                                 </div>
-                            <!--</div>
-                            <div class="row login">-->
+                            <div class="row login">
                                 <div class="input-field col s12 l12">
                                     <i class="material-icons prefix">lock_outline</i>
                                     <input id="password" type="password" class="validate">
@@ -88,10 +133,10 @@
             </div>
         </div>
         </div>
-    </div>
+    </div>-->
 </script>
 
-<body>
+<body class="deep-purple darken-1">
     <div id="login">
     </div>
 </body>
