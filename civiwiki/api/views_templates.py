@@ -7,3 +7,7 @@ def login_view(request):
 @login_required
 def home_view(request):
 	return TemplateResponse(request, 'home.html', {})
+
+@login_required
+def create_page(request):
+	return TemplateResponse(request, 'newpage.html', {})

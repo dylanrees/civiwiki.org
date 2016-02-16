@@ -7,3 +7,4 @@
 # Python Files
 *.pyc
 civiwiki/api/migrations
+civiwiki/civiwiki/media
