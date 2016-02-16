@@ -6,8 +6,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Account(models.Model):
     '''
-    This is a DUMMY user model until I can think of a good
-    way to implement this.
+    Holds meta information about an Account, not used to login.
     '''
     objects = models.Manager()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

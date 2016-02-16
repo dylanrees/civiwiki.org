@@ -1,8 +1,47 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.conf import settings
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
-from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag
-import sys, json, pdb, random, hashlib
+from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag, Page
+import os, sys, json, pdb, random, hashlib
+
+def addPage(request):
+
+	account = Account.objects.get(user=request.user.id)
+	pi = request.FILES.get('profile_image', False)
+	ci = request.FILES.get('cover_image', False)
+	if pi:
+		url = "{media}/{type}/{username}.png".format(media=settings.MEDIA_ROOT, type='profile',username=account.user.username)
+		with open( url , 'wb+') as destination:
+			for chunk in pi.chunks():
+				destination.write(chunk)
+		profile_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='profile',username=account.user.username)
+	else:
+		profile_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='profile',username='generic')
+
+
+	if ci:
+		url = "{media}/{type}/{username}.png".format(media=settings.MEDIA_ROOT, type='cover',username=account.user.username)
+		with open( url , 'wb+') as destination:
+			for chunk in ci.chunks():
+				destination.write(chunk)
+
+		cover_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='cover',username=account.user.username)
+	else:
+		cover_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='cover',username='generic')
+
+
+
+	try:
+		page = Page(owner=account,
+					title=request.POST.get('title',''),
+					body=request.POST.get('description',''),
+					profile_image=profile_image,
+					cover_image=cover_image)
+		page.save()
+		return HttpResponse('success', status_code=200)
+	except Exception as e:
+		return HttpResponse(e, status_code=500)
 
 def addCivi(request):
 	'''
