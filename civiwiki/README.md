@@ -4,23 +4,27 @@ Relative Urls (frontend)
 -------------
 > urls accessible through browser HTTP requests to return and load HTML to the end user. Home pages, login pages, etc.
 
+| url | page description |
+| --- | --- |
+| **/** | home |
+| **/login** | login / register |
 
-* **/**login  (login / register )
-* **/**   ( home )
 
 
 Relative Urls (API)
 ---------
 > urls accessible through our application to return JSON data, as well as accept data to be stored / parsed. Database querys, login attempts, etc.
 
-* **/**api**/**login
-* **/**api**/**logout
-* **/**api**/**register
-* **/**api**/**getcivi
-* **/**api**/**topten
-* **/**api**/**articles
-* **/**api**/**categories
-* **/**api**/**user
-* **/**api**/**getblock
-* **/**api**/**addcivi
-* **/**api**/**reportvote
+| url | description |
+| --- | --- |
+| **/api/login** | performs logging in of user |
+| **/api/logout** | performs logging out of user |
+| **/api/register** | creates and logs in a user |
+| **/api/getcivi** | returns a civi by id number |
+| **/api/topten** | returns 10 civis with highest rating |
+| **/api/articles** | returns a list of the article in circulation |
+| **/api/categories** | returns a list of the categories in circulation |
+| **/api/user** | returns a users information |
+| **/api/*getblock** | gets a block of interconnected civis |
+| **/api/addcivi** | create a new civi |
+| **/api/reportvote** | update the vote rating on a civi |
