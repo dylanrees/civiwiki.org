@@ -1,5 +1,4 @@
 <!doctype html>
-<html>
 	<head>
 		{% load staticfiles %}
 		<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
@@ -22,7 +21,7 @@
 		</form>
 		<div class="container">
 			<ul name="category list">
-				<% _.each(categories, function(cat, i, arr){ %> <li><%=cat.get("name")%></li> <%});%>
+				<% _.each(categories, function(cat, i, arr){  "&lt;li&gt;"+cat.get("name")+"&lt;/li&gt;" });%>
 			</ul>
 		</div>
 	</script>

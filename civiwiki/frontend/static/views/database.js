@@ -24,6 +24,8 @@ var CiviChainCol = Backbone.Collection.extend({
 	loadMore : true //this will eventually prevent the collection from requesting civis beyond the currentOffset
 });
 var CategoriesCol = Backbone.Collection.extend({
+	url : "/api/categories",
+	
 	parse: function(response)
 	{
 		return _.map(response.result, function(cat, i, arr){ return new Backbone.Model(cat); });
@@ -33,12 +35,12 @@ var DBView = Backbone.View.extend({
 
     el: '#content-main',
 	
+	template : _.template($('#database-template').text()),
 
     initialize: function() {
 		this.categories = new CategoriesCol(); //or should this be bootstrapped?
-		this.categories.url = "/api/categories";
 		this.categories.fetch();
-        this.template = _.template($('#database-template').text());
+        
         this.render();
     },
 
