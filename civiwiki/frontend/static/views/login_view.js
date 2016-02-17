@@ -11,7 +11,7 @@ var LoginView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
 
-        this.$el.find('.register').hide();
+        //this.$el.find('.register').hide();
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
@@ -61,22 +61,22 @@ var LoginView = Backbone.View.extend({
         }
     },
 
-    openRegisterForm: function() {
-        this.$el.find("#login-header").html('Register');
-        this.$el.find("#remember-me-input").slideUp();
-        this.$el.find("#login-action-button").slideUp();
-        this.$el.find("#register-form-button").hide();
-        this.$el.find(".register").slideDown();
-        this.$el.find("#signin-form-button").slideDown();
-    },
+    // openRegisterForm: function() {
+    //     // this.$el.find("#login-header").html('Register');
+    //     // this.$el.find("#remember-me-input").slideUp();
+    //     // this.$el.find("#login-action-button").slideUp();
+    //     // this.$el.find("#register-form-button").hide();
+    //     // this.$el.find(".register").slideDown();
+    //     // this.$el.find("#signin-form-button").slideDown();
+    // },
 
-    closeRegisterForm: function() {
-        this.$el.find("#login-header").html('Login');
-        this.$el.find("#remember-me-input").slideDown();
-        this.$el.find("#login-action-button").slideDown();
-        this.$el.find("#register-form-button").slideDown();
-        this.$el.find(".register").slideUp();
-    },
+    // closeRegisterForm: function() {
+    //     // this.$el.find("#login-header").html('Login');
+    //     // this.$el.find("#remember-me-input").slideDown();
+    //     // this.$el.find("#login-action-button").slideDown();
+    //     // this.$el.find("#register-form-button").slideDown();
+    //     // this.$el.find(".register").slideUp();
+    // },
 
     register: function () {
 
@@ -88,7 +88,6 @@ var LoginView = Backbone.View.extend({
             firstName = this.$el.find('#first-name').val(),
             lastName = this.$el.find('#last-name').val(),
             birthday = this.$el.find('#bday').val();
-
         if (!this.calculateAge(birthday)) {
             Materialize.toast('Must be 13+ to join civiwiki.', 3000);
             return;
@@ -119,7 +118,7 @@ var LoginView = Backbone.View.extend({
             });
 
         } else {
-            Materialize.toast('Please fill all the fields!', 3000);
+            Materialize.toast('Please fill in all the fields!', 3000);
         }
     },
 
