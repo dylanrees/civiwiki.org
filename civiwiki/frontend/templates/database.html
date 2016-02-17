@@ -1,38 +1,59 @@
 <!doctype html>
-	<head>
-		{% load staticfiles %}
-		<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-		<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-		<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"/>
-		<link type="text/css" rel="stylesheet/less" href="{% static "less/styles.less" %}"/>
-		<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<head>
+	{% load staticfiles %}
+	<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+	<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+	<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"/>
+	<link type="text/css" rel="stylesheet/less" href="{% static "less/styles.less" %}"/>
+	<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
-		<title>CiviWiki</title>
-	</head>
+	<title>CiviWiki</title>
+</head>
 
-	<script id="databse-template" type="text/template">
-		<form style="display: inline">
-			<input class="legislation-filters" type="checkbox" name="filters" value="federal" checked>Federal</input>
-			<input class="legislation-filters" type="checkbox" name="filters" value="state" checked>State</input>
-			<input class="legislation-filters" type="checkbox" name="filters" value="local" checked>Local</input>
-		</form>
-		<div class="container">
-			<ul name="category list">
-				<% _.each(categories, function(cat, i, arr){  "&lt;li&gt;"+cat.get("name")+"&lt;/li&gt;" });%>
+<script id="database-template" type="text/template">
+	<div class="db_container">
+		<%=initial%>
+	</div>
+</script>
+
+<script id="collection-template" type="text/template">
+	<div class="row">
+		<div class="collection_container col s12">
+			<strong><%-levelTitle%></strong><br>
+			<%//alert("Now processing template with title "+levelTitle)%>
+			<ul name="<%-collectionType%> list" class="left collapsible" data-collapsible="expandable">
+				<% _.each(items, function(cat, i, arr){ %><li class="<%-collectionType%>-item<%=cat.get("active")?" active":""%>"  data-collection-pid="<%=typeof(cat.get("pID"))==="undefined"?"":cat.get("pID")%>" data-collection-type="<%-collectionType%>" data-collection-id="<%-cat.get("id")%>" ><div class="collapsible-header<%=cat.get("active")?" active":""%>"><%= cat.get(collectionName)%></div>
+				<div class="collapsible-body"><% if(typeof(cat.get("nestData"))!=="undefined") { %><div style="padding-left:5px;"> <%=collectionTemplate(cat.get("nestData"))%></div> <%}%></div></li> <% });%>
 			</ul>
 		</div>
-	</script>
-		
+	</div>
+</script>
+	
 
-	<body>
+<body>
+	<div class="container">
+	<div class="row"></div>
+		<div class = "row">
+			<div class="col s6">
+				<form>
+					<input id="filtersFederal" class="legislation-filters" type="checkbox" name="filters" value="federal" checked/>
+					<label for="filtersFederal">Federal</label>
+					<input id="filtersState" class="legislation-filters" type="checkbox" name="filters" value="state" checked/>
+					<label for="filtersState">State</label>
+					<input id="filtersLocal" class="legislation-filters" type="checkbox" name="filters" value="local" checked/>
+					<label for="filtersLocal">Local</label>
+				</form><br>
+			</div>
+		</div>
 		<div id="content-main">
 		</div>
-	</body>
+	</div>
+</body>
 
-	<!-- Backbone Views File -->
-	<script src="/static/views/database.js" type="text/javascript"></script>
+<!-- Backbone Views File -->
+<script src="/static/views/database.js" type="text/javascript"></script>
 
 </html>
