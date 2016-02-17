@@ -62,6 +62,7 @@ var LoginView = Backbone.View.extend({
     },
 
     openRegisterForm: function() {
+        this.$el.find("#login-header").html('Register');
         this.$el.find("#remember-me-input").slideUp();
         this.$el.find("#login-action-button").slideUp();
         this.$el.find("#register-form-button").hide();
@@ -70,6 +71,7 @@ var LoginView = Backbone.View.extend({
     },
 
     closeRegisterForm: function() {
+        this.$el.find("#login-header").html('Login');
         this.$el.find("#remember-me-input").slideDown();
         this.$el.find("#login-action-button").slideDown();
         this.$el.find("#register-form-button").slideDown();

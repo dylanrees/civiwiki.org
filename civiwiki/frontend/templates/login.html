@@ -16,20 +16,29 @@
 
 
 <script id="login-template" type="text/template">
+        <!--NAVBAR WITH LINKS TO SUPPORT_US AND MEET THE TEAM-->
+        <nav>
+            <div class="nav-wrapper white">
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a class="waves-effect waves-light btn purple lighten-3">Support Us</a></li>
+                    <li><a class="waves-effect waves-light btn purple lighten-3">Meet the Team</a></li> <!--This link does not exist at the moment-->
+                </ul>
+            </div>
+        </nav>
         <!--LOGIN ROW-->
         <div class="row login">
             <!--LOGIN CONTENT-->
-            <div class="col s12 z-depth-6 card-panel">
+            <div class="col s12 l6 offset-l3 z-depth-6 card-panel">
                 <form class="login-form">
                     <div class="row login">
                         <div class="input-field col s12">
                             <div class="branding center-align">
                                 <div id="login-img">
-                                <img src="{% static "img/banner_tree_simplified.jpg" %}" class="responsive-img valign image-login">
+                                <img src="{% static "img/civiwiki_tree.jpg" %}" class="responsive-img valign image-login">
                                 </div>
-                                <div id="login-header">
-                                    <h4>Login</h4>
-                                </div>
+                                
+                                    <h4 id="login-header">Login</h4>
+                                
                             </div>
                             <div class="row login-margin">
                                 <div class="input-field col s12">
@@ -97,14 +106,16 @@
             <!--BUTTONS TO SWITCH BETWEEN REGISTER/LOGIN VIEW-->
             <div class="row login">
                 <div id="register-form-button">
-                    <div class="col2 push2 s12">
+                    <div class="col s12 l6 offset-l5">
                         <button id="open-register-form-button" class="btn waves-effect waves-light custom-button purple darken-4">Create a new account!</button>
                     </div>
                 </div>
             </div>
+
+            <!--NEED TO CENTER THIS BUTTON-->
             <div class="row register">
                 <div id="signin-form-button">
-                    <div class="col2 push2 s12">
+                    <div class="col s12 offset-l5">
                         <button id="open-login-form-button" class="btn waves-effect waves-light custom-button purple darken-4">Sign In!</button>
                     </div>
                 </div>
