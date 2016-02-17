@@ -18,14 +18,15 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.static import serve
-from api import api_urls, frontend_urls
-
+from api import urls_write, urls_read, urls_templates, urls_auth
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include(api_urls)),
-    url(r'^pages/',include(frontend_urls))
-    #add frontend urls when we make web application
+    url(r'^api/', include(urls_write)),
+    url(r'^api/', include(urls_read)),
+    url(r'^api/', include(urls_auth)),
+    url(r'^/',include(urls_templates)),
+    url(r'^$',include(urls_templates)),
 ]
 
 if settings.DEBUG:

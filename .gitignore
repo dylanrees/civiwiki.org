@@ -3,3 +3,8 @@
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# Python Files
+*.pyc
+civiwiki/api/migrations
+civiwiki/civiwiki/media
