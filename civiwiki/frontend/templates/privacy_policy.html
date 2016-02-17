@@ -1,0 +1,31 @@
+{% extends "legalese.html"%}
+{% block title %}
+	Privacy Policy
+{% endblock %}
+	
+{% block content %}
+	<script>
+		$(document).ready(function(){
+			$("h2").click(function(){
+				$("p").toggle();
+			});
+		})
+		
+	</script>
+	Privacy Policy
+	<br>
+	Have a question?  Tap on it for an answer
+	<br>
+	<h2>Toggle</h2>
+	<p style="display:none">Content</p>
+	<br>		
+	<!-- div on the right that shows the contents if the screen is wide enough -->
+	<div class="height"></div>
+	<div class="width"></div>
+	<script>
+		var height = $(window).height();
+		var width = $(window).width();
+		$('.height').html('Height is ' + height);
+		$('.width').html('Width is ' + width);
+	</script>
+{% endblock %}

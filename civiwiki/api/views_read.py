@@ -248,3 +248,4 @@ def getCiviChain(it):
 	if it.AND_NEGATIVE != None: result.append(it.AND_NEGATIVE.string())
 
 	return result
+

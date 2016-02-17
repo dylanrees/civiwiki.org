@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^articles$', v.getArticles, name='get articles'),
     url(r'^categories$', v.getCategories, name='get categories'),
     url(r'^user$', v.getUser, name='get user'),
-    url(r'^getblock$', v.getBlock, name='get block'),
+    url(r'^getblock$', v.getBlock, name='get block'),    
 ]

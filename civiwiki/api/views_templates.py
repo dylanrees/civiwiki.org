@@ -7,3 +7,9 @@ def login_view(request):
 @login_required
 def home_view(request):
 	return TemplateResponse(request, 'home.html', {})
+
+def privacyPolicy(request):	
+	return TemplateResponse(request, 'privacy_policy.html', {})
+
+def userAgreement(request):
+	return TemplateResponse(request, 'user_agreement.html', {})
