@@ -1,69 +1,26 @@
-var LoginView = Backbone.View.extend({
-
-    el: '#login',
+var BetaView = Backbone.view.extend({
+	    el: '#beta-blocker',
 
     initialize: function() {
-        this.template = _.template($('#login-template').text());
+        this.template = _.template($('#beta-block-template').text());
 
         this.render();
     },
 
     render: function() {
         this.$el.html(this.template());
-
-        //this.$el.find('.register').hide();
-
-        this.$el.find('.datepicker').pickadate({
-            selectYears: 116,
-            max: new Date(), 
-            formatSubmit: 'yyyy/mm/dd'
-
-        });
     },
 
     events: {
-        "click #log-in-button": "logIn",
-        "click #register-button": "register"
+        
 
     },
 
-    logIn: function () {
-        var _this = this;
-
-        var username = this.$el.find('#username').val(),
-            password = this.$el.find('#password').val();
-
-        if (username && password) {
-
-            $.ajax({
-                type: 'POST',
-                url: 'api/login',
-                data: {
-                    username: username,
-                    password: password
-                },
-                success: function (data) {
-                    if(data.status_code === 200){
-                        window.location.href = _this.findURLParameter('next');
-                        //goes home if no redirect specified else redirects.
-                    } else if (data.status_code === 400) {
-                        Materialize.toast(data.error);
-                    } else {
-                        Materialize.toast('Internal Server Error.');
-                    }
-                }
-            });
-
-        } else {
-            Materialize.toast('Please input your email and password!', 3000);
-        }
-    },
-
-    register: function () {
+    enterCode: function () {
 
         var _this = this;
 
-        var email = this.$el.find('#email').val(),
+        	var email = this.$el.find('#email').val(),
             username = this.$el.find('#username').val(),
             password = this.$el.find('#password').val(),
             firstName = this.$el.find('#first-name').val(),
@@ -103,13 +60,6 @@ var LoginView = Backbone.View.extend({
         }
     },
 
-    calculateAge: function(birthday) { // birthday is a date
-        birthday = new Date(birthday);
-        var ageDifMs = Date.now() - birthday.getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        return Math.abs(ageDate.getUTCFullYear() - 1970) >= 13;
-    },
-
     findURLParameter: function(val) {
         var result = "/",
             tmp = [];
@@ -124,7 +74,4 @@ var LoginView = Backbone.View.extend({
         });
         return result;
     }
-
-});
-
-var login_view = new LoginView();
+})

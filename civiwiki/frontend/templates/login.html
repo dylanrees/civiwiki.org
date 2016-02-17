@@ -16,7 +16,8 @@
 
 
 <script id="login-template" type="text/template">
-        <!--NAVBAR WITH LINKS TO SUPPORT_US AND MEET THE TEAM-->
+
+        <!--NAVBAR WITH LINKS TO LOGIN, REGISTER, SUPPORT_US AND MEET THE TEAM-->
         <nav>
             <div class="nav-wrapper white">
                 <a href="#" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_tree.jpg" %}"></a>
@@ -62,14 +63,18 @@
                 </form>
             </div>
         </div>
+
         <!--WELCOME TO CIVIWIKI SECTION-->
         <div class="welcome section deep-purple darken-1">
             <div class="row container">
                 <h1 class="center-align white-text">Welcome to CiviWiki!</h1>
                 <img id="welcome_logo_pic" src="{% static "img/white_logo_copy.jpg"%}">
-                <p class="center-align">(Maybe replace this picture with a brief description of CiviWiki)</p>
+                <h5 class="center-align white-text">We are a non-profit community working to develop a democratic engagement web system. We are currently in the prototyping stage and do not yet have a stable system. However, while the technical system is in development, we are building a community of civically engaged individuals around our idea. If you are interested in becoming a part of our community, please subscribe below. We won&quot;t abuse your email, but will keep you updated with the most important developments. By subscribing you will have the opportunity to join our closed beta, when it is stable, and will be the first to know when the system is publicly available.</h5>
+                <h5 class="center-align white-text">We hope you are interested in becoming a part of our dynamic community! Follow us at twitter.com/civiwiki.</h5>
+                <!--<p class="center-align">(Maybe replace this picture with a brief description of CiviWiki)</p>-->
             </div>
         </div>
+
         <!--REGISTER SECTION-->
         <div id="register_section">
             <h3 class="center-align purple-text text-darken-4">Need an account? Register!</h3>
@@ -121,11 +126,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-       
 </script>
 
 <body>
