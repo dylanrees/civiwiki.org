@@ -13,7 +13,7 @@ class Account(models.Model):
     first_name = models.CharField(max_length=63, default='')
     last_name = models.CharField(max_length=63, default='')
     email = models.CharField(max_length=63, unique=True)
-    last_login = models.CharField(max_length=63, auto_now=True)
+    last_login = models.DateTimeField(auto_now=True)
     about_me = models.CharField(max_length=511, default='')
     valid = models.BooleanField(default=False)
     profile_image = models.CharField(max_length=255)

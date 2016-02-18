@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import datetime
 from django.conf import settings
 
 
@@ -20,7 +19,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(default='', max_length=63)),
                 ('last_name', models.CharField(default='', max_length=63)),
                 ('email', models.CharField(unique=True, max_length=63)),
-                ('last_login', models.CharField(default=datetime.datetime(2016, 2, 16, 3, 56, 4, 314676), max_length=63)),
+                ('last_login', models.DateTimeField(auto_now=True)),
                 ('about_me', models.CharField(default='', max_length=511)),
                 ('valid', models.BooleanField(default=False)),
                 ('profile_image', models.CharField(max_length=255)),
