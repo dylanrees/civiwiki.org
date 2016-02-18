@@ -22,29 +22,8 @@ var BetaView = Backbone.view.extend({
 
         var betaCode = this.$el.find("#beta-code").val();
 
-        if (betaCode) {
+        if (betaCode) { //need to figure out server-side way of checking if beta code is correct
 
-            $.ajax({
-                type: 'POST',
-                url: 'api/register',
-                data: {
-                    email: email,
-                    username: username,
-                    password: password,
-                    first_name: firstName,
-                    last_name: lastName,
-                    birthday: birthday
-                },
-                success: function (data) {
-                    if (data.status_code === 200) {
-                        window.location.href = _this.findURLParameter('next');
-                        //goes home if no redirect specified else redirects.
-
-                    } else if (data.status_code === 500) {
-                        Materialize.toast('We already have a user with this email address!', 3000);
-                    }
-                }
-            });
 
         } else {
             Materialize.toast('Please fill in all the fields!', 3000);
