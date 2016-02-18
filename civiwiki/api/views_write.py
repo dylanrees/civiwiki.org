@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
-from models import Account, Article, Attachment, Category, Civi, Comment, Hashtag, Page
+from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Page
 import os, sys, json, pdb, random, hashlib
 
 def addPage(request):
@@ -53,7 +53,7 @@ def addCivi(request):
 	civi.id = Civi.objects.all().order_by("-id")[0].id + 1
 
 	civi.author_id = request.POST.get('author_id', '')
-	civi.article_id = request.POST.get('article_id', '')
+	civi.topic_id = request.POST.get('topic_id', '')
 
 
 	civi.title = request.POST.get('title', '')

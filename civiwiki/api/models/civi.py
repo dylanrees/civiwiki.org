@@ -12,7 +12,7 @@ class Civi(models.Model):
     '''
     objects = models.Manager()
     author = models.ForeignKey('Page', default=None, null=True)
-    article = models.ForeignKey('Article', default=None, null=True)
+    topic = models.ForeignKey('Topic', default=None, null=True)
     hashtags = models.ManyToManyField(Hashtag)
 
     title = models.CharField(max_length=63, default='')
@@ -38,7 +38,7 @@ class Civi(models.Model):
             "body": self.body,
             "author": self.author.username,
             "visits": self.visits,
-            "article": self.article.topic,
+            "topic": self.topic.topic,
             "type": self.type,
             "id": self.id,
             "REF": self.REFERENCE_id,

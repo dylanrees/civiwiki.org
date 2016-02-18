@@ -11,3 +11,6 @@ def home_view(request):
 @login_required
 def create_page(request):
 	return TemplateResponse(request, 'newpage.html', {})
+
+def page_not_found(request):
+	return TemplateResponse(request, '404.html', {})

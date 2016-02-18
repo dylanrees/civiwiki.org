@@ -22,7 +22,7 @@ Relative Urls (API)
 | **/api/register** | creates and logs in a user |
 | **/api/getcivi** | returns a civi by id number |
 | **/api/topten** | returns 10 civis with highest rating |
-| **/api/articles** | returns a list of the article in circulation |
+| **/api/topics** | returns a list of the topics in circulation |
 | **/api/categories** | returns a list of the categories in circulation |
 | **/api/user** | returns a users information |
 | **/api/getblock** | gets a block of interconnected civis |
