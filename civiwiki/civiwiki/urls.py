@@ -38,5 +38,5 @@ if settings.DEBUG:
    ]
 
 urlpatterns += [
-    url(r'^',include(urls_templates)),
+    url(r'',include(urls_templates)),
 ]
