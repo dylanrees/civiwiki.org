@@ -13,17 +13,12 @@
 	<title>CiviWiki</title>
 </head>
 
-<script id="database-template" type="text/template">
-	<div class="db_container">
-		<%=initial%>
-	</div>
-</script>
+
 
 <script id="collection-template" type="text/template">
 	<div class="row">
-		<div class="collection_container col s12">
+		<div class="collection-container col s12">
 			<strong><%-levelTitle%></strong><br>
-			<%//alert("Now processing template with title "+levelTitle)%>
 			<ul name="<%-collectionType%> list" class="left collapsible" data-collapsible="expandable">
 				<% _.each(items, function(cat, i, arr){ %><li class="<%-collectionType%>-item<%=cat.get("active")?" active":""%>"  data-collection-pid="<%=typeof(cat.get("pID"))==="undefined"?"":cat.get("pID")%>" data-collection-type="<%-collectionType%>" data-collection-id="<%-cat.get("id")%>" ><div class="collapsible-header<%=cat.get("active")?" active":""%>"><%= cat.get(collectionName)%></div>
 				<div class="collapsible-body"><% if(typeof(cat.get("nestData"))!=="undefined") { %><div style="padding-left:5px;"> <%=collectionTemplate(cat.get("nestData"))%></div> <%}%></div></li> <% });%>
@@ -31,7 +26,7 @@
 		</div>
 	</div>
 </script>
-	
+
 
 <body>
 	<div class="container">
@@ -48,7 +43,8 @@
 				</form><br>
 			</div>
 		</div>
-		<div id="content-main">
+		<div class="db-container">
+			
 		</div>
 	</div>
 </body>
