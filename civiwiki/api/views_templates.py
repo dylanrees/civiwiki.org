@@ -12,7 +12,7 @@ def home_view(request):
 def create_page(request):
 	return TemplateResponse(request, 'newpage.html', {})
 
-def page_not_found(request):
+def does_not_exist(request):
 	return TemplateResponse(request, '404.html', {})
 
 def support_us_view(request):
