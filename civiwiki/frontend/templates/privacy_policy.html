@@ -7,21 +7,41 @@
 	<script>
 		$(document).ready(function(){
 			$("h2").click(function(){
-				$("p").toggle();
+				// $("p").toggle();
+				var toggle_text = $(this).next();
+				toggle_text.toggle();
+				document.getElementById("right_pane").innerHTML = toggle_text.html();
 			});
-		})
-		
+		})		
 	</script>
 	Privacy Policy
 	<br>
 	Have a question?  Tap on it for an answer
 	<br>
-	<h2>Toggle</h2>
-	<p style="display:none">Content</p>
-	<br>		
-	<!-- div on the right that shows the contents if the screen is wide enough -->
-	<div class="height"></div>
-	<div class="width"></div>
+	<div class="row">
+		<!-- divs on the left that show the entries in the table of contents, and maybe the contents if the screen is small enough -->
+		<div class="col s12 m4 l3">
+			<h2>Toggle</h2>
+			<p style="display:none">Content</p>
+			<br>		
+			<h2>Toggle 2</h2>
+			<p style="display:none">Content 2</p>
+			<br>		
+		</div>
+		<!-- <div class="col s12 m6 l9"></div> -->
+		
+		<!-- div on the right that shows the contents if the screen is wide enough -->
+		<div class="col s0 m8 l9" id="right_pane">			
+			<!-- <div class="height"></div>
+			<div class="width"></div> -->
+		The 2012 Budweiser Shootout was the first exhibition stock car race of the 2012 NASCAR Sprint Cup Series. It was held on February 18, 2012, before a crowd of 82,000 in Daytona Beach, Florida, at the Daytona International Speedway, one of six superspeedways to hold NASCAR races. The 82-lap race was won by Kyle Busch (pictured) of the Joe Gibbs Racing team. It was Busch's first victory in the event; Tony Stewart finished second and Marcos Ambrose came in third. The race saw twenty-six lead changes, shared among thirteen drivers. Before the first turn, pole position driver Martin Truex, Jr. was passed by Jeff Gordon, and at the end of the first lap, Dale Earnhardt, Jr. led. On the ninth lap, a multiple-car accident prompted the first caution flag. Sixteen laps later the second caution was issued, with Jamie McMurray leading. During the caution period, all teams made pit stops. On lap 62 Gordon reclaimed the lead, holding it until his car hit the wall and rolled over, prompting the fifth and final caution. Stewart took the lead, but in the final lap, Busch passed him to win. The race attracted 7.46 million television viewers. (Full article...)
+		</div>
+		<p class="col s12 m8 l9">			
+			<!-- <div class="height"></div>
+			<div class="width"></div> -->
+		Today, Neverware announced a new version of CloudReady aimed at schools and individuals who want to try the software on their PCs without losing the capability to run Windows. CloudReady version 45.3 can be installed on any system with an existing UEFI-mode installation of Windows 7, 8, or 10 and 32GB of free disk space. You can find detailed installation directions on Neverware's site.
+		</p>
+	</div>
 	<script>
 		var height = $(window).height();
 		var width = $(window).width();
