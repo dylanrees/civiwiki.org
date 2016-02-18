@@ -20,18 +20,9 @@ var BetaView = Backbone.view.extend({
 
         var _this = this;
 
-        	var email = this.$el.find('#email').val(),
-            username = this.$el.find('#username').val(),
-            password = this.$el.find('#password').val(),
-            firstName = this.$el.find('#first-name').val(),
-            lastName = this.$el.find('#last-name').val(),
-            birthday = this.$el.find('#bday').val();
-        if (!this.calculateAge(birthday)) {
-            Materialize.toast('Must be 13+ to join civiwiki.', 3000);
-            return;
-        }
+        var betaCode = this.$el.find("#beta-code").val();
 
-        if (email && password && firstName && lastName && username) {
+        if (betaCode) {
 
             $.ajax({
                 type: 'POST',

@@ -19,13 +19,13 @@
 
         <!--NAVBAR WITH LINKS TO LOGIN, REGISTER, SUPPORT_US AND MEET THE TEAM-->
         <nav>
-            <div class="nav-wrapper white">
-                <a href="#" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_tree.jpg" %}"></a>
+            <div class="nav-wrapper deep-purple darken-1">
+                <a href="#" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_logo_white_sm.png" %}"></a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li><a href="#login_modal" class="modal-trigger purple-text text-darken-4">LOGIN</a></li>
-                    <li><a href="#register_section" class="purple-text text-darken-4">REGISTER</a></li>
-                    <li><a class="waves-effect waves-light btn-lg purple-text text-darken-4">SUPPORT US</a></li>
-                    <li><a class="waves-effect waves-light btn-lg purple-text text-darken-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+                    <li><a href="#login_modal" class="modal-trigger grey-text text-lighten-4">LOGIN</a></li>
+                    <li><a href="#register_section" class="grey-text text-lighten-4">REGISTER</a></li>
+                    <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
+                    <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
                 </ul>
             </div>
         </nav>
@@ -49,12 +49,6 @@
                             <label for="password">Password</label>
                         </div>
                     </div>
-                    <div class="row container">
-                        <div class="input-field col s12 m12 l12" id="remember-me-input">
-                            <input type="checkbox" id="remember-me">
-                            <label for="remember-me">Remember Me</label>
-                        </div>
-                    </div>
                     <div id="login-action-button" class="row login center-align">
                         <div class="col s12">
                             <button id="log-in-button" class="btn waves-effect waves-light custom-button purple lighten-3  center-align">Log In</button>
@@ -64,71 +58,68 @@
             </div>
         </div>
 
-        <!--WELCOME TO CIVIWIKI SECTION-->
-        <div class="welcome section deep-purple darken-1">
-            <div class="row container">
-                <h1 class="center-align white-text">Welcome to CiviWiki!</h1>
-                <img id="welcome_logo_pic" src="{% static "img/white_logo_copy.jpg"%}">
-                <h5 class="center-align white-text">We are a non-profit community working to develop a democratic engagement web system. We are currently in the prototyping stage and do not yet have a stable system. However, while the technical system is in development, we are building a community of civically engaged individuals around our idea. If you are interested in becoming a part of our community, please subscribe below. We won&quot;t abuse your email, but will keep you updated with the most important developments. By subscribing you will have the opportunity to join our closed beta, when it is stable, and will be the first to know when the system is publicly available.</h5>
-                <h5 class="center-align white-text">We hope you are interested in becoming a part of our dynamic community! Follow us at twitter.com/civiwiki.</h5>
-                <!--<p class="center-align">(Maybe replace this picture with a brief description of CiviWiki)</p>-->
-            </div>
-        </div>
-
-        <!--REGISTER SECTION-->
-        <div id="register_section">
-            <h3 class="center-align purple-text text-darken-4">Need an account? Register!</h3>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">label</i>
-                    <input id="first-name" type="text" class="validate">
-                    <label for="first-name">First Name</label>
+        <div id="container2">
+            <div id="container1">
+                <div class="valign-wrapper">
+                <div id="col1" class="valign">
+                    <!--WELCOME TO CIVIWIKI SECTION-->
+                    <div class="welcome-section">
+                        <div class="row container">
+                        <h3>Welcome to CiviWiki!</h3>
+                        <!--<img id="welcome_logo_pic" src="{% static "img/white_logo_copy.jpg"%}">-->
+                        <p>Put general description of CiviWiki here</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">label_outline</i>
-                    <input id="last-name" type="text" class="validate">
-                    <label for="last-name">Last Name</label>
+                <div id="col2">
+                        <!--REGISTER SECTION-->
+                        <h5 id="sign-up" class="center-align purple-text text-darken-4">Need an account? Register!</h5>
+                    <div id="register_section">
+                        
+                        <div class="row container">
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">label</i>
+                            <input id="first-name" type="text" class="validate">
+                            <label for="first-name">First Name</label>
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">label_outline</i>
+                            <input id="last-name" type="text" class="validate">
+                            <label for="last-name">Last Name</label>
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">email</i>
+                            <input id="email" type="email" class="validate">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">perm_contact_calendar</i>
+                            <label for="bday">Birthday</label>
+                            <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">perm_identity</i>
+                            <input id="username" type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">lock_outline</i>
+                            <input id="password" type="password" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+                    <div id="register-action-button" class="row register center-align">
+                            <div class="col s12">
+                                <button id="register-button" class="btn waves-effect waves-light custom-button purple lighten-3 center-align">Register</button>
+                            </div>
+                        </div>
                 </div>
-            </div>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">email</i>
-                    <input id="email" type="email" class="validate">
-                    <label for="email">Email</label>
-                </div>
-            </div>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">perm_contact_calendar</i>
-                    <label for="bday">Birthday</label>
-                    <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
-                </div>
-            </div>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">perm_identity</i>
-                    <input id="username" type="text" class="validate">
-                    <label for="username">Username</label>
-                </div>
-            </div>
-            <div class="row container">
-                <div class="input-field col s12 l6 offset-l3">
-                    <i class="material-icons prefix">lock_outline</i>
-                    <input id="password" type="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
-            </div>
-            <div id="register-action-button" class="row register center-align">
-                <div class="col s12">
-                    <button id="register-button" class="btn waves-effect waves-light custom-button purple lighten-3 center-align">Register</button>
                 </div>
             </div>
         </div>
 </script>
 
-<body>
+<body class="grey lighten-4">
     <div id="login">
     </div>
 </body>
