@@ -1,27 +1,52 @@
 <!doctype html>
 
-<head>
-    {% load staticfiles %}
-    <script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
-    <script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
+<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <title>Sorry!</title>
-</head>
-<script id="beta-block-template" type="text/template">
-    <h1>Sorry!</h1>
-    <p> We are currently in closed beta and to enter the site, you will need a code. Please enter the code below. Otherwise, please come back as soon as we advance to open beta!</p>
-    <div class="input-field">
-        <input id="beta-code" type="text" class="validate">
-        <label for="beta-code">Beta-Code</label>
+<title>Sorry!</title>
+
+<script id="beta-template" type="text/template">
+<!--NAVBAR WITH LINKS TO LOGIN, REGISTER, SUPPORT_US AND MEET THE TEAM-->
+        <nav>
+            <div class="nav-wrapper deep-purple darken-1">
+                <a href="#" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_logo_white_sm.png" %}"></a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li><a href="#login_modal" class="modal-trigger grey-text text-lighten-4">LOGIN</a></li>
+                    <!--<li><a href="#register_section" class="grey-text text-lighten-4">REGISTER</a></li>-->
+                    <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
+                    <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+                </ul>
+            </div>
+        </nav>
+    <div id="beta-section" class="center">
+        <h1>Sorry!</h1>
+        <p> We are currently in closed beta and to enter the site, you will need a to enter the code below.</p> 
+        <p>Otherwise, please come back as soon as we advance to open beta!</p>
+        <div class="row container">
+            <div class="input-field col s12 l4 offset-l4">
+                <input id="beta-code" type="text" class="validate">
+                <label for="beta-code">Beta-Code</label>
+            </div>
+        </div>
+        <div class="row container">
+            <div class="col s12">
+                <button id="log-in-button" class="btn waves-effect waves-light custom-button purple lighten-3  center-align">Submit</button>
+            </div>
+        </div>
     </div>
 </script>
+
 <body>
-    <div id="beta-blocker">
+    <div id="beta">
     </div>
 </body>
+
+<!-- Backbone Views File -->
+<script src="/static/views/beta_view.js" type="text/javascript"></script>
 </html>

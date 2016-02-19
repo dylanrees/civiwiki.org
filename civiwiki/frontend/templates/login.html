@@ -24,7 +24,7 @@
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li><a href="#login_modal" class="modal-trigger grey-text text-lighten-4">LOGIN</a></li>
                     <!--<li><a href="#register_section" class="grey-text text-lighten-4">REGISTER</a></li>-->
-                    <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
+                    <li><a href="http://civiwiki.org/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
                     <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
                 </ul>
             </div>
@@ -58,10 +58,21 @@
             </div>
         </div>
 
+        <!--BETA MODAL-->
+        <div id="beta_modal" class="modal">
+            <div class="modal-content">
+                <h1>Sorry!</h1>
+                <p> We are currently in closed beta and to enter the site, you will need a to enter the code below.</p> 
+                <p>Otherwise, please come back as soon as we advance to open beta!</p>
+            </div>
+        </div>
+
+        <!--MAIN PAGE OF HOME WITH WELCOME & REGISTER SECTION-->
         <div id="whole-container">
             <div id="welcome-container">
                 <div class="valign-wrapper">
                 <div id="welcome-col" class="valign">
+
                     <!--WELCOME TO CIVIWIKI SECTION-->
                     <div class="welcome-section">
                         <div class="row container">
@@ -71,6 +82,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div id="register-col">
                         <!--REGISTER SECTION-->
                         <h5 id="sign-up" class="center-align purple-text text-darken-4">Need an account? Register!</h5>
@@ -99,13 +111,21 @@
                         </div>
                         <div class="input-field col s12 l10 offset-l1">
                             <i class="material-icons prefix">perm_identity</i>
-                            <input id="username" type="text" class="validate">
-                            <label for="username">Username</label>
+                            <input id="username-register" type="text" class="validate">
+                            <label for="username-register">Username</label>
                         </div>
                         <div class="input-field col s12 l10 offset-l1">
                             <i class="material-icons prefix">lock_outline</i>
-                            <input id="password" type="password" class="validate">
-                            <label for="password">Password</label>
+                            <input id="password-register" type="password" class="validate">
+                            <label for="password-register">Password</label>
+                        </div>
+                        <div class="input-field col s12 l10 offset-l1">
+                            <i class="material-icons prefix">code</i>
+                            <input id="beta-code" type="password" class="validate">
+                            <label for="beta-code">Beta-Code</label>
+                        </div>
+                        <div class="col s12 offset-l8">
+                            <a class="modal-trigger" href="#beta_modal">What is this?</a>
                         </div>
                     </div>
                     <div id="register-action-button" class="row register center-align">
@@ -121,6 +141,8 @@
 
 <body class="grey lighten-4">
     <div id="login">
+    </div>
+    <div id="beta">
     </div>
 </body>
 

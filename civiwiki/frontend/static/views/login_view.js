@@ -15,9 +15,7 @@ var LoginView = Backbone.View.extend({
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
-            max: new Date(), 
-            formatSubmit: 'yyyy/mm/dd'
-
+            max: new Date()
         });
     },
 
@@ -44,6 +42,7 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code === 200){
+
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
@@ -64,11 +63,12 @@ var LoginView = Backbone.View.extend({
         var _this = this;
 
         var email = this.$el.find('#email').val(),
-            username = this.$el.find('#username').val(),
-            password = this.$el.find('#password').val(),
+            username = this.$el.find('#username-register').val(),
+            password = this.$el.find('#password-register').val(),
             firstName = this.$el.find('#first-name').val(),
             lastName = this.$el.find('#last-name').val(),
             birthday = this.$el.find('#bday').val();
+
         if (!this.calculateAge(birthday)) {
             Materialize.toast('Must be 13+ to join civiwiki.', 3000);
             return;
@@ -98,6 +98,8 @@ var LoginView = Backbone.View.extend({
                 }
             });
 
+
+
         } else {
             Materialize.toast('Please fill in all the fields!', 3000);
         }
@@ -123,8 +125,30 @@ var LoginView = Backbone.View.extend({
             }
         });
         return result;
+    }, 
+    remove: function(){
+        this.$el.empty().off() /* off to unbind events */
+        this.stopListening();
+        return this; 
     }
-
 });
+
+// var BetaView = Backbone.View.extend({
+
+//     el: '#beta',
+
+//     initialize: function() {
+//         this.template = _.template($('#beta-template').text());
+//         //$(this.render().el).appendTo('#login');
+//         this.render();
+//     },
+
+//     render: function() {
+//         this.$el.html(this.template());
+//     },
+
+// });
+
+// var beta_view = new BetaView();
 
 var login_view = new LoginView();
