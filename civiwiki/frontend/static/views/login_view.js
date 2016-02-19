@@ -133,22 +133,4 @@ var LoginView = Backbone.View.extend({
     }
 });
 
-// var BetaView = Backbone.View.extend({
-
-//     el: '#beta',
-
-//     initialize: function() {
-//         this.template = _.template($('#beta-template').text());
-//         //$(this.render().el).appendTo('#login');
-//         this.render();
-//     },
-
-//     render: function() {
-//         this.$el.html(this.template());
-//     },
-
-// });
-
-// var beta_view = new BetaView();
-
 var login_view = new LoginView();
