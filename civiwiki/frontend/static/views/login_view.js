@@ -11,7 +11,9 @@ var LoginView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
 
-        //this.$el.find('.register').hide();
+        this.$el.find('#beta-section').hide();
+
+        this.$el.find('#register-link').hide();
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
@@ -21,8 +23,8 @@ var LoginView = Backbone.View.extend({
 
     events: {
         "click #log-in-button": "logIn",
-        "click #register-button": "register"
-
+        "click #register-button": "register", 
+        "click #beta-submit-button" : "submitBeta" //function that will be used to see if beta-code matches
     },
 
     logIn: function () {
@@ -42,8 +44,9 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code === 200){
+                        //would need to check if beta-code matches
 
-                        window.location.href = _this.findURLParameter('next');
+                        //window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
                         Materialize.toast(data.error);
@@ -53,8 +56,14 @@ var LoginView = Backbone.View.extend({
                 }
             });
 
+            this.$el.find('#welcome-container').hide();
+            this.$el.find('#register-link').show();
+            this.$el.find('#beta-section').show();
+
+            $('#login_modal').closeModal();
+
         } else {
-            Materialize.toast('Please input your email and password!', 3000);
+            Materialize.toast('Please input your username and password!', 3000);
         }
     },
 
@@ -96,9 +105,12 @@ var LoginView = Backbone.View.extend({
                         Materialize.toast('We already have a user with this email address!', 3000);
                     }
                 }
+
             });
 
-
+            this.$el.find('#welcome-container').hide();
+            this.$el.find('#register-link').show();
+            this.$el.find('#beta-section').show();
 
         } else {
             Materialize.toast('Please fill in all the fields!', 3000);
@@ -126,11 +138,11 @@ var LoginView = Backbone.View.extend({
         });
         return result;
     }, 
-    remove: function(){
-        this.$el.empty().off() /* off to unbind events */
-        this.stopListening();
-        return this; 
-    }
+
+    submitBeta: function(){
+        //need to figure out how to check if beta-code is correct; 
+    }, 
+
 });
 
 var login_view = new LoginView();
