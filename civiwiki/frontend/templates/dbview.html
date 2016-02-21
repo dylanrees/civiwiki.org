@@ -39,6 +39,16 @@
     </div>
 </script>
 
+<script id="issues-template" type="text/template">
+    <div class="db-list issues-list">
+        <% _.each(issues, function(issue) { %>
+            <div class="db-list-item blue-text valign-wrapper issues-item" data-id="<%= issue.id %>">
+                <h6 class="valign"><%- issue.title %></h6>
+            </div>
+        <% }); %>
+    </div>
+</script>
+
 <body>
     <div class="row no-margins">
         <div id="dbview">
@@ -48,7 +58,7 @@
             <div class="col s3 topics-holder no-padding">
 
             </div>
-            <div class="col s3 issues-holder">
+            <div class="col s3 issues-holder no-padding">
 
             </div>
         </div>
