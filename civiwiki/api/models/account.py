@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Account(models.Model):
@@ -19,10 +20,10 @@ class Account(models.Model):
     profile_image = models.CharField(max_length=255)
     cover_image = models.CharField(max_length=255)
     statistics = models.TextField(default='No statistics at this time.')
-    pinned = models.ManyToManyField('Civi')
-    history = models.TextField(default='[]')
-    friends = models.TextField(default='[]')
-    awards = models.TextField(default='[]')
+    civi_pins = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    civi_history = ArrayField(models.CharField(max_length=127, null=True), size=10, default=[], blank=True)
+    friend_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    award_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
 
     def retrieve(self, user):
         return self.find(user=user)[0]

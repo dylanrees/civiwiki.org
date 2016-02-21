@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
 from hashtag import Hashtag
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 class Civi(models.Model):
@@ -27,10 +28,10 @@ class Civi(models.Model):
     visits = models.IntegerField(default=0, null=True)
     type = models.CharField(max_length=2, default='I')#Possible values of I, C, or S for
     #issue, cause, and solution
-    REFERENCE = models.ForeignKey('Civi', related_name='REFERENCE_REL', default='', null=True)
-    AT = models.ForeignKey('Civi', related_name='AT_REL', default='', null=True)
-    AND_NEGATIVE = models.ForeignKey('Civi', related_name='AND_NEGATIVE_REL', default='', null=True)
-    AND_POSITIVE = models.ForeignKey('Civi', related_name='AND_POSITIVE_REL', default='', null=True)
+    refernce = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    at = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    and_negative = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    and_positive = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
 
     def string(self):
         result = {
