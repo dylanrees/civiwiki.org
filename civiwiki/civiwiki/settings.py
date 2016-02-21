@@ -98,6 +98,7 @@ elif 'CIVIWIKI_LOCAL' in os.environ and int(os.environ['CIVIWIKI_LOCAL']):
             'PASSWORD': 'changecivic2',
         },
     }
+    print 'Database: localhost '
 else:
     DATABASES = {
         'default': {
@@ -109,6 +110,7 @@ else:
             'PASSWORD': 'changecivic2',
         },
     }
+    print 'Database: EC2'
 
 LOGIN_URL = '/login'
 
