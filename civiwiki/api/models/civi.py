@@ -28,7 +28,7 @@ class Civi(models.Model):
     visits = models.IntegerField(default=0, null=True)
     type = models.CharField(max_length=2, default='I')#Possible values of I, C, or S for
     #issue, cause, and solution
-    refernce = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    reference = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     at = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     and_negative = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     and_positive = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
@@ -42,10 +42,10 @@ class Civi(models.Model):
             "topic": self.topic.topic,
             "type": self.type,
             "id": self.id,
-            "REF": self.REFERENCE_id,
-            "AT": self.AT_id,
-            "AND_NEGATIVE": self.AND_NEGATIVE_id,
-            "AND_POSITIVE": self.AND_POSITIVE_id
+            "REF": self.reference_id,
+            "AT": self.at_id,
+            "AND_NEGATIVE": self.and_negative_id,
+            "AND_POSITIVE": self.and_positive_id
 	    }
         return result
 
