@@ -47,8 +47,8 @@ def getTopics(request):
 	'''
 	category_id = request.POST.get('id', '')
 	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=int(category_id))]
-	import pdb; pdb.set_trace()
-	return JsonResponse(json.dumps(result), safe=False)
+
+	return JsonResponse({"result":result})
 
 def getUser(request):
 	'''

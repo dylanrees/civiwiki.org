@@ -32,7 +32,7 @@
 <script id="topics-template" type="text/template">
     <div class="db-list blue-right-border">
         <% _.each(topics, function(topic) { %>
-            <div class="db-list-item blue-text valign-wrapper" data-id="<%= topic.id %>">
+            <div class="db-list-item blue-text valign-wrapper topics-item" data-id="<%= topic.id %>">
                 <h6 class="valign"><%- topic.topic %></h6>
             </div>
         <% }); %>

@@ -1,3 +1,13 @@
+var TopicsCollection = Backbone.Collection.extend({
+
+    url: 'api/topics',
+
+    parse: function (data) {
+        return data.result;
+    }
+
+})
+
 var DatabaseView = Backbone.View.extend({
 
     el: '#dbview',
@@ -9,7 +19,7 @@ var DatabaseView = Backbone.View.extend({
         options = options || {};
 
         this.categories = options.categories;
-        this.topics = new Backbone.Collection();
+        this.topics = new TopicsCollection();
 
         this.windowHeight = $(window).height();
 
@@ -28,7 +38,6 @@ var DatabaseView = Backbone.View.extend({
         this.$el.find('.db-list').css({
             height: this.windowHeight
         });
-
     },
 
     events: {
@@ -40,18 +49,21 @@ var DatabaseView = Backbone.View.extend({
             $this = $(e.target).closest('.categories-item'),
             catId = $this.attr('data-id');
 
-        console.log(catId);
+        $this.siblings().removeClass('selected-category');
 
         this.topics.fetch({
-            url: 'api/topics',
             type: 'POST',
             data: {
                 id: parseInt(catId)
             },
             success: function () {
+                $this.addClass('selected-category');
+
                 _this.$el.find('.topics-holder').empty().append(_this.topicsTemplate({
                     topics: _this.topics.toJSON()
                 }));
+
+                _this.customCSS();
             }
         });
 
