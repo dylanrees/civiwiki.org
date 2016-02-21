@@ -25,7 +25,6 @@ urlpatterns = [
     url(r'^api/', include(urls_write)),
     url(r'^api/', include(urls_read)),
     url(r'^api/', include(urls_auth)),
-    url(r'^',include(urls_templates)),
 ]
 
 if settings.DEBUG:
@@ -37,3 +36,7 @@ if settings.DEBUG:
             'document_root': settings.MEDIA_ROOT, 'show_indexes': True
         }),
    ]
+
+urlpatterns += [
+    url(r'',include(urls_templates)),
+]

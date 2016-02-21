@@ -87,6 +87,18 @@ if 'RDS_DB_NAME' in os.environ:
             'PORT': os.enviorn['RDS_PORT']
         }
     }
+elif 'CIVIWIKI_LOCAL' in os.environ and int(os.environ['CIVIWIKI_LOCAL']):
+    DATABASES = {
+        'default': {
+            'HOST':'localhost',
+            'PORT': '5432',
+            'NAME': 'civiwiki_local',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'USER': 'civiwiki',
+            'PASSWORD': 'changecivic2',
+        },
+    }
+    print 'Database: localhost '
 else:
     DATABASES = {
         'default': {
@@ -98,6 +110,7 @@ else:
             'PASSWORD': 'changecivic2',
         },
     }
+    print 'Database: EC2'
 
 LOGIN_URL = '/login'
 

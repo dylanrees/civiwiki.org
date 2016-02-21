@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import datetime
 from django.conf import settings
 
 
@@ -20,7 +19,7 @@ class Migration(migrations.Migration):
                 ('first_name', models.CharField(default='', max_length=63)),
                 ('last_name', models.CharField(default='', max_length=63)),
                 ('email', models.CharField(unique=True, max_length=63)),
-                ('last_login', models.CharField(default=datetime.datetime(2016, 2, 16, 3, 36, 56, 603381), max_length=63)),
+                ('last_login', models.DateTimeField(auto_now=True)),
                 ('about_me', models.CharField(default='', max_length=511)),
                 ('valid', models.BooleanField(default=False)),
                 ('profile_image', models.CharField(max_length=255)),
@@ -71,7 +70,6 @@ class Migration(migrations.Migration):
                 ('AT', models.ForeignKey(related_name='AT_REL', default='', to='api.Civi', null=True)),
                 ('REFERENCE', models.ForeignKey(related_name='REFERENCE_REL', default='', to='api.Civi', null=True)),
                 ('article', models.ForeignKey(default=None, to='api.Article', null=True)),
-                ('author', models.ForeignKey(default=None, to='api.Account', null=True)),
             ],
         ),
         migrations.CreateModel(
@@ -94,6 +92,23 @@ class Migration(migrations.Migration):
                 ('votes_positive1', models.IntegerField(default=0, null=True)),
                 ('votes_positive2', models.IntegerField(default=0, null=True)),
             ],
+        ),
+        migrations.CreateModel(
+            name='Page',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(default='', max_length=63)),
+                ('body', models.TextField(max_length=4095)),
+                ('profile_image', models.CharField(max_length=255)),
+                ('cover_image', models.CharField(max_length=255)),
+                ('contributors', models.ManyToManyField(to='api.Account')),
+                ('owner', models.ForeignKey(related_name='page_owner', to='api.Account')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='civi',
+            name='author',
+            field=models.ForeignKey(default=None, to='api.Page', null=True),
         ),
         migrations.AddField(
             model_name='civi',
