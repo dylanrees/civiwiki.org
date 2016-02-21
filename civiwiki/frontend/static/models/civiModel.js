@@ -1,3 +1,3 @@
-var Civi = Backbone.Model.extend({
+var CiviModel = Backbone.Model.extend({
 
 });
