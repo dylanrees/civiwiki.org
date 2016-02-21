@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.db.models import Q
 from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag
-import sys, json, pdb, random, hashlib
+import sys, json, random, hashlib
 
 
 # Create your views here.
@@ -46,8 +46,9 @@ def getTopics(request):
 		Takes in a category ID, returns a list of results
 	'''
 	category_id = request.POST.get('id', '')
-	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=category_id)]
-	return JsonResponse({"result":result})
+	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=int(category_id))]
+	import pdb; pdb.set_trace()
+	return JsonResponse(json.dumps(result), safe=False)
 
 def getUser(request):
 	'''

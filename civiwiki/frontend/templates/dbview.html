@@ -20,22 +20,32 @@
 </script>
 
 <script id="categories-template" type="text/template">
-    <div class="db-list">
+    <div class="db-list purple-right-border">
         <% _.each(categories, function(cat) { %>
-            <div class="db-list-item" data-id="<%= cat.id %>">
-                <%- cat.name %>
+            <div class="db-list-item purple-text valign-wrapper categories-item" data-id="<%= cat.id %>">
+                <h6 class="valign"><%- cat.name %></h6>
+            </div>
+        <% }); %>
+    </div>
+</script>
+
+<script id="topics-template" type="text/template">
+    <div class="db-list blue-right-border">
+        <% _.each(topics, function(topic) { %>
+            <div class="db-list-item blue-text valign-wrapper" data-id="<%= topic.id %>">
+                <h6 class="valign"><%- topic.topic %></h6>
             </div>
         <% }); %>
     </div>
 </script>
 
 <body>
-    <div class="row">
+    <div class="row no-margins">
         <div id="dbview">
             <div class="col s3 categories-holder no-padding">
 
             </div>
-            <div class="col s3 topics-holder">
+            <div class="col s3 topics-holder no-padding">
 
             </div>
             <div class="col s3 issues-holder">
