@@ -37,7 +37,7 @@
         </nav>
 
         <!--LOGIN MODAL-->
-        <div id="login_modal" class="modal">
+        <!-- <div id="login_modal" class="modal">
             <div class="modal-content">
             <div class="login-form">
                     <h4 class="center-align">Login</h4>
@@ -62,7 +62,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!--MAIN PAGE OF HOME WITH WELCOME & REGISTER SECTION-->
         <div id="whole-container">
@@ -80,49 +80,92 @@
                     </div>
                 </div>
                 <div id="register-col">
-                    <!--REGISTER SECTION-->
-                    <div id="register-page">
-                    <h5 id="sign-up" class="center-align purple-text text-darken-4">Need an account? Register!</h5>
-                    <div id="register_section">
+                  <!--LOGIN ROW-->
+                  <div class="row login">
+                      <!--LOGIN CONTENT-->
+                      <div class="col s12">
+                          <form class="login-form">
+                              <div class="row login">
+                                  <div class="input-field col s12">
+                                      <div class="row login-margin">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">perm_identity</i>
+                                              <input id="username" type="text" class="validate">
+                                              <label for="username">Username</label>
+                                          </div>
+                                      </div>
+                                      <div class="row login-margin">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">lock_outline</i>
+                                              <input id="password" type="password" class="validate">
+                                              <label for="password">Password</label>
+                                          </div>
+                                      </div>
+                                      <div class="row login">
+                                          <div class="input-field col s12 m12 l12" id="remember-me-input">
+                                              <input type="checkbox" id="remember-me">
+                                              <label for="remember-me">Remember Me</label>
+                                          </div>
+                                      </div>
+                                      <div id="login-action-button" class="row login center-align">
+                                          <div class="col s12">
+                                              <div id="login-button" class="btn waves-effect waves-light custom-button blue-background center-align">Log In</div>
+                                          </div>
+                                      </div>
+                                      <div class="row register">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">label</i>
+                                              <input id="first-name" type="text" class="validate">
+                                              <label for="first-name">First Name</label>
+                                          </div>
+                                      </div>
+                                      <div class="row register">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">label_outline</i>
+                                              <input id="last-name" type="text" class="validate">
+                                              <label for="last-name">Last Name</label>
+                                          </div>
+                                      </div>
+                                      <div class="row register">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">email</i>
+                                              <input id="email" type="email" class="validate">
+                                              <label for="email">Email</label>
+                                          </div>
+                                      </div>
+                                      <div class="row register">
+                                          <div class="input-field col s12">
+                                              <i class="material-icons prefix">perm_contact_calendar</i>
+                                              <label for="bday">Birthday</label>
+                                              <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
+                                          </div>
+                                      </div>
+                                      <div id="register-action-button" class="row register center-align">
+                                          <div class="col s12">
+                                              <div id="register-button" class="center-align btn waves-effect waves-light custom-button blue-background">Register</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
 
-                        <div class="row container">
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">label</i>
-                            <input id="first-name" type="text" class="validate">
-                            <label for="first-name">First Name</label>
-                        </div>
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">label_outline</i>
-                            <input id="last-name" type="text" class="validate">
-                            <label for="last-name">Last Name</label>
-                        </div>
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">email</i>
-                            <input id="email" type="email" class="validate">
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">perm_contact_calendar</i>
-                            <label for="bday">Birthday</label>
-                            <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
-                        </div>
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">perm_identity</i>
-                            <input id="username-register" type="text" class="validate">
-                            <label for="username-register">Username</label>
-                        </div>
-                        <div class="input-field col s12 l10 offset-l1">
-                            <i class="material-icons prefix">lock_outline</i>
-                            <input id="password-register" type="password" class="validate">
-                            <label for="password-register">Password</label>
-                        </div>
-                    </div>
-                    <div id="register-action-button" class="row register center-align">
-                            <div class="col s12">
-                                <button id="register-button" class="btn waves-effect waves-light custom-button purple lighten-3 center-align">Register</button>
-                            </div>
-                    </div>
-                    </div>
+                      <!--BUTTONS TO SWITCH BETWEEN REGISTER/LOGIN VIEW-->
+                      <div class="row login">
+                          <div id="register-form-button">
+                              <div class="col2 push2 s12">
+                                  <button id="open-register-form-button" class="btn waves-effect waves-light custom-button blue-background">Not a member? Create an account!</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row register">
+                          <div id="signin-form-button">
+                              <div class="col2 push2 s12">
+                                  <button id="open-login-form-button" class="btn waves-effect waves-light custom-button blue-background">Already a user? Sign in!</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
