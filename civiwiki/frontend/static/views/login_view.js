@@ -13,26 +13,29 @@ var LoginView = Backbone.View.extend({
 
         this.$el.find('#beta-section').hide();
 
-        this.$el.find('#register-link').hide();
+        this.$el.find('#register').hide();
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
-            max: new Date()
+            max: new Date(),
+            formatSubmit: 'yyyy/mm/dd'
         });
     },
 
     events: {
-        "click #log-in-button": "logIn",
-        "click #register-button": "register",
-        "click #beta-submit-button" : "submitBeta" //function that will be used to see if beta-code matches
+        "click #login-button": "logIn",
+        "click #open-register-form-button": "openRegisterForm",
+        "click #open-login-form-button": "closeRegisterForm",
+        "click #register-button": "register"
+
     },
 
     logIn: function () {
         var _this = this;
 
         var username = this.$el.find('#username').val(),
+            remember = this.$el.find('#remember-me')[0].checked,
             password = this.$el.find('#password').val();
-
         if (username && password) {
 
             $.ajax({
@@ -40,34 +43,39 @@ var LoginView = Backbone.View.extend({
                 url: 'api/login',
                 data: {
                     username: username,
-                    password: password
+                    password: password,
+                    remember: remember,
                 },
                 success: function (data) {
                     if(data.status_code === 200){
-                        // Will only return ture if use is beta enabled.
-
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
-                        Materialize.toast(data.message);
-                    } else if (data.status_code === 401) {
-                      // Account is not beta verified.
-                        window.location.href = '/beta';
+                        Materialize.toast(data.error);
                     } else {
                         Materialize.toast('Internal Server Error.');
                     }
                 }
             });
 
-            this.$el.find('#welcome-container').hide();
-            this.$el.find('#register-link').show();
-            this.$el.find('#beta-section').show();
-
-            $('#login_modal').closeModal();
-
         } else {
-            Materialize.toast('Please input your username and password!', 3000);
+            Materialize.toast('Please input your email and password!', 3000);
         }
+    },
+
+    openRegisterForm: function() {
+        this.$el.find("#remember-me-input").slideUp();
+        this.$el.find("#login-action-button").slideUp();
+        this.$el.find("#register-form-button").hide();
+        this.$el.find(".register").slideDown();
+        this.$el.find("#signin-form-button").slideDown();
+    },
+
+    closeRegisterForm: function() {
+        this.$el.find("#remember-me-input").slideDown();
+        this.$el.find("#login-action-button").slideDown();
+        this.$el.find("#register-form-button").slideDown();
+        this.$el.find(".register").slideUp();
     },
 
     register: function () {
@@ -75,8 +83,8 @@ var LoginView = Backbone.View.extend({
         var _this = this;
 
         var email = this.$el.find('#email').val(),
-            username = this.$el.find('#username-register').val(),
-            password = this.$el.find('#password-register').val(),
+            username = this.$el.find('#username').val(),
+            password = this.$el.find('#password').val(),
             firstName = this.$el.find('#first-name').val(),
             lastName = this.$el.find('#last-name').val(),
             birthday = this.$el.find('#bday').val();
@@ -107,16 +115,14 @@ var LoginView = Backbone.View.extend({
                     } else if (data.status_code === 500) {
                         Materialize.toast('We already have a user with this email address!', 3000);
                     }
+                },
+                error: function(data){
+                  console.log(data);
                 }
-
             });
 
-            this.$el.find('#welcome-container').hide();
-            this.$el.find('#register-link').show();
-            this.$el.find('#beta-section').show();
-
         } else {
-            Materialize.toast('Please fill in all the fields!', 3000);
+            Materialize.toast('Please fill all the fields!', 3000);
         }
     },
 
@@ -140,11 +146,7 @@ var LoginView = Backbone.View.extend({
             }
         });
         return result;
-    },
-
-    submitBeta: function(){
-        //need to figure out how to check if beta-code is correct;
-    },
+    }
 
 });
 
