@@ -13,25 +13,33 @@
 <title>Sorry!</title>
 
 <script id="beta-template" type="text/template">
+
+
     <div id="beta-section" class="center">
         <h1>Sorry!</h1>
-        <p>If you were sent here by a member of CiviWiki contact them with the email address used to register!</p> 
+        <p>If you were sent here by a member of CiviWiki contact them with the email address used to register!</p>
         <p>Otherwise, please come back as soon as we advance to open beta!</p>
-        <div class="row container">
-            <div class="input-field col s12 l4 offset-l4">
-                <input id="beta-code" type="text" class="validate">
-                <label for="beta-code">Beta-Code</label>
-            </div>
-        </div>
-        <div class="row container">
-            <div class="col s12">
-                <button id="log-in-button" class="btn waves-effect waves-light custom-button purple lighten-3  center-align">Submit</button>
-            </div>
-        </div>
     </div>
 </script>
 
 <body>
+  <nav>
+      <div class="nav-wrapper deep-purple darken-1">
+          <a href="/login" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_logo_white_sm.png" %}"></a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+              {% if request.user.is_authenticated %}
+              <li><a href="#">WELCOME {{ request.user.username }}</a></li>
+              <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
+              <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+              <li><a href="/api/logout">LOGOUT</a></li>
+              {% else %}
+              <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
+              <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+              {% endif %}
+
+          </ul>
+      </div>
+  </nav>
     <div id="beta">
     </div>
 </body>

@@ -17,10 +17,18 @@ def beta_view(request):
 
 @login_required
 def home_view(request):
+
+	if not request.user.is_active:
+		return HttpResponseRedirect('/beta')
+
 	return TemplateResponse(request, 'home.html', {})
 
 @login_required
 def create_page(request):
+
+	if not request.user.is_active:
+		return HttpResponseRedirect('/beta')
+
 	return TemplateResponse(request, 'newpage.html', {})
 
 def does_not_exist(request):

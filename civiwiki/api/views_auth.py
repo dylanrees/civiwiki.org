@@ -45,6 +45,8 @@ def cw_register(request):
 	if email_unique and user_unique:
 		User.objects.create_user(username, email, password)
 		user = authenticate(username=username, password=password)
+		user.is_active = False
+		user.save()
 		account = Account(user=user, email=email, first_name=first_name, last_name=last_name)
 		account.save()
 		login(request, user)
