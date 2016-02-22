@@ -13,7 +13,8 @@ var LoginView = Backbone.View.extend({
 
         this.$el.find('#beta-section').hide();
 
-        this.$el.find('#register').hide();
+        this.$el.find('.register').hide();
+        this.$el.find('#signin-form-button').hide();
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
@@ -51,9 +52,9 @@ var LoginView = Backbone.View.extend({
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
-                        Materialize.toast(data.error);
+                        Materialize.toast(data.error, 2000);
                     } else {
-                        Materialize.toast('Internal Server Error.');
+                        Materialize.toast('Internal Server Error.', 2000);
                     }
                 }
             });
@@ -111,9 +112,10 @@ var LoginView = Backbone.View.extend({
                     if (data.status_code === 200) {
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
-
+                    } else if (data.status_code === 400) {
+                      Materialize.toast(data.message, 3000);
                     } else if (data.status_code === 500) {
-                        Materialize.toast('We already have a user with this email address!', 3000);
+                        Materialize.toast('Internal Server Error', 3000);
                     }
                 },
                 error: function(data){
