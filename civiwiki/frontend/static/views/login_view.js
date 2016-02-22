@@ -13,7 +13,7 @@ var LoginView = Backbone.View.extend({
 
         this.$el.find('#beta-section').hide();
 
-        this.$el.find('.register').hide();
+        this.$el.find('.register-slide').hide();
         this.$el.find('#signin-form-button').hide();
 
         this.$el.find('.datepicker').pickadate({
@@ -65,18 +65,13 @@ var LoginView = Backbone.View.extend({
     },
 
     openRegisterForm: function() {
-        this.$el.find("#remember-me-input").slideUp();
-        this.$el.find("#login-action-button").slideUp();
-        this.$el.find("#register-form-button").hide();
-        this.$el.find(".register").slideDown();
-        this.$el.find("#signin-form-button").slideDown();
+        this.$el.find(".login-slide").hide();
+        this.$el.find(".register-slide").slideDown();
     },
 
     closeRegisterForm: function() {
-        this.$el.find("#remember-me-input").slideDown();
-        this.$el.find("#login-action-button").slideDown();
-        this.$el.find("#register-form-button").slideDown();
-        this.$el.find(".register").slideUp();
+        this.$el.find(".register-slide").hide();
+        this.$el.find(".login-slide").slideDown();
     },
 
     register: function () {

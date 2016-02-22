@@ -35,38 +35,9 @@
             </div>
         </nav>
 
-        <!--LOGIN MODAL-->
-        <!-- <div id="login_modal" class="modal">
-            <div class="modal-content">
-            <div class="login-form">
-                    <h4 class="center-align">Login</h4>
-                    <div class="row container">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">perm_identity</i>
-                            <input id="username" type="text" class="validate">
-                            <label for="username">Username</label>
-                        </div>
-                    </div>
-                    <div class="row container">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">lock_outline</i>
-                            <input id="password" type="password" class="validate">
-                            <label for="password">Password</label>
-                        </div>
-                    </div>
-                    <div id="login-action-button" class="row login center-align">
-                        <div class="col s12">
-                            <button id="log-in-button" class="btn waves-effect waves-light custom-button purple lighten-3  center-align">Log In</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <!--MAIN PAGE OF HOME WITH WELCOME & REGISTER SECTION-->
-        <div id="whole-container">
-          <div id="welcome-container">
-              <div id="welcome-col">
+        <div id="whole-container" class="row">
+              <div id="welcome-col" class="col l6">
                   <!--WELCOME TO CIVIWIKI SECTION-->
                   <div class="welcome-section">
                       <div class="row container">
@@ -76,7 +47,7 @@
                       </div>
                   </div>
               </div>
-              <div id="register-col">
+              <div id="register-col" class="col l6">
                 <!--LOGIN ROW-->
                     <div class="row login">
                         <div class="input-field col s12">
@@ -95,12 +66,12 @@
                                 </div>
                             </div>
                             <div class="row login">
-                                <div class="input-field col s12 m12 l12" id="remember-me-input">
+                                <div class="input-field col s12 m12 l12 login-slide" id="remember-me-input">
                                     <input type="checkbox" id="remember-me">
                                     <label for="remember-me">Remember Me</label>
                                 </div>
                             </div>
-                            <div id="login-action-button" class="row login center-align">
+                            <div id="login-action-button" class="row login center-align login-slide">
                                 <div class="col l4">
                                     <div id="login-button" class=" btn waves-effect waves-light custom-button blue-background center-align">Log In</div>
                                 </div>
@@ -108,35 +79,35 @@
                                     <button id="open-register-form-button" class="btn waves-effect waves-light custom-button blue-background">Not a member?</button>
                                 </div>
                             </div>
-                            <div class="register">
+                            <div class="register-slide">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">label</i>
                                     <input id="first-name" type="text" class="validate">
                                     <label for="first-name">First Name</label>
                                 </div>
                             </div>
-                            <div class="register">
+                            <div class="register-slide">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">label_outline</i>
                                     <input id="last-name" type="text" class="validate">
                                     <label for="last-name">Last Name</label>
                                 </div>
                             </div>
-                            <div class="register">
+                            <div class="register-slide">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">email</i>
                                     <input id="email" type="email" class="validate">
                                     <label for="email">Email</label>
                                 </div>
                             </div>
-                            <div class="register">
+                            <div class="register-slide">
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix">perm_contact_calendar</i>
                                     <label for="bday">Birthday</label>
                                     <input placeholder="1 January, 1990" id="bday" type="date" class="datepicker">
                                 </div>
                             </div>
-                            <div id="register-action-button" class=" row register">
+                            <div id="register-action-button" class="row register-slide">
                                 <div class="col l4">
                                     <div id="register-button" class="center-align btn waves-effect waves-light custom-button blue-background">Register</div>
                                 </div>
@@ -148,8 +119,6 @@
                         </div>
                     </div>
                 </div>
-              </div>
-          </div>
 
         <div id="beta-section" class="center">
         <h1>Sorry!</h1>
