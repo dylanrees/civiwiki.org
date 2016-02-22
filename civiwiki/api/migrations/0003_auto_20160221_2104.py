@@ -81,7 +81,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='civi',
-            name='refernce',
+            name='reference',
             field=django.contrib.postgres.fields.ArrayField(default=[], size=None, base_field=models.CharField(max_length=127, null=True), blank=True),
         ),
     ]
