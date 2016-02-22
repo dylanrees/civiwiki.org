@@ -40,10 +40,19 @@
 </script>
 
 <script id="issues-template" type="text/template">
-    <div class="db-list issues-list">
+    <div class="col s6 db-list issues-list">
         <% _.each(issues, function(issue) { %>
-            <div class="db-list-item blue-text valign-wrapper issues-item" data-id="<%= issue.id %>">
-                <h6 class="valign"><%- issue.title %></h6>
+            <div class="issues-item" data-id="<%= issue.id %>">
+                <h6 class="orange-text"><%- issue.title %></h6>
+                <p class="gray-text"><%- issue.shortened %></p>
+            </div>
+        <% }); %>
+    </div>
+    <div class="col s6 db-list issues-list">
+        <% _.each(issuesSecond, function(issue) { %>
+            <div class="issues-item" data-id="<%= issue.id %>">
+                <h6 class="orange-text"><%- issue.title %></h6>
+                <p class="gray-text"><%- issue.shortened %></p>
             </div>
         <% }); %>
     </div>
@@ -58,7 +67,7 @@
             <div class="col s3 topics-holder no-padding">
 
             </div>
-            <div class="col s3 issues-holder no-padding">
+            <div class="col s6 issues-holder no-padding">
 
             </div>
         </div>

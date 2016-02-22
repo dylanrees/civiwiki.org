@@ -12,22 +12,22 @@ def topTen(request):
 		(the chain heads)
 	'''
 	topic_id = request.POST.get('id', 1)
-	civi = Civi.objects.filter(topic_id=topic_id, type='I')
-	c_tuples = sorted([
-		(c, c.rank()) for c in civi
-	], key=lambda c: c[1], reverse=True)
-
-	print c_tuples
-
-	result = [{
-		"title": c[0].title,
-		"body": c[0].body,
-		"author": c[0].author.username,
-		"visits": c[0].visits,
-		"topic": c[0].topic.topic,
-		"type": c[0].type,
-		"id": c[0].id
-	} for c in c_tuples]
+	result = [{'id': c.id, 'title': c.title, 'body': c.body, 'shortened': c.body[0:150]} for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
+	# c_tuples = sorted([
+	# 	(c, c.rank()) for c in civi
+	# ], key=lambda c: c[1], reverse=True)
+	#
+	# print c_tuples
+	#
+	# result = [{
+	# 	"title": c[0].title,
+	# 	"body": c[0].body,
+	# 	"author": c[0].author.username,
+	# 	"visits": c[0].visits,
+	# 	"topic": c[0].topic.topic,
+	# 	"type": c[0].type,
+	# 	"id": c[0].id
+	# } for c in c_tuples]
 
 	if len(result) > 10:
 		del result[10:]
