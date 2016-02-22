@@ -23,7 +23,7 @@ var LoginView = Backbone.View.extend({
 
     events: {
         "click #log-in-button": "logIn",
-        "click #register-button": "register", 
+        "click #register-button": "register",
         "click #beta-submit-button" : "submitBeta" //function that will be used to see if beta-code matches
     },
 
@@ -44,12 +44,15 @@ var LoginView = Backbone.View.extend({
                 },
                 success: function (data) {
                     if(data.status_code === 200){
-                        //would need to check if beta-code matches
+                        // Will only return ture if use is beta enabled.
 
-                        //window.location.href = _this.findURLParameter('next');
+                        window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
-                        Materialize.toast(data.error);
+                        Materialize.toast(data.message);
+                    } else if (data.status_code === 401) {
+                      // Account is not beta verified.
+                        window.location.href = '/beta';
                     } else {
                         Materialize.toast('Internal Server Error.');
                     }
@@ -137,11 +140,11 @@ var LoginView = Backbone.View.extend({
             }
         });
         return result;
-    }, 
+    },
 
     submitBeta: function(){
-        //need to figure out how to check if beta-code is correct; 
-    }, 
+        //need to figure out how to check if beta-code is correct;
+    },
 
 });
 

@@ -19,7 +19,7 @@ def cw_login(request):
 			return JsonResponse({'status_code': 200})
 		else:
 			# Return a 'disabled account' error message
-			return JsonResponse({'status_code': 400, 'error': 'inactive account'})
+			return JsonResponse({'status_code': 401, 'error': 'inactive account'})
 	else:
 	# Return an 'invalid login' error message.
 		return JsonResponse({'status_code': 400, 'error': 'invalid username / password combination'})
