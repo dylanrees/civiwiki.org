@@ -37,3 +37,6 @@ def does_not_exist(request):
 
 def support_us_view(request):
 	return TemplateResponse(request, 'supportus.html', {})
+
+def about_view(request):
+	return TemplateResponse(request, 'about.html', {})
