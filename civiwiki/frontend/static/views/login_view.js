@@ -83,14 +83,18 @@ var LoginView = Backbone.View.extend({
             password = this.$el.find('#password').val(),
             firstName = this.$el.find('#first-name').val(),
             lastName = this.$el.find('#last-name').val(),
-            birthday = this.$el.find('#bday').val();
+            birthday = this.$el.find('#bday').val(), 
+            address = this.$el.find('#address').val(), 
+            city = this.$el.find('#city').val(), 
+            state = this.$el.find('#state').val(), 
+            zip_code = this.$el.find('#zip-code').val();
 
         if (!this.calculateAge(birthday)) {
             Materialize.toast('Must be 13+ to join civiwiki.', 3000);
             return;
         }
 
-        if (email && password && firstName && lastName && username) {
+        if (email && password && firstName && lastName && username && address && city && state && zip_code) {
 
             $.ajax({
                 type: 'POST',
