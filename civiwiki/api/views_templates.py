@@ -31,6 +31,7 @@ def create_page(request):
 
 	return TemplateResponse(request, 'newpage.html', {})
 
+
 def does_not_exist(request):
 	return TemplateResponse(request, '404.html', {})
 
