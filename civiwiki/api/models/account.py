@@ -24,6 +24,12 @@ class Account(models.Model):
     civi_history = ArrayField(models.CharField(max_length=127, null=True), size=10, default=[], blank=True)
     friend_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     award_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    zip_code = models.CharField(max_length=6, null=True)
+    country = models.CharField(max_length=46, null=True)
+    state = models.CharField(max_length=63, null=True)
+    city = models.CharField(max_length=63, null=True)
+    address1 = models.CharField(max_length=255, null=True)
+    address2 = models.CharField(max_length=255, null=True)
 
     def retrieve(self, user):
         return self.find(user=user)[0]
