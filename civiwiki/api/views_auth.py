@@ -35,19 +35,32 @@ def cw_logout(request):
 	return HttpResponseRedirect('/')
 
 def cw_register(request):
-	username = request.POST.get('username', '')
-	password = request.POST.get('password', '')
-	email = request.POST.get('email', '')
-	first_name = request.POST.get('first_name', '')
-	last_name = request.POST.get('last_name', '')
-	email_unique = not User.objects.filter(email=email).exists()
-	user_unique = not User.objects.filter(username=username).exists()
+	account_data = {
+		"username": request.POST.get('username', '')
+		"password": request.POST.get('password', '')
+		"email":request.POST.get('email', '')
+		"first_name":request.POST.get('first_name', '')
+		"last_name":request.POST.get('last_name', '')
+		"zip_code":request.POST.get('zip_code', '')
+		"country":request.POST.get('country', 'USA')
+		"state":request.POST.get('state', '')
+		"city":request.POST.get('city', '')
+		"address1":request.POST.get('address1', '')
+		"address2":request.POST.get('address2', '')
+	}
+
+	email_unique = not User.objects.filter(email=account_data['email']).exists()
+	user_unique = not User.objects.filter(username=account_data['username']).exists()
 	if email_unique and user_unique:
+		username = account_data.pop('username')
+		email = account_data['email']
+		password = account_data.pop('password')
+
 		User.objects.create_user(username, email, password)
 		user = authenticate(username=username, password=password)
 		user.is_active = False
 		user.save()
-		account = Account(user=user, email=email, first_name=first_name, last_name=last_name)
+		account = Account(user=user, **account_data)
 		account.save()
 		login(request, user)
 		return JsonResponse({'status_code': 200})
