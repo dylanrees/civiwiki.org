@@ -1,0 +1,116 @@
+<!doctype html>
+
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
+<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
+<link type="text/css" rel="stylesheet/less" href="{% static "less/about.less" %}"/>
+<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<title>About Us</title>
+
+<script id="about-template" type="text/template">
+<div class="section grey lighten-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h1 class="grey-text text-darken-4">About Us</h1>
+                <div class="divider"></div>
+                <img class="main_img" src="{% static "img/civiwiki_about_tree.png" %}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m8 l10 offset-m2 offset-l1">
+                <h5 class="center grey-text text-darken-2">
+                  We are Civiwiki. Blah blah blah. Talk more about civiwiki here. Civiwiki is good. Civiwiki Is great. We should all use civiwiki. We all love civiwiki. Civiwiki is life. Live or die with civiwiki. Talk more do less. Civiwiki Civiwiki Civiwiki.
+              </h5>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section white">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h3 class="deep-purple-text">Our Mission</h3>
+                <div class="divider"></div>
+                <div class="col s12 m8 l10 offset-m2 offset-l1">
+                    <h5 class="center grey-text text-darken-2">
+                      Our mission is to take over the world with our platform. Yes, we will be able to infiltrate humankind and take control. Muhaha.
+                  </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section grey lighten-4">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 center">
+                <h3 class="deep-purple-text">The Team</h3>
+                <div class="divider"></div>
+                <p>
+                  Meet the team behind CiviWiki
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="section white">
+    <div class="container">
+        <div class="col s12 center">
+            <h3 class="deep-purple-text">Sponsors</h3>
+            <div class="divider"></div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <img class="sponsor_logos" src="{% static "img/logo_sponsor_gephardt.png" %}">
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="center grey-text">
+                        Gephardt Institute for Civic and Community Engagement
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <img class="sponsor_logos" src="{% static "img/logo_sponsor_skandalaris.png" %}">
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="center grey-text">
+                        The Skandalaris Center for Entrepreneurial Studies
+                    </h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <img class="sponsor_logos" src="{% static "img/logo_sponsor_gusf.png" %}">
+                </div>
+                <div class="col s12 m6 l6">
+                    <h5 class="center grey-text">
+                        The Greater University Service Foundation
+                    </h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</script>
+
+<body>
+    <div id="about">
+    </div>
+</body>
+
+<!-- Backbone Views File -->
+<script src="/static/views/about_view.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+});
+</script>
+</html>
