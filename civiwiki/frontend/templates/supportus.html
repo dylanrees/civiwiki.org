@@ -1,15 +1,9 @@
 <!doctype html>
 
 {% load staticfiles %}
-<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
 <link type="text/css" rel="stylesheet/less" href="{% static "less/supportus.less" %}"/>
 <link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
-<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% include "basics/links.html" %}
 
 <title>Support Us</title>
 
@@ -123,24 +117,7 @@
 
 <body>
 
-  <nav>
-      <div class="nav-wrapper deep-purple darken-1">
-          <a href="/login" class="brand-logo"><img id="logo_pic" src="{% static "img/civiwiki_logo_white_sm.png" %}"></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-              {% if request.user.is_authenticated %}
-              <li><a href="#">WELCOME {{ request.user.username }}</a></li>
-              <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
-              <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
-              <li><a href="/api/logout">LOGOUT</a></li>
-              {% else %}
-              <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
-              <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
-              <li><a href="/login">LOGIN</a></li>
-              {% endif %}
-
-          </ul>
-      </div>
-  </nav>
+    {% include "basics/nav.html" %}
 
     <div id="supportus">
     </div>

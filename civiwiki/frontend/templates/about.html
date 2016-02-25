@@ -1,15 +1,8 @@
 <!doctype html>
 
 {% load staticfiles %}
-<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
 <link type="text/css" rel="stylesheet/less" href="{% static "less/about.less" %}"/>
-<link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
-<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% include "basics/links.html" %}
 
 <title>About Us</title>
 
