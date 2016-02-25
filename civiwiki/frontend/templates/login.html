@@ -2,22 +2,18 @@
 
 <head>
     {% load staticfiles %}
-    <script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
     <link type="text/css" rel="stylesheet/less" href="{% static "less/login.less" %}"/>
     <link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
-    <script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% include "basics/links.html" %}
+
     <title>CiviWiki</title>
 </head>
 
 
 <script id="login-template" type="text/template">
 
-        {% include "nav.html" %}
+        {% include "basics/nav.html" %}
 
         <!--MAIN PAGE OF HOME WITH WELCOME & REGISTER SECTION-->
         <div id="whole-container" class="row">
