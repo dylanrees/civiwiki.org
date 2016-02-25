@@ -35,7 +35,6 @@ var LoginView = Backbone.View.extend({
         var _this = this;
 
         var username = this.$el.find('#username').val(),
-            remember = this.$el.find('#remember-me')[0].checked,
             password = this.$el.find('#password').val();
         if (username && password) {
 
@@ -44,8 +43,7 @@ var LoginView = Backbone.View.extend({
                 url: 'api/login',
                 data: {
                     username: username,
-                    password: password,
-                    remember: remember,
+                    password: password
                 },
                 success: function (data) {
                     if(data.status_code === 200){
