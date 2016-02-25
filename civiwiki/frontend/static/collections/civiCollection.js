@@ -10,16 +10,6 @@ var CiviCollection = Backbone.Collection.extend({
     },
 
     parse: function (data) {
-        // var civis = data.result;
-        //
-        // var civiModels;
-        //
-        // _.each(civis, function (civi) {
-        //     civiModels.push(new CiviModel(civi));
-        // });
-        //
-        // return civiModels;
-
         return data.result;
     }
 

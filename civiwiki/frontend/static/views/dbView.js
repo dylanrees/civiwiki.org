@@ -6,7 +6,7 @@ var TopicsCollection = Backbone.Collection.extend({
         return data.result;
     }
 
-})
+});
 
 var DatabaseView = Backbone.View.extend({
 
