@@ -1,1 +1,17 @@
-blah you're logged in.
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/home.less" %}"/>
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
+    {% include "basics/links.html" %}
+
+    <title>CiviWiki</title>
+</head>
+
+<body id="home">
+    {% include "basics/nav.html" %}
+
+    Home!
+
+</body>

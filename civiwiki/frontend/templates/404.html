@@ -1,1 +1,17 @@
-page does not exist.!
+<!doctype html>
+
+<head>
+    {% load staticfiles %}
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/404.less" %}"/>
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
+    {% include "basics/links.html" %}
+
+    <title>CiviWiki</title>
+</head>
+
+<body id="home">
+    {% include "basics/nav.html" %}
+
+    Page Does not exist!
+
+</body>

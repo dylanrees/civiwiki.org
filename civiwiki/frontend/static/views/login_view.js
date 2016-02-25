@@ -11,16 +11,20 @@ var LoginView = Backbone.View.extend({
     render: function() {
         this.$el.html(this.template());
 
-        this.$el.find('.register').hide();
+        this.$el.find('#beta-section').hide();
+
+        this.$el.find('.register-slide').hide();
+        this.$el.find('#signin-form-button').hide();
 
         this.$el.find('.datepicker').pickadate({
             selectYears: 116,
-            max: new Date()
+            max: new Date(),
+            formatSubmit: 'yyyy/mm/dd'
         });
     },
 
     events: {
-        "click #log-in-button": "logIn",
+        "click #login-button": "logIn",
         "click #open-register-form-button": "openRegisterForm",
         "click #open-login-form-button": "closeRegisterForm",
         "click #register-button": "register"
@@ -32,7 +36,6 @@ var LoginView = Backbone.View.extend({
 
         var username = this.$el.find('#username').val(),
             password = this.$el.find('#password').val();
-
         if (username && password) {
 
             $.ajax({
@@ -47,9 +50,9 @@ var LoginView = Backbone.View.extend({
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
                     } else if (data.status_code === 400) {
-                        Materialize.toast(data.error);
+                        Materialize.toast(data.error, 2000);
                     } else {
-                        Materialize.toast('Internal Server Error.');
+                        Materialize.toast('Internal Server Error.', 2000);
                     }
                 }
             });
@@ -60,13 +63,13 @@ var LoginView = Backbone.View.extend({
     },
 
     openRegisterForm: function() {
-        this.$el.find("#login-register-action-buttons").slideUp();
-        this.$el.find(".register").slideDown();
+        this.$el.find(".login-slide").hide();
+        this.$el.find(".register-slide").slideDown();
     },
 
     closeRegisterForm: function() {
-        this.$el.find("#login-register-action-buttons").slideDown();
-        this.$el.find(".register").slideUp();
+        this.$el.find(".register-slide").hide();
+        this.$el.find(".login-slide").slideDown();
     },
 
     register: function () {
@@ -102,10 +105,14 @@ var LoginView = Backbone.View.extend({
                     if (data.status_code === 200) {
                         window.location.href = _this.findURLParameter('next');
                         //goes home if no redirect specified else redirects.
-
+                    } else if (data.status_code === 400) {
+                      Materialize.toast(data.message, 3000);
                     } else if (data.status_code === 500) {
-                        Materialize.toast('We already have a user with this email address!', 3000);
+                        Materialize.toast('Internal Server Error', 3000);
                     }
+                },
+                error: function(data){
+                  console.log(data);
                 }
             });
 

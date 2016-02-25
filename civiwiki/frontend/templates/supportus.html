@@ -1,14 +1,9 @@
 <!doctype html>
 
 {% load staticfiles %}
-<script type="text/javascript" src="{% static "js/jquery-2.1.4.min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/underscore.js" %}"></script>
-<script type="text/javascript" src="{% static "js/backbone-min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-<link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}">
 <link type="text/css" rel="stylesheet/less" href="{% static "less/supportus.less" %}"/>
-<script src="{% static "js/less.min.js" type="text/javascript" %}"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
+{% include "basics/links.html" %}
 
 <title>Support Us</title>
 
@@ -24,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="parallax"><img src="{% static "img/supportus_main.jpg" %}"></div> <!-- TODO: Image NEEDS to be replaced -->
+        <div class="parallax"><img src="{% static "img/supportus_main.png" %}"></div> <!-- TODO: Image NEEDS to be replaced -->
      </div>
 
 
@@ -32,7 +27,7 @@
     <div class="support_message section deep-purple darken-1">
         <div class="row container">
           <h3 class="support_message_title header deep-purple-text text-lighten-5 center">Help us build better democracy for the internet age</h3>
-          <p class="support_message_text deep-purple-text text-lighten-3 center">CiviWiki is a non-profit organization working to breaks down the wall between politicians and their constituencies though an online communication platform which allows communities to discuss problems, discover solutions, and enact policy change. With your support we can build the tools necessary to educate citizens on the issues that matter and empower them to hold government accountable. Together we can build better democracy for the internet age.</p>
+          <p class="support_message_text deep-purple-text text-lighten-3 center">CiviWiki is a non-profit organization working to break down the wall between politicians and their constituencies though an online communication platform which allows communities to discuss problems, discover solutions, and enact policy change. With your support we can build the tools necessary to educate citizens on the issues that matter and empower them to hold government accountable. Together we can build better democracy for the internet age.</p>
         </div>
     </div>
 
@@ -121,6 +116,9 @@
 </script>
 
 <body>
+
+    {% include "basics/nav.html" %}
+
     <div id="supportus">
     </div>
 </body>
