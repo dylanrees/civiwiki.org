@@ -75,43 +75,6 @@ def getUser(request):
 				} for a in Account.objects.filter(username=username)]
 	return JsonResponse({"result":result})
 
-def addUser(request):
-	'''
-	takes in user information and adds it to the database
-	upload images as files in your post request
-	:param request:
-	:return: nothing
-	'''
-	username = request.POST.get('username', '')
-	password = request.POST.get('password', '')
-	user = Account()
-	user.first_name = request.POST.get('first_name', '')
-	user.last_name = request.POST.get('last_name', '')
-	user.email = request.POST.get('email', '')
-	user.username = username
-	user.about_me = request.POST.get('about_me', '')
-	user.password = password
-	user.profile_image = request.FILES.get('profile')
-	user.cover_image = request.FILES.get('cover')
-	#create user secret key
-	m = hashlib.md5()
-
-	user.friends = json.dumps(request.POST.get('friends', [])) #list of usernames
-	user.history = json.dumps(request.POST.get('history', [])) #list of civi's visited
-	user.awards = json.dumps(request.POST.get('awards', [])) #list of user awards
-
-
-	m.update("{username}{password}{int}".format(username=user.username, password=password, int=random.randint(0, sys.maxint)))
-	secret_key = m.hexdigest()
-	user.secret_key= secret_key
-	user.save()
-	try:
-		user.save()
-	except Exception as e:
-		return JsonResponse({'result': e})
-
-	return JsonResponse({'status': 200, 'result': user.secret_key})
-
 
 def linkCivis(request):
 

@@ -37,7 +37,7 @@ class Civi(models.Model):
         result = {
             "title": self.title,
             "body": self.body,
-            "author": self.author.username,
+            "author": self.author.title,
             "visits": self.visits,
             "topic": self.topic.topic,
             "type": self.type,

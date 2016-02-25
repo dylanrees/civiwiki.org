@@ -84,6 +84,29 @@ def addCivi(request):
 
 	return JsonResponse({'result': 'success'})
 
+def editUser(request):
+	'''
+	takes in user information and adds it to the database
+	upload images as files in your post request
+	:param request:
+	:return: nothing
+	'''
+	user = request.user
+	account = Account.objects.get(user=user)
+	data = {
+		"first_name":request.POST.get('first_name', account.first_name),
+		"last_name":request.POST.get('last_name', account.last_name),
+		"email":request.POST.get('email', account.email),
+		"about_me":request.POST.get('about_me', account.about_me),
+		"profile_image":request.FILES.get('profile', account.profile_image),
+		"cover_image":request.FILES.get('cover', account.cover_image)
+	}
+	try:
+		account.update(**data)
+		return JsonResponse({'status': 200})
+	except Exception as e:
+		return JsonResponse({'status': 500})
+
 def reportVote(request):
 	'''
 	reports a users vote on a given civi
