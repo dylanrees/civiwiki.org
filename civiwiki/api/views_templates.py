@@ -40,3 +40,7 @@ def support_us_view(request):
 
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
+
+# @login_required
+def accountDashboard(request):
+	return TemplateResponse(request, 'account_dashboard.html', {})

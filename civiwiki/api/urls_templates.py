@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^supportus', v.support_us_view, name='support us'),
     url(r'^beta', v.beta_view, name='beta'),
     url(r'^about', v.about_view, name='about'),
+    url(r'^account_dashboard$', v.accountDashboard, name='account_dashboard'),
     url(r'^$', v.home_view, name='home'),
     url(r'', v.does_not_exist, name='404')
 ]
