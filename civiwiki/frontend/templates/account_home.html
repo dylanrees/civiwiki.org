@@ -14,15 +14,19 @@
     <div class="base-template-inner">
         <div class="row">
             <div class="col s3">
-                <div class="user-name">
-                    <%- user.first_name %> <%- user.last_name %>
+                <div class="center-align">
+                    <span class="user-name">
+                        <%- user.first_name %> <%- user.last_name %>
+                    </span>
                 </div>
-                <div class="user-profile-pic">
-                    <img src="<%= user.profile_image %>">
+                <div class="center-align">
+                    <img class="user-profile-pic" src="<%= user.profile_image %>">
                 </div>
-                <div class="user-description">
-                    A little about me...
-                    <!-- <%- user.description %> -->
+                <div class="center-align">
+                    <span class="user-description">
+                        A little about me...
+                        <!-- <%- user.description %> -->
+                    </span>
                 </div>
             </div>
             <div class="col s9">
