@@ -21,12 +21,7 @@ var AccountBaseView = Backbone.View.extend({
         }));
     },
 
-
     events: {
-        'click .categories-item': 'clickCategory',
-        'click .topics-item': 'clickTopic'
     }
-
-
 
 });
