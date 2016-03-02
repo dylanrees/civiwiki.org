@@ -48,7 +48,7 @@ def getTopics(request):
 	category_id = request.POST.get('id', '')
 	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=category_id)]
 	return JsonResponse({"result":result})
-	
+
 def getUser(request):
 	'''
 	takes in username and responds with all user fields
@@ -58,23 +58,21 @@ def getUser(request):
 	:param request: with username
 	:return: user object
 	'''
-	username=request.POST.get('username', '')
 	result = [{'id':a.id,
-				'username':a.username,
-				'password': a.password,
 				'about_me': a.about_me,
 				'last_name':a.last_name,
 			   	'first_name':a.first_name,
 				'email':a.email,
-				'cover': a.cover_image.url,
-				'profile': a.profile_image.url,
+				'cover': a.cover_image,
+				'profile': a.profile_image,
 				'statistics': a.statistics,
-				'friends': a.friends,
-				'history': a.history,
-				'awards': a.awards,
+				'friends': a.friend_list,
+				'history': a.civi_history,
+				'pinned': a.civi_pins,
+				'awards': a.award_list,
 				'interests': a.interests,
-				'pages': a.pages
-				} for a in Account.objects.filter(username=username)]
+				'pages': [p.id for p in a.pages.all()]
+				} for a in Account.objects.filter(id=1)]
 	return JsonResponse({"result":result})
 
 def getCivi(request):

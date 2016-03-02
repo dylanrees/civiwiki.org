@@ -12,7 +12,9 @@ class Civi(models.Model):
     implementation but it simplifies things such as searching.
     '''
     objects = models.Manager()
-    author = models.ForeignKey('Page', default=None, null=True)
+    page = models.ForeignKey('Page', default=None, null=True)
+    creator = models.ForeignKey('Account', default=None, null=True)
+    category = models.ForeignKey('Category', default=None, null=True)
     topic = models.ForeignKey('Topic', default=None, null=True)
     hashtags = models.ManyToManyField(Hashtag)
 
