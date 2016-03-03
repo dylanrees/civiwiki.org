@@ -3,78 +3,26 @@ from django.db import models
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
-from civi import Civi
 
 # Create your models here.
-class AccountManager(models.Manager):
-
-    def serialize(self, account, filter=None):
-        data = {
-            "username": account.user.username,
-            "first_name": account.first_name,
-            "last_name": account.last_name,
-            "email": account.email,
-            "last_login": account.last_login,
-            "about_me": account.about_me,
-            "valid": account.valid,
-            "profile_image": account.profile_image,
-            "cover_image": account.cover_image,
-            "statistics": account.statistics,
-            "interests": account.interests,
-            "pins": [{'id':c.id, 'title':c.title} for c in Civi.objects.filter(pk__in=account.civi_pins)],
-            "history": [{'id':c.id, 'title':c.title} for c in Civi.objects.filter(pk__in=account.civi_history)],
-            "friend_requests": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in self.filter(pk__in=account.friend_requests)],
-            "awards": [award for a in account.award_list],
-            "zip_code": account.zip_code,
-            "country": account.country,
-            "state": account.state,
-            "city": account.city,
-            "country": account.country,
-            "address1": account.address1,
-            "address2": account.address2,
-            "pages": [{'name':page.title, 'id':page.id} for page in account.pages.all()],
-            "friends": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in account.friends.all()]
-        }
-        if filter and filter in data:
-            return {filter: data[filter]}
-        return data
-
-    def getObjects(self, account, attribute):
-        if attribute == "friends":
-            return [f for f in account.friends.all()]
-        elif attribute == "pages":
-            return [p for p in account.pages.all()]
-        elif attribute == "friend_requests":
-            return [f for f in account.objects.filter(pk_in=account.friend_requests)]
-        elif attribute == "history":
-            return [c for c in Civi.objects.filter(pk__in=account.civi_history)]
-        elif attribute == "pins":
-            return [c for c in Civi.objects.filter(pk__in=account.civi_pins)]
-        else:
-            return False
-
-    def retrieve(self, user):
-        return self.find(user=user)[0]
-
 class Account(models.Model):
     '''
     Holds meta information about an Account, not used to login.
     '''
-    objects = AccountManager()
+    objects = models.Manager()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=63, default='')
     last_name = models.CharField(max_length=63, default='')
     email = models.CharField(max_length=63, unique=True)
     last_login = models.DateTimeField(auto_now=True)
-    about_me = models.CharField(max_length=511, default='', null=True)
+    about_me = models.CharField(max_length=511, default='')
     valid = models.BooleanField(default=False)
-    profile_image = models.CharField(max_length=255, null=True)
-    cover_image = models.CharField(max_length=255, null=True)
+    profile_image = models.CharField(max_length=255)
+    cover_image = models.CharField(max_length=255)
     statistics = models.TextField(default='No statistics at this time.')
-    interests = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     civi_pins = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     civi_history = ArrayField(models.CharField(max_length=127, null=True), size=10, default=[], blank=True)
-    friend_requests = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
+    friend_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     award_list = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     zip_code = models.CharField(max_length=6, null=True)
     country = models.CharField(max_length=46, null=True)
@@ -82,5 +30,6 @@ class Account(models.Model):
     city = models.CharField(max_length=63, null=True)
     address1 = models.CharField(max_length=255, null=True)
     address2 = models.CharField(max_length=255, null=True)
-    pages = models.ManyToManyField('Page', related_name='user_pages')
-    friends = models.ManyToManyField('Account', related_name='friended_account')
+
+    def retrieve(self, user):
+        return self.find(user=user)[0]
