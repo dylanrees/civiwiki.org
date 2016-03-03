@@ -5,6 +5,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.db.models import Q
 from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Page
 import os, sys, json, pdb, random, hashlib
+from django.contrib.auth.decorators import login_required
 
 @login_required
 @require_post_params(params=['title', 'description'])
@@ -322,7 +323,7 @@ def followPage(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Page.objects.filter(id=request.POST.get('page', '').exists():
+	if Page.objects.filter(id=request.POST.get('page', '')).exists():
 		page = Page.objects.get(id=request.POST.get('page', ''))
 	else:
 		return HttpResponseBadRequest(reason="Invalid Page ID")
@@ -348,7 +349,7 @@ def unfollowPage(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Page.objects.filter(id=request.POST.get('page', '').exists():
+	if Page.objects.filter(id=request.POST.get('page', '')).exists():
 		page = Page.objects.get(id=request.POST.get('page', ''))
 	else:
 		return HttpResponseBadRequest(reason="Invalid Page ID")
