@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 from models import Account
-from django.http import JsonResponse, HttpResponse, HttpResponseServerError, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponse, HttpResponseServerError, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, logout, login
 from utils.custom_decorators import require_post_params

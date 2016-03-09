@@ -49,6 +49,7 @@ var LoginView = Backbone.View.extend({
                       window.location.href = _this.findURLParameter('next');
                 },
                 error: function (data) {
+                  
                   if (data.status === 400) {
                       Materialize.toast(data.statusText, 2000);
                   } else if(data.status === 500 && data.statusText == "inactive account"){
