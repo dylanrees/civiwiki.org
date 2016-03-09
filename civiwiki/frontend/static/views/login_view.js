@@ -46,14 +46,16 @@ var LoginView = Backbone.View.extend({
                     password: password
                 },
                 success: function (data) {
-                    if(data.status_code === 200){
-                        window.location.href = _this.findURLParameter('next');
-                        //goes home if no redirect specified else redirects.
-                    } else if (data.status_code === 400) {
-                        Materialize.toast(data.error, 2000);
-                    } else {
-                        Materialize.toast('Internal Server Error.', 2000);
-                    }
+                      window.location.href = _this.findURLParameter('next');
+                },
+                error: function (data) {
+                  if (data.status === 400) {
+                      Materialize.toast(data.statusText, 2000);
+                  } else if(data.status === 500 && data.statusText == "inactive account"){
+                      window.location.href = "beta";
+                  } else {
+                    Materialize.toast(data.statusText, 2000);
+                  }
                 }
             });
 

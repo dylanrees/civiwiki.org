@@ -13,7 +13,6 @@ def login_view(request):
 
 	return TemplateResponse(request, 'login.html', {})
 
-@login_required
 def beta_view(request):
 	return TemplateResponse(request, 'beta_blocker.html', {})
 
