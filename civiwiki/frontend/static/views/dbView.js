@@ -88,6 +88,7 @@ var DatabaseView = Backbone.View.extend({
 
         $this.siblings().removeClass('selected-topic');
 
+
         this.issues.fetch({
             type: 'POST',
             data: {
@@ -97,8 +98,12 @@ var DatabaseView = Backbone.View.extend({
                 $this.addClass('selected-topic');
 
                 _this.$el.find('.issues-holder').empty().append(_this.issuesTemplate({
-                    issues: _this.issues.toJSON().slice(0, 5),
-                    issuesSecond: _this.issues.toJSON().slice(5, 10)
+                    issues: _.reject(_this.issues.toJSON(), function(elem, i) {
+                      return i%2;
+                    }),
+                    issuesSecond: _.filter(_this.issues.toJSON(), function(elem, i) {
+                      return i%2;
+                    })
                 }));
 
                 _this.customCSS();

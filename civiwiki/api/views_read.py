@@ -11,8 +11,26 @@ def topTen(request):
 		Given an topic ID, returns the top ten Civis of type Issue
 		(the chain heads)
 	'''
+	try:
+                from functools import reduce
+        except ImportError:
+                pass
 	topic_id = request.POST.get('id', 1)
-	result = [{'id': c.id, 'title': c.title, 'body': c.body, 'shortened': c.body[0:150]} for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
+	result = [{'id': c.id, 'title': c.title, 'body': c.body, 'shortened': c.body[0:150],
+                   'visits':c.visits, 'author':c.creator, 'rank':c.rank(),
+                   'related-civis':len(c.and_positive), 'response-civis':len(c.and_negative),
+                   'linked-causes':len(c.at),
+                   'linked-solutions':len(reduce(lambda x,y: x|set(y),
+                                                 [child.at for child in c.at]))
+                   } for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
+
+        #Built this in case we are interested in causes linked to by all adjacent civis
+	#This would replace c.at in 'linked-causes'
+##        reduce(lambda x,y: x|y,
+##                      [reduce(lambda x,y: x|set(y),
+##                              [[cause for cause in Civi.objects.filter(id=child.id)] for child in current])
+##                              for curent in [c.at,
+##                                             reduce(lambda x,y: x+y, c.and_positive.at)]])          
 	# c_tuples = sorted([
 	# 	(c, c.rank()) for c in civi
 	# ], key=lambda c: c[1], reverse=True)

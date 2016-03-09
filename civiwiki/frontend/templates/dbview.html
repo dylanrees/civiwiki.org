@@ -42,17 +42,39 @@
 <script id="issues-template" type="text/template">
     <div class="col s6 db-list issues-list">
         <% _.each(issues, function(issue) { %>
-            <div class="issues-item" data-id="<%= issue.id %>">
-                <h6 class="orange-text"><%- issue.title %></h6>
-                <p class="gray-text"><%- issue.shortened %></p>
+            <div class="issues-item card" data-id="<%= issue.id %>">
+                <div class="card-content">
+                    <span class="card-title"><%- issue.title %></span>
+                    <p class="gray-text"><%- issue.shortened %></p>
+                    <br>
+                    <hr>
+                    <p class="black">Visits: <%- issue.visits%>  Ranking: <%-issue.rank%></p>
+                    <p class="black">Related: <%- issue.related-civis%>  Responses: <%-issue.response-civis%></p>
+                    <p class="black">Causes: <%- issue.linked-causes%>  Solutions: <%-issue.linked-solutions%></p>
+                    <p class="black">Author: <%- issue.author%></p>
+                </div>
+                <div class="card-action">
+                    <a href="#" class="issues-item-link">View Civi</a>
+                </div>
             </div>
         <% }); %>
     </div>
     <div class="col s6 db-list issues-list">
         <% _.each(issuesSecond, function(issue) { %>
-            <div class="issues-item" data-id="<%= issue.id %>">
-                <h6 class="orange-text"><%- issue.title %></h6>
-                <p class="gray-text"><%- issue.shortened %></p>
+            <div class="issues-item card" data-id="<%= issue.id %>">
+                <div class="card-content">
+                    <span class="card-title"><%- issue.title %></span>
+                    <p class="gray-text"><%- issue.shortened %></p>
+                    <br>
+                    <hr>
+                    <p class="black">Visits: <%- issue.visits%>  Ranking: <%-issue.rank%></p>
+                    <p class="black">Related: <%- issue.related-civis%>  Responses: <%-issue.response-civis%></p>
+                    <p class="black">Causes: <%- issue.linked-causes%>  Solutions: <%-issue.linked-solutions%></p>
+                    <p class="black">Author: <%- issue.author%></p>
+                </div>
+                <div class="card-action">
+                    <a href="#" class="issues-item-link">View Civi</a>
+                </div>
             </div>
         <% }); %>
     </div>
