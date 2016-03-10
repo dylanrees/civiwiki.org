@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
-from models import Category
+
+from models import Account, Category
 import json
 
 def login_view(request):
@@ -13,7 +14,6 @@ def login_view(request):
 
 	return TemplateResponse(request, 'login.html', {})
 
-@login_required
 def beta_view(request):
 	return TemplateResponse(request, 'beta_blocker.html', {})
 
@@ -47,3 +47,7 @@ def dbview(request):
 	
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
+
+def account_home(request):
+	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
+	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})

@@ -2,12 +2,12 @@
 
 {% load staticfiles %}
 <link type="text/css" rel="stylesheet/less" href="{% static "less/supportus.less" %}"/>
-<link type="text/css" rel="stylesheet/less" href="{% static "less/header.less" %}"/>
 {% include "basics/links.html" %}
 
 <title>Support Us</title>
 
 <script id="supportus-template" type="text/template">
+    {% include "basics/nav.html" %}
     <!-- Main Picture and title using Parallax -->
     <div class="parallax-container">
         <div class="section">
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="parallax"><img src="{% static "img/supportus_main.png" %}"></div> <!-- TODO: Image NEEDS to be replaced -->
-     </div>
+    </div>
 
 
     <!-- Main Donation Message -->
@@ -116,9 +116,6 @@
 </script>
 
 <body>
-
-    {% include "basics/nav.html" %}
-
     <div id="supportus">
     </div>
 </body>

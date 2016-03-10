@@ -1,11 +1,11 @@
+import os, sys, json, pdb, random, hashlib
+from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Page
+from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from utils.custom_decorators import require_post_params
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.conf import settings
-from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from django.db.models import Q
-from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Page
-import os, sys, json, pdb, random, hashlib
-from django.contrib.auth.decorators import login_required
 
 @login_required
 @require_post_params(params=['title', 'description'])
@@ -63,7 +63,6 @@ def createPage(request):
 		return JsonResponse({'id':page.id})
 	except Exception as e:
 		return HttpResponseServerError(reason=e)
-
 
 @login_required
 @require_post_params(params=['page', 'creator', 'topic', 'category', 'title', 'body', 'type'])
@@ -123,7 +122,6 @@ def createCivi(request):
 		return HttpResponse()
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
-
 
 @login_required
 def editUser(request):
@@ -359,31 +357,3 @@ def unfollowPage(request):
 		return JsonResponse(Account.objects.serialize(account, "pages"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
-
-
-# def reportVote(request):
-# 	'''
-# 	reports a users vote on a given civi
-# 	:param request:
-# 	:return:
-# 	'''
-# 	civi_id = int(request.POST.get('civi_id', ''))
-# 	vote = int(request.POST.get('vote', ''))
-# 	civi = Civi.objects.get(id=civi_id)
-# 	civi.visits += 1
-# 	if(vote == -2):
-# 		civi.votes_negative2 += 1
-# 	elif(vote == -1):
-# 		civi.votes_negative1 += 1
-# 	elif(vote == 0):
-# 		civi.votes_neutral += 1
-# 	elif(vote == 1):
-# 		civi.votes_positive1 += 1
-# 	elif(vote == 2):
-# 		civi.votes_positive2 += 1
-# 	else:
-# 		return HttpResponseBadRequest(reason='invalid vote')
-#
-# 	civi.save()
-#
-# 	return HttpResponse()
