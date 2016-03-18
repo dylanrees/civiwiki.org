@@ -44,5 +44,6 @@ def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
 
 def account_home(request):
+	#import pdb; pdb.set_trace()
 	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
 	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})
