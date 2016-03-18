@@ -1,6 +1,6 @@
 var interest_views = Backbone.Collection.extend({
 
-    url: 'api/categories',
+    url: '/api/categories',
 
     parse: function (data) {
         return data.result;
@@ -37,9 +37,15 @@ var AccountBaseView = Backbone.View.extend({
     getInterests: function(){
         console.log("heythere");
             this.interests.fetch({ 
-            success: function () {
-                console.log("success");
-                console.log(this.interest.length);
+            success: function (collection, response) {
+                this.interests = collection;
+                console.log(this.interests.length);
+                console.log(this);
+                //debugger;
+
+                _.each(this.interests.models,function(someThing){
+                    console.log(someThing.attributes.name);
+                });
             }
         });
         console.log("yolo");
