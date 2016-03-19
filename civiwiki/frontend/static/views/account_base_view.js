@@ -17,11 +17,33 @@ var AccountBaseView = Backbone.View.extend({
         var _this = this;
 
         _this.$el.empty().append(_this.baseTemplate({
-            user: _this.userModel.toJSON()
+            user: _this.userModel.toJSON(), 
         }));
+
     },
 
     events: {
-    }
+        "click #friends_tab": "getFriends"
+    },
 
+    getFriends: function(){
+        var _this = this; 
+
+        var user_id = _this.userModel.get('user_id');
+        console.log(user_id);
+
+        $.ajax({
+            type: 'POST', 
+            url: 'api/getFriends', 
+            data: {
+                user_id: user_id
+            }, 
+            success: function(data){
+                //list friends 
+            }
+        });
+    }
+    getFriendRequests: function(){
+        
+    }
 });
