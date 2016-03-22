@@ -20,30 +20,46 @@ var AccountBaseView = Backbone.View.extend({
             user: _this.userModel.toJSON(), 
         }));
 
+        _this.getFriends(); 
+
+
     },
 
     events: {
-        "click #friends_tab": "getFriends"
     },
 
+    //grabs friends by passing in user_id and making a new avatar for each friend
     getFriends: function(){
         var _this = this; 
 
         var user_id = _this.userModel.get('user_id');
-        console.log(user_id);
 
-        $.ajax({
-            type: 'POST', 
-            url: 'api/getFriends', 
-            data: {
-                user_id: user_id
-            }, 
-            success: function(data){
-                //list friends 
-            }
+        //ajax call takes in user_id and returns 
+        // $.ajax({
+        //     type: 'POST', 
+        //     url: 'api/getFriends', 
+        //     data: {
+        //         user_id: user_id
+        //     }, 
+        //     success: function(data){
+        //         _.each(data, function(friend){
+        //             _.each(friend, function(name, n){
+        //                 $('.friends').append('<li class="collection-item avatar"><span class="title">'+name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+        //             });
+        //         });
+        //     }
+        // });
+
+        var data = [{name: 'Mitchell'}, {name: 'Dan'}, {name: 'Darius'}];
+
+        _.each(data, function(friend){
+            _.each(friend, function(name, n){
+                $('.friends').append('<li class="collection-item avatar"><span class="title">'+name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+            });
         });
     }
-    getFriendRequests: function(){
+    // getFriendRequests: function(){
+    //     var _this = this; 
         
-    }
+    // }
 });
