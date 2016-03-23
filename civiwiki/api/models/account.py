@@ -84,3 +84,5 @@ class Account(models.Model):
     address2 = models.CharField(max_length=255, null=True)
     pages = models.ManyToManyField('Page', related_name='user_pages')
     friends = models.ManyToManyField('Account', related_name='friended_account')
+
+    
