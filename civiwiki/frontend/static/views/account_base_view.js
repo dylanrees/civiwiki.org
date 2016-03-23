@@ -1,27 +1,36 @@
 var AccountBaseView = Backbone.View.extend({
 
     el: '#account-base',
-
     baseTemplate: _.template($('#base-template').html()),
 
+
     initialize: function (options) {
-        var _this = this;
-
         options = options || {};
-        _this.userModel = options.userModel;
+        this.userModel = options.userModel;
+        this.render();
 
-        _this.render();
+        //Child Views
+        this.groupsTab = new GroupsListView();
+        this.subRender();
     },
 
     render: function () {
-        var _this = this;
-
-        _this.$el.empty().append(_this.baseTemplate({
-            user: _this.userModel.toJSON()
+        this.$el.empty().append(this.baseTemplate({
+            user: this.userModel.toJSON()
         }));
     },
 
+    // Render Child Views
+    subRender: function () {
+        this.$('.groups').append(this.groupsTab.render());
+    },
+
     events: {
-    }
+    },
+
+
+
+
+
 
 });

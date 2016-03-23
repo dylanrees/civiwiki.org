@@ -31,11 +31,11 @@
             </div>
             <div class="col s9">
                 <ul class="tabs purple-text">
-                    <li class="tab col s3"><a class="active purple-text" href="#following">Following</a></li>
-                    <li class="tab col s3"><a class="purple-text" href="#friends">Friends</a></li>
-                    <li class="tab col s3"><a class="purple-text" href="#interests">Interests</a></li>
-                    <li class="tab col s3"><a class="purple-text" href="#groups">Groups</a></li>
-                    <li class="tab col s3"><a class="purple-text" href="#user_data">Your Account</a></li>
+                    <li class="tab col s3"><a class="active purple-text" id="following-tab" href="#following">Following</a></li>
+                    <li class="tab col s3"><a class="purple-text" id="friends-tab" href="#friends">Friends</a></li>
+                    <li class="tab col s3"><a class="purple-text" id="interests-tab" href="#interests">Interests</a></li>
+                    <li class="tab col s3"><a class="purple-text" id="groups-tab" href="#groups">Groups</a></li>
+                    <li class="tab col s3"><a class="purple-text" id="userdata-tab" href="#user_data">Your Account</a></li>
                     <div class="indicator purple-background" style="z-index:1"></div>
                 </ul>
             </div>
@@ -64,6 +64,7 @@
 </body>
 
 <!-- Backbone Views File -->
+<script src="/static/views/groups_list_view.js" type="text/javascript"></script>
 <script src="/static/views/account_base_view.js" type="text/javascript"></script>
 
 <script>
