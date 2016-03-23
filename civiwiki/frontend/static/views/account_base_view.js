@@ -21,7 +21,7 @@ var AccountBaseView = Backbone.View.extend({
         }));
 
         _this.getFriends(); 
-
+        _this.magicSuggestFriends();
 
     },
 
@@ -41,27 +41,48 @@ var AccountBaseView = Backbone.View.extend({
         //         user_id: user_id
         //     }, 
         //     success: function(data){
-        //         _.each(data, function(friend){
-        //             _.each(friend, function(name, n){
-        //                 $('.friends').append('<li class="collection-item avatar"><span class="title">'+name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
-        //             });
-        //         });
+                // var friend_data = JSON.parse(data);
+        
+                // _.each(friend_data, function(friend){
+                //     //is there a better way of appending? 
+                //     $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend['name']+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+                // });
         //     }
         // });
     
 
         //temporary data for now 
-        var data = [{name: 'Mitchell'}, {name: 'Dan'}, {name: 'Darius'}];
-
-        _.each(data, function(friend){
-            _.each(friend, function(name, n){
-                //is there a better way of appending? 
-                $('.friends').append('<li class="collection-item avatar"><img class="circle" src="{% static "img/team_profile/team_default.png" %}"><span class="title">'+name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
-            });
-        });
-    }
-    // getFriendRequests: function(){
-    //     var _this = this; 
+        var data = JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Grace', s: 'd'}]);
+        var friend_data = JSON.parse(data);
         
-    // }
+        _.each(friend_data, function(friend){
+            $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend.name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+        });
+
+
+    },
+    magicSuggestFriends: function(){
+        var _this = this; 
+
+        var friend_data = [{name: 'Mitchell'}, {name: 'Dan'}, {name: 'Darius'}, {name: 'Grace'}];
+        $('#friend-requests').magicSuggest({
+            placeholder: 'Search...',
+            data: friend_data
+            // data: function(request, response){
+
+            //     $.ajax({
+            //         type: 'POST', 
+            //         url: 'api/queryFriends', 
+            //         data: {
+            //             user_id: user_id
+            //         }, 
+            //         success:function(data){
+            //             response(data);
+            //         }
+            //     });
+
+            // }
+        });
+        
+    }
 });

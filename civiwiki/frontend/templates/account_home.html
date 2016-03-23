@@ -2,8 +2,7 @@
 
 <head>
     {% load staticfiles %}
-    <link type="text/css" rel="stylesheet/less" href="{% static "less/account_base.less" %}"/>
-
+    <link type="text/css" rel="stylesheet/less" href="{% static "less/account_base.less" %}"/> 
     {% include "basics/links.html" %}
 
     <title>CiviWiki</title>
@@ -43,10 +42,10 @@
 
             </div>
             <div id="friends" class="col s9">
-                <div class="container">
-                <ul class="collection friends">
-                </ul>
-                <h4>Friend Requests</h4>
+                <ul class="collection friends"></ul>
+                <div class="form-group">
+                    <label>Friend Requests</label>
+                    <input class="form-control" id="friend-requests">
                 </div>
             </div>
             <div id="interests" class="col s9">
