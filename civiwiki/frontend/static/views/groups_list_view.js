@@ -3,23 +3,27 @@ var GroupsListView = Backbone.View.extend({
     el: '#groups',
 
     initialize: function (options) {
+        var _this = this;
+
         options = options || {};
-        this.userModel = options.userModel;
-        this.render();
+        _this.userModel = options.userModel;
+        _this.render();
     },
 
     render: function () {
+        var _this = this;
         // Sample Group Data
-        this.renderSampleGroups();
+        _this.renderSampleGroups();
 
         // To Render User Group Data
-        //_this.renderUserGroups();
+        //__this.renderUserGroups();
     },
 
     events: {
     },
 
     renderSampleGroups: function(){
+        var _this = this;
         // Sample Data
         var sample_data = JSON.stringify([
             {name: 'Group to protect Wild Life in Missouri Parks', description: 'We must protect nature!'},
@@ -30,7 +34,7 @@ var GroupsListView = Backbone.View.extend({
         var group_data = JSON.parse(sample_data);
 
         // Collection Wrapper
-        this.$el.empty().append('<ul class="collection collection_groups"></ul>');
+        _this.$el.empty().append('<ul class="collection collection_groups"></ul>');
 
         // Add Elements to the collection
         _.each(group_data, function(group){
@@ -44,6 +48,7 @@ var GroupsListView = Backbone.View.extend({
     },
 
     renderUserGroups: function(){
+        var _this = this;
         // TODO: Finish up render function once backend is set
         // Get Data from User
         // Ajax request
