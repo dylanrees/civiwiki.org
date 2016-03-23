@@ -47,7 +47,7 @@ var AccountBaseView = Backbone.View.extend({
         
                 // _.each(friend_data, function(friend){
                 //     //is there a better way of appending? 
-                //     $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend['name']+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+                //     $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend.name+'</span>');
                 // });
         //     }
         // });
@@ -89,8 +89,6 @@ var AccountBaseView = Backbone.View.extend({
 
             // }
         });
-
-        //get inputs and then send friend requests to chosen people
         
     }
 });
