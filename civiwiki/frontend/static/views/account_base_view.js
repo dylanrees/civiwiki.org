@@ -34,6 +34,8 @@ var AccountBaseView = Backbone.View.extend({
 
         var user_id = _this.userModel.get('user_id');
 
+        /*when api call is finished replace code with following ajax*/
+
         // $.ajax({
         //     type: 'POST', 
         //     url: 'api/getFriends', 
@@ -52,11 +54,11 @@ var AccountBaseView = Backbone.View.extend({
     
 
         //temporary data for now 
-        var data = JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Grace', s: 'd'}]);
+        var data = JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]);
         var friend_data = JSON.parse(data);
         
         _.each(friend_data, function(friend){
-            $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend.name+'</span><a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>');
+            $('.friends').append('<li class="collection-item avatar"><img class="circle" src="/static/img/team_profile/team_default.png"><span class="title">'+friend.name+'</span></a>');
         });
 
 
@@ -64,11 +66,15 @@ var AccountBaseView = Backbone.View.extend({
     magicSuggestFriends: function(){
         var _this = this; 
 
-        var friend_data = [{name: 'Mitchell'}, {name: 'Dan'}, {name: 'Darius'}, {name: 'Grace'}];
+        //temporary data for now 
+        var friend_data = [{name: 'Mitchell'}, {name: 'Dan'}, {name: 'Darius'}, {name: 'Joohee'}];
+
         $('#friend-requests').magicSuggest({
             placeholder: 'Search...',
             data: friend_data
-            // data: function(request, response){
+
+            /*replace with this code when api call is finished*/
+            // data: function(){
 
             //     $.ajax({
             //         type: 'POST', 
@@ -77,12 +83,14 @@ var AccountBaseView = Backbone.View.extend({
             //             user_id: user_id
             //         }, 
             //         success:function(data){
-            //             response(data);
+            //             return;
             //         }
             //     });
 
             // }
         });
+
+        //get inputs and then send friend requests to chosen people
         
     }
 });
