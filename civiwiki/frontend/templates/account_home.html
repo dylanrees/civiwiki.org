@@ -16,7 +16,7 @@
             <div class="col s3">
                 <div class="center-align">
                     <span class="user-name">
-                        <%- user.first_name %> <%- user.last_name %>
+                        <%- user.q %> <%- user.last_name %>
                     </span>
                 </div>
                 <div class="center-align">
@@ -57,6 +57,24 @@
         </div>
     </div>
 </script>
+
+<script id="groups-template" type="text/template">
+    <div class="container section">
+        <h3><%- user %></h3>
+        <ul class="collection collection_groups">
+        <% _.each(groups, function(group) { %>
+            <li class="collection-item avatar">
+                <img class="circle" src="/static/img/team_profile/team_default.png">
+                <span class="title"><%- group.name %></span>';
+                <p class="light grey-text"><%- group.description %></p>
+                <!-- <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a> -->
+            </li>
+        <% }); %>
+        </ul>
+    </div>
+</script>
+
+
 
 <body>
     <div id="account-base">
