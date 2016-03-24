@@ -58,7 +58,53 @@
     </div>
 </script>
 <script id="interest-tab-template" type="text/template">
-    <div> hello there </div>
+    {% include "basics/nav.html" %}
+    <div class="base-template-inner">
+        <div class="row">
+            <div class="col s3">
+                <div class="center-align">
+                    <span class="user-name">
+                        <%- user.first_name %> <%- user.last_name %>
+                    </span>
+                </div>
+                <div class="center-align">
+                    <img class="user-profile-pic" src="<%= user.profile_image %>">
+                </div>
+                <div class="center-align">
+                    <span class="user-description">
+                        A little about me...
+                        <!-- <%- user.description %> -->
+                    </span>
+                </div>
+            </div>
+            <div class="col s9">
+                <ul class="tabs purple-text">
+                    <li class="tab col s3"><a class="purple-text" href="#following">Following</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#friends">Friends</a></li>
+                    <li class="tab col s3 interests"><a class="purple-text active" href="#interests">Interests</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#groups">Groups</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#user_data">Your Account</a></li>
+                    <div class="indicator purple-background" style="z-index:1"></div>
+                </ul>
+            </div>
+            <div id="following" class="col s9">
+
+            </div>
+            <div id="friends" class="col s9">
+
+            </div>
+            <div id="interests" class="col s9">
+
+            </div>
+            <div id="groups" class="col s9">
+
+            </div>
+            <div id="user_data" class="col s9">
+
+            </div>
+        </div>
+    </div>
+
 </script>
 
 <body>
