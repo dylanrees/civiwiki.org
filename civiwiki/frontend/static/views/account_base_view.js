@@ -21,7 +21,6 @@ var AccountBaseView = Backbone.View.extend({
     initialize: function (options) {
         var _this = this;
         this.interests = new interest_views();
-
         options = options || {};
         _this.userModel = options.userModel;
         _this.render();
@@ -30,33 +29,31 @@ var AccountBaseView = Backbone.View.extend({
 
     },
 
-    events: {
-
+    render: function () {
+        var _this = this;
+        _this.$el.empty().append(_this.baseTemplate({
+            user: _this.userModel.toJSON()
+        }));
+        this.getInterests();
+        
     },
 
     getInterests: function(){
-        var _this = this;               
+                var _this = this;
+
             this.interests.fetch({ 
             success: function (collection, response) {
                 this.interests = collection;
-             
-
+                console.log("hey");
+                _this.$el.find('#interests').empty().append(_this.interestTemplate({
+                    interest: this.interests.toJSON()
+                }));
             }
         });
     },
 
 
 
-    render: function () {
-
-        var _this = this;
-        _this.$el.empty().append(_this.baseTemplate({
-            user: _this.userModel.toJSON()
-        }));
-        this.$el.find('#interests').empty().append(this.interest-tab-template({}));
-
-        
-    }
 });
 var temp =  new Backbone.Model();
 var account_base_view = new AccountBaseView({userModel : temp});
