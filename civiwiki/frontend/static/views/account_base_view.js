@@ -31,6 +31,8 @@ var AccountBaseView = Backbone.View.extend({
 
     render: function () {
         var _this = this;
+        console.log(Object.prototype.toString.call(_this.userModel.toJSON().interests) + " hey");
+
         _this.$el.empty().append(_this.baseTemplate({
             user: _this.userModel.toJSON()
         }));
@@ -44,18 +46,51 @@ var AccountBaseView = Backbone.View.extend({
             this.interests.fetch({ 
             success: function (collection, response) {
                 this.interests = collection;
-                console.log("hey");
                 _this.$el.find('#interests').empty().append(_this.interestTemplate({
-                    interest: this.interests.toJSON()
+                    interest: this.interests.toJSON(),
+                    user: _this.userModel.toJSON()
+
                 }));
             }
         });
     },
+        events: {
+        'click .followInterest': 'editFollowInterest',
+    },
 
+    editFollowInterest: function(event){
+        console.log("hey we got here");
+        var _this = this;
+        debugger;
+            $.ajax({
+                type: 'POST',
+                url: 'api/register',
+                data: {
+                    email: email,
+                    username: username,
+                    password: password,
+                    first_name: firstName,
+                    last_name: lastName,
+                    birthday: birthday
+                },
+                success: function (data) {
+                    
+                },
+                error: function(data){
+
+                }
+            });
+
+    }
 
 
 });
 var temp =  new Backbone.Model();
 var account_base_view = new AccountBaseView({userModel : temp});
 
+function editInterest(intElement){
+    debugger;
+    $(element).toggleClass('mynewclass');
+    alert($(element));
+}
     
