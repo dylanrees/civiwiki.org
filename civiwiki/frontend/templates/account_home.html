@@ -58,14 +58,23 @@
 
 <script id="friends-template" type="text/template">
 <div class="container">
-    <ul class="collection friends"></ul>
-    <h3>Hi</h3>
+    <ul class="collection friends">
     <% _.each(friend_data, function(friend){ console.log('here');%>
         <li class="collection-item avatar">
             <img class="circle" src="/static/img/team_profile/team_default.png">
             <span class="title"><%- friend.name %></span>
         </li>
     <% }); %>
+    </ul>
+    <div class="row">
+        <div class="input-field col s12 l8">
+            <input id="friend_request" type="text" class="validate">
+            <label for="friend_request">Friend Request</label>
+        </div>
+        <div class="col l4 friend_requests">
+            <div id="add_friend" class="btn waves-effect waves-light custom-button blue-background">Add Friend</div>
+        </div>
+    </div>
 </div>
 </script>
 
