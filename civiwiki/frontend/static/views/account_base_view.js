@@ -13,9 +13,9 @@ var AccountBaseView = Backbone.View.extend({
         options = options || {};
         _this.userModel = options.userModel;
 
-        this.friendsTab = new FriendsListView();
+        this.friendsTab = new FriendsList();
 
-        this.render();
+        _this.render();
     },
 
     render: function () {
@@ -25,15 +25,43 @@ var AccountBaseView = Backbone.View.extend({
             user: _this.userModel.toJSON(), 
         }));
 
-        _this.getUser();
-
-        _this.$el.find('#friends').empty().append(this.friendsTemplate({
-            //temporary data 
-            friend_data : JSON.parse(JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]))
-        }));
+        _this.getFriends();
+        // _this.getUserInfo();
         
     },
 
+    getFriends: function(){
+        var _this = this; 
+
+        //temp data
+        _this.$el.find('#friends').empty().append(_this.friendsTemplate({
+            friend_data : JSON.parse(JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]))
+        }))
+        
+        // this.friendsTab.fetch({
+        //    success:function(collection, response){
+        //         this.friendsTab = collection; 
+        //         _this.$el.find('#friends').empty().append(_this.friendsTemplate({
+        //             friend_data : this.friendsTab.toJSON()
+        //             //temporary data 
+        //             //friend_data : JSON.parse(JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]))
+        //         }));
+        //    } 
+        // });
+    }, 
+
+    getUserInfo: function(){
+        $.ajax({
+            type: 'POST', 
+            url: 'api/getUser', 
+            data: {
+                'username': 'a'
+            },
+            success: function(data){
+                console.log(data.result);
+            }
+        });
+    },
     events: {
     }
 });

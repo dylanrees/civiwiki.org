@@ -1,7 +1,8 @@
 var FriendsList = Backbone.Collection.extend({
-    url: 'api/user', 
+    url: 'api/getUser', 
 
     parse: function(data){
-        return data.friends; 
+        console.log(data.result);
+        return data.result; 
     }
 });
