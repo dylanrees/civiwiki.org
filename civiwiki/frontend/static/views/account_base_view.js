@@ -42,13 +42,14 @@ var AccountBaseView = Backbone.View.extend({
 
     getInterests: function(){
                 var _this = this;
-
             this.interests.fetch({ 
             success: function (collection, response) {
                 this.interests = collection;
+
                 _this.$el.find('#interests').empty().append(_this.interestTemplate({
                     interest: this.interests.toJSON(),
                     user: _this.userModel.toJSON()
+
 
                 }));
             }
@@ -66,12 +67,7 @@ var AccountBaseView = Backbone.View.extend({
                 type: 'POST',
                 url: 'api/register',
                 data: {
-                    email: email,
-                    username: username,
-                    password: password,
-                    first_name: firstName,
-                    last_name: lastName,
-                    birthday: birthday
+
                 },
                 success: function (data) {
                     
