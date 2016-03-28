@@ -61,8 +61,6 @@
     <div>  
         <% _.each(interest, function(eachInterest) { %>
             <% var temp = eachInterest.name.replace(/ /g,'') %>
-            <% console.log(user) %>
-            <% console.log(eachInterest) %>
             <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
 
             <div class="card interest-item small" data-id="<%= eachInterest.name %>">
@@ -72,13 +70,13 @@
 
                 <div class="card-content red">
                     <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
-                    <p><a class = "followInterest" href="javascript:void(0);">Click Here to Follow</a></p>
+                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.name %>">Click Here to Follow</a></p>
                 </div>
 
                 <div class="card-reveal teal">
                     <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
                     <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
-                    <p><a class = "followInterest" href="javascript:void(0);">Click Here to Follow</a></p>
+                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.name %>">Click Here to Follow</a></p>
 
                 </div>
             </div>

@@ -24,15 +24,10 @@ var AccountBaseView = Backbone.View.extend({
         options = options || {};
         _this.userModel = options.userModel;
         _this.render();
-        console.log("the view")
-        console.log(this.View);
-
     },
 
     render: function () {
         var _this = this;
-        console.log(Object.prototype.toString.call(_this.userModel.toJSON().interests) + " hey");
-
         _this.$el.empty().append(_this.baseTemplate({
             user: _this.userModel.toJSON()
         }));
@@ -42,6 +37,7 @@ var AccountBaseView = Backbone.View.extend({
 
     getInterests: function(){
                 var _this = this;
+
             this.interests.fetch({ 
             success: function (collection, response) {
                 this.interests = collection;
@@ -49,7 +45,6 @@ var AccountBaseView = Backbone.View.extend({
                 _this.$el.find('#interests').empty().append(_this.interestTemplate({
                     interest: this.interests.toJSON(),
                     user: _this.userModel.toJSON()
-
 
                 }));
             }
@@ -60,9 +55,17 @@ var AccountBaseView = Backbone.View.extend({
     },
 
     editFollowInterest: function(event){
+       var _this = this;
+        console.log(_this.userModel.toJSON());
+
+       var tempInterest = _this.userModel.toJSON().interests;
+       var toString = Object.prototype.toString;
+       console.log(toString.call(yolo));
+
         console.log("hey we got here");
-        var _this = this;
-        debugger;
+        console.log(event);
+
+       /* var _this = this;
             $.ajax({
                 type: 'POST',
                 url: 'api/register',
@@ -75,7 +78,7 @@ var AccountBaseView = Backbone.View.extend({
                 error: function(data){
 
                 }
-            });
+            });*/
 
     }
 
@@ -83,10 +86,3 @@ var AccountBaseView = Backbone.View.extend({
 });
 var temp =  new Backbone.Model();
 var account_base_view = new AccountBaseView({userModel : temp});
-
-function editInterest(intElement){
-    debugger;
-    $(element).toggleClass('mynewclass');
-    alert($(element));
-}
-    
