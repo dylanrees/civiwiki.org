@@ -5,42 +5,32 @@ var GroupsListView = Backbone.View.extend({
 
     initialize: function (options) {
         var _this = this;
-
         options = options || {};
-        _this.userModel = options.userModel;
+        
+        _this.groups = options.groups;
         _this.render();
     },
 
     render: function () {
         var _this = this;
-        // Sample Group Data
-
-        _this.$el.empty().append(_this.baseTemplate({
-            user: _this.userModel.toJSON(),
-            groups: sampleGroups()
+        _this.$el.empty().append(_this.groupsTemplate({
+            groups: _this.sampleGroups()
+            //groups: _this.groups;        // TODO: Use this when groups are available
         }));
     },
 
     events: {
     },
 
+    // Sample Data As a Placeholder
     sampleGroups: function(){
-        // Sample Data
-        var _this = this;
-        var sample_data = JSON.stringify([
-            {name: 'Group to protect Wild Life in Missouri Parks', description: 'We must protect nature!'},
-            {name: 'WashU CompSci', description: '010101000101010101010101000010101'},
-            {name: 'CiviWiki Dev Team', description: 'We love working on civiwiki!'},
-            {name: 'We Complain About Everything', description: 'We hate everything!'}
-        ]);
-        return JSON.parse(sample_data);
-    },
-
-    renderUserGroups: function(){
-        var _this = this;
-        // TODO: Finish up render function once backend is set
-        // Get Data from User
-        // Ajax request
-        // For each group retrieved appened collection
+        // Assumes that each group has an id, name, and an image. Description is just added detail.
+        var sample_data = [
+            {id: 1, name: 'Group to protect Wild Life in Missouri Parks', description: 'We must protect nature!', image:'/static/img/team_profile/team_default.png'},
+            {id: 2, name: 'WashU CompSci', description: '010101000101010101010101000010101', image:'/static/img/team_profile/team_default.png'},
+            {id: 3, name: 'CiviWiki Dev Team', description: 'We love working on civiwiki!', image:'/static/img/team_profile/team_default.png'},
+            {id: 4, name: 'We Complain About Everything', description: 'We hate everything!', image:'/static/img/team_profile/team_default.png'}
+        ];
+        return sample_data;
     }
 });
