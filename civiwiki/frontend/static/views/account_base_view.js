@@ -56,33 +56,33 @@ var AccountBaseView = Backbone.View.extend({
 
     editFollowInterest: function(event){
        var _this = this;
-        console.log(_this.userModel.toJSON());
+       var tempInterest = JSON.parse(_this.userModel.toJSON().interests);
+       var follow = true;
+       var unfollow = tempInterest.indexOf(event.target.id);
+              console.log("Before: " + tempInterest);
 
-       var tempInterest = _this.userModel.toJSON().interests;
-       var toString = Object.prototype.toString;
-       console.log(toString.call(yolo));
+       if (unfollow == -1){
+            tempInterest.push(event.target.id);
+       }else{
+            tempInterest.splice(unfollow, 1);
+       }
+       console.log("After: " +tempInterest);
+       $.ajax({
+            type: 'POST',
+            url: 'api/editUser',
+            data: {
+            user: _this.userModel.toJSON(),
+            interests: tempInterest
+            },
+            success: function (data) {
+                console.log("here");
+            },
+            error: function(data){
 
-        console.log("hey we got here");
-        console.log(event);
-
-       /* var _this = this;
-            $.ajax({
-                type: 'POST',
-                url: 'api/register',
-                data: {
-
-                },
-                success: function (data) {
-                    
-                },
-                error: function(data){
-
-                }
-            });*/
+            }
+        });
 
     }
 
 
 });
-var temp =  new Backbone.Model();
-var account_base_view = new AccountBaseView({userModel : temp});
