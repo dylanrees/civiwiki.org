@@ -32,20 +32,17 @@ var AccountBaseView = Backbone.View.extend({
             user: _this.userModel.toJSON()
         }));
         this.getInterests();
-        
+
     },
 
     getInterests: function(){
                 var _this = this;
 
-            this.interests.fetch({ 
+            this.interests.fetch({
             success: function (collection, response) {
-                this.interests = collection;
-
                 _this.$el.find('#interests').empty().append(_this.interestTemplate({
-                    interest: this.interests.toJSON(),
+                    interest: response.result,
                     user: _this.userModel.toJSON()
-
                 }));
             }
         });
@@ -56,7 +53,7 @@ var AccountBaseView = Backbone.View.extend({
 
     editFollowInterest: function(event){
        var _this = this;
-       var tempInterest = JSON.parse(_this.userModel.toJSON().interests);
+       var tempInterest = _this.userModel.get("interests");
        var follow = true;
        var unfollow = tempInterest.indexOf(event.target.id);
               console.log("Before: " + tempInterest);
@@ -69,10 +66,9 @@ var AccountBaseView = Backbone.View.extend({
        console.log("After: " +tempInterest);
        $.ajax({
             type: 'POST',
-            url: 'api/editUser',
+            url: '/api/edituser',
             data: {
-            user: _this.userModel.toJSON(),
-            interests: tempInterest
+                data : JSON.stringify({interests: tempInterest})
             },
             success: function (data) {
                 console.log("here");

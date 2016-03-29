@@ -58,7 +58,7 @@
     </div>
 </script>
 <script id="interest-tab-template" type="text/template">
-    <div>  
+    <div>
         <% _.each(interest, function(eachInterest) { %>
             <% var temp = eachInterest.name.replace(/ /g,'') %>
             <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
@@ -70,7 +70,7 @@
 
                 <div class="card-content red">
                     <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
-                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.name %>">Click Here to Follow</a></p>
+                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
                 </div>
 
                 <div class="card-reveal teal">
@@ -94,9 +94,9 @@
 <script src="/static/views/account_base_view.js" type="text/javascript"></script>
 
 <script>
+    var data = {{user_data|safe}};
 
-    var userModel = new Backbone.Model({{user_data|safe}});
-
+    var userModel = new Backbone.Model(data);
     var accountBaseView = new AccountBaseView({
         userModel: userModel
     });
