@@ -7,11 +7,11 @@
             {% if request.user.is_authenticated %}
             <li><a href="/account">WELCOME {{ request.user.username }}</a></li>
             <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
-            <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+            <li><a href = "/about" class="waves-effect waves-light btn-lg grey-text text-lighten-4">ABOUT US</a></li>
             <li><a href="/api/logout">LOGOUT</a></li>
             {% else %}
             <li><a href="/supportus" class="waves-effect waves-light btn-lg grey-text text-lighten-4">SUPPORT US</a></li>
-            <li><a class="waves-effect waves-light btn-lg grey-text text-lighten-4">MEET THE TEAM</a></li> <!--This link does not exist at the moment-->
+            <li><a href = "/about" class="waves-effect waves-light btn-lg grey-text text-lighten-4">ABOUT US</a></li> 
             <li><a href="/login">LOGIN</a></li>
             {% endif %}
 
