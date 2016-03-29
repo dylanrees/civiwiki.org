@@ -59,12 +59,19 @@ var AccountBaseView = Backbone.View.extend({
        var tempInterest = JSON.parse(_this.userModel.toJSON().interests);
        var follow = true;
        var unfollow = tempInterest.indexOf(event.target.id);
-              console.log("Before: " + tempInterest);
+       var temp1 = event.target.id;
+       console.log(temp1);
+       var temp = temp1.replace(/ /g,'');
+       console.log("Before: " +tempInterest);
 
        if (unfollow == -1){
             tempInterest.push(event.target.id);
+            document.getElementById(event.target.id).innerHTML = "Click Here to Unfollow";
+            document.getElementById(temp).innerHTML = "Click Here to Unfollow";
        }else{
             tempInterest.splice(unfollow, 1);
+            document.getElementById(event.target.id).innerHTML = "Click Here to Follow";
+            document.getElementById(temp).innerHTML = "Click Here to Follow";
        }
        console.log("After: " +tempInterest);
        $.ajax({
@@ -75,10 +82,8 @@ var AccountBaseView = Backbone.View.extend({
             interests: tempInterest
             },
             success: function (data) {
-                console.log("here");
             },
             error: function(data){
-
             }
         });
 
