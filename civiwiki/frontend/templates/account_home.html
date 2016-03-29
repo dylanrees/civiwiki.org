@@ -31,9 +31,9 @@
             </div>
             <div class="col s9">
                 <ul class="tabs purple-text">
-                    <li class="tab col s3"><a class="purple-text" href="#following">Following</a></li>
+                    <li class="tab col s3"><a class="active purple-text" href="#following">Following</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#friends">Friends</a></li>
-                    <li class="tab col s3"><a class="active purple-text" href="#interests">Interests</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#interests">Interests</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#groups">Groups</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#user_data">Your Account</a></li>
                     <div class="indicator purple-background" style="z-index:1"></div>
@@ -57,33 +57,6 @@
         </div>
     </div>
 </script>
-<script id="interest-tab-template" type="text/template">
-    <div>  
-        <% _.each(interest, function(eachInterest) { %>
-            <% var temp = eachInterest.name.replace(/ /g,'') %>
-            <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
-
-            <div class="card interest-item small" data-id="<%= eachInterest.name %>">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src=<%= temp %>>
-                </div>
-
-                <div class="card-content red">
-                    <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
-                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.name %>">Click Here to Follow</a></p>
-                </div>
-
-                <div class="card-reveal teal">
-                    <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
-                    <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
-                    <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.name %>">Click Here to Follow</a></p>
-
-                </div>
-            </div>
-
-        <% }); %>
-    </div>
-</script>
 
 <body>
     <div id="account-base">
@@ -94,9 +67,7 @@
 <script src="/static/views/account_base_view.js" type="text/javascript"></script>
 
 <script>
-
     var userModel = new Backbone.Model({{user_data|safe}});
-
     var accountBaseView = new AccountBaseView({
         userModel: userModel
     });
