@@ -154,13 +154,16 @@ def editUser(request):
 	:return: (200, ok) (500, error)
 
 	'''
+	r = json.loads(dict(request.POST)['data'][0])
 	user = request.user
 	account = Account.objects.get(user=user)
-	interests = request.POST.get('interests', False)
+	interests = r.get('interests', False)
 	if interests:
-		interests = interests[1:-1].replace('\'','').split(',')
+		interests = list(interests)
 	else:
 		interests = account.interests
+
+
 
 	profile_image = account.profile_image
 	cover_image = account.cover_image
@@ -187,19 +190,19 @@ def editUser(request):
 		cover_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='cover',username='generic')
 
 	data = {
-		"first_name":request.POST.get('first_name', account.first_name),
-		"last_name":request.POST.get('last_name', account.last_name),
-		"email":request.POST.get('email', account.email),
-		"about_me":request.POST.get('about_me', account.about_me),
+		"first_name":r.get('first_name', account.first_name),
+		"last_name":r.get('last_name', account.last_name),
+		"email":r.get('email', account.email),
+		"about_me":r.get('about_me', account.about_me),
 		"interests": interests,
 		"profile_image":profile_image,
 		"cover_image":cover_image,
-		"address1": request.POST.get('address1', account.address1),
-		"address2": request.POST.get('address2', account.address2),
-		"city": request.POST.get('city', account.city),
-		"state": request.POST.get('state', account.state),
-		"zip_code": request.POST.get('zip_code', account.zip_code),
-		"country": request.POST.get('country', account.country)
+		"address1": r.get('address1', account.address1),
+		"address2": r.get('address2', account.address2),
+		"city": r.get('city', account.city),
+		"state": r.get('state', account.state),
+		"zip_code": r.get('zip_code', account.zip_code),
+		"country": r.get('country', account.country)
 	}
 
 	try:

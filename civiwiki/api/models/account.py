@@ -9,12 +9,12 @@ from civi import Civi
 class AccountManager(models.Manager):
 
     def serialize(self, account, filter=None):
-        data = {
+        tmp = {
             "username": account.user.username,
             "first_name": account.first_name,
             "last_name": account.last_name,
             "email": account.email,
-            "last_login": account.last_login,
+            "last_login": account.last_login.strftime("%d/%m/%y"),
             "about_me": account.about_me,
             "valid": account.valid,
             "profile_image": account.profile_image,
@@ -32,9 +32,26 @@ class AccountManager(models.Manager):
             "country": account.country,
             "address1": account.address1,
             "address2": account.address2,
-            "pages": [{'name':page.title, 'id':page.id} for page in account.pages.all()],
-            "friends": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in account.friends.all()]
+            "pages": [{str('name'):str(page.title), str('id'):page.id} for page in account.pages.all()],
+            "friends": [{str('name'): str(a.user.username), str('profile_image'): str(a.profile_image), str('id'): a.id} for a in account.friends.all()]
         }
+        data = {}
+        for el in tmp.items():
+            if type(el[1]) is list:
+                data[str(el[0])] = [str(a) for a in el[1]]
+
+            elif type(el[1]) is unicode:
+                data[str(el[0])] = str(el[1])
+
+            elif type(el[1]) is bool:
+                data[str(el[0])] = str("true" if el[1] else "false")
+
+            elif el[1] is None:
+                continue;
+
+            else:
+                data[str(el[0])] = el[1]
+
         if filter and filter in data:
             return {filter: data[filter]}
         return data

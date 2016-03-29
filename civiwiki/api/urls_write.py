@@ -10,5 +10,4 @@ urlpatterns = [
     url(r'^removefriend$',v.removeFriend, name='remove friend'),
     url(r'^followpage$',v.followPage, name='follow page'),
     url(r'^unfollowpage$', v.unfollowPage, name='unfollow page')
-    # url(r'^reportvote$', v.reportVote, name='report vote')
 ]

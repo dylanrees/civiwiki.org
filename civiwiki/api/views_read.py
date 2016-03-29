@@ -70,9 +70,10 @@ def getUser(request):
 				'history': a.civi_history,
 				'pinned': a.civi_pins,
 				'awards': a.award_list,
-				'interests': a.interests,
+				'interests': [int(i) for i in a.interests] ,
 				'pages': [p.id for p in a.pages.all()]
 				} for a in Account.objects.filter(id=1)]
+				
 	return JsonResponse({"result":result})
 
 def getCivi(request):
