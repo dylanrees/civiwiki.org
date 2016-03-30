@@ -59,6 +59,7 @@ var AccountBaseView = Backbone.View.extend({
               console.log("Even Before: " +_this.userModel.get("interests"));
 
        var tempInterest = JSON.parse(_this.userModel.get("interests"));
+       debugger;
        console.log(Object.prototype.toString.call(tempInterest));
        var unfollow = tempInterest.indexOf(event.target.id);
        var temp1 = event.target.id;
@@ -67,7 +68,7 @@ var AccountBaseView = Backbone.View.extend({
        console.log("Before: " +tempInterest);
 
        if (unfollow == -1){
-            tempInterest.push(event.target.id);
+            tempInterest.push(parseInt(event.target.id));
             document.getElementById(event.target.id).innerHTML = "Click Here to Unfollow";
             //document.getElementById(temp).innerHTML = "Click Here to Unfollow";
        }else{
@@ -87,7 +88,7 @@ var AccountBaseView = Backbone.View.extend({
                 console.log("yes");
             },
             error: function(data){
-                console.log("no");                
+                console.log("no");
             }
         });
 
@@ -106,7 +107,7 @@ var AccountBaseView = Backbone.View.extend({
                 console.log("yes");
             },
             error: function(data){
-                console.log("no");                
+                console.log("no");
             }
         });
 

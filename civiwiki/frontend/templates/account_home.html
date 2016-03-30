@@ -59,7 +59,7 @@
 </script>
 <script id="interest-tab-template" type="text/template">
     <div>
-    <p><a class = "yolo" href="javascript:void(0);" id ="yolo">Reset Database</a></p> 
+    <p><a class = "yolo" href="javascript:void(0);" id ="yolo">Reset Database</a></p>
         <% _.each(interest, function(eachInterest) { %>
             <% var temp = eachInterest.name.replace(/ /g,'') %>
             <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
@@ -67,11 +67,10 @@
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src=<%= temp %>>
                 </div>
-            <% debugger; %>
 
                 <div class="card-content red">
                     <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
-                    <% if (JSON.parse(user.interests).indexOf(eachInterest.name) == -1 ) {%>
+                    <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                         <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
                     <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> <%};%>
                 </div>
@@ -79,7 +78,7 @@
                 <div class="card-reveal red">
                     <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
                     <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
-                     <% if (JSON.parse(user.interests).indexOf(eachInterest.name) == -1 ) {%>
+                     <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                         <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
                     <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> <%};%>
                 </div>
