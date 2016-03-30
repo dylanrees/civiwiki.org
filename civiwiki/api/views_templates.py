@@ -2,7 +2,8 @@ from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
 
-from models import Account, Category
+from models import Category, Account
+
 import json
 
 def login_view(request):
@@ -44,7 +45,7 @@ def dbview(request):
 	result = [{'id': c.id, 'name': c.name} for c in Category.objects.all()]
 
 	return TemplateResponse(request, 'dbview.html', {'categories': json.dumps(result)})
-	
+
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
 
