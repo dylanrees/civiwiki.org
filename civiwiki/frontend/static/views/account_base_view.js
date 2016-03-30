@@ -12,10 +12,13 @@ var AccountBaseView = Backbone.View.extend({
 
         options = options || {};
         _this.userModel = options.userModel;
-
-        this.friendsTab = new FriendsList();
-
         _this.render();
+
+        this.friendsTab = new FriendsListView({
+            friends: _this.userModel.toJSON().friends
+        });
+        
+        this.friendsTab.render();
     },
 
     render: function () {
@@ -25,12 +28,6 @@ var AccountBaseView = Backbone.View.extend({
             user: _this.userModel.toJSON(), 
         }));
 
-        _this.$el.find('#friends').empty().append(_this.friendsTemplate({
-
-            //temporary data 
-            friend_data : JSON.parse(JSON.stringify([{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]))
-        }));      
-        
     },
     events: {
     }

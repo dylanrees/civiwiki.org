@@ -1,36 +1,50 @@
-var FriendsList = Backbone.Collection.extend({
-    url: 'api/getUser', 
+var FriendsListView = Backbone.View.extend({
+    el: '#friends', 
 
-    parse: function(data){
-        //this refuses to work bleh
-        console.log(data.result);
-        return data.result; 
-    }
-});
+    friendsTemplate: _.template($('#friends-template').html()),
 
-var FriendRequestView = Backbone.View.extend({
+    initialize: function(options){
+      var _this = this; 
+      options = options || {}; 
 
-    events: {
-        "click #addFriend": "addFriend"
-    },
+      _this.friends = options.friends; 
+      _this.render();
+    }, 
 
-    addFriend: function(){
+    render: function(){
       var _this = this; 
 
-      var friend_request = this.$el.find('#friend_request').val();
-
-      if(friend_request){
-        $.ajax({
-            type: 'POST', 
-            url: '', 
-            data: {
-              username: friend_request
-            }, 
-            success: function(data){
-              //add friend to list 
-            }
-        })
-      }
-
+       _this.$el.empty().append(_this.friendsTemplate({
+            //temporary data 
+            friend_data : [{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]
+        }));      
+        
     }
 });
+
+// var FriendRequestView = Backbone.View.extend({
+
+//     events: {
+//         "click #addFriend": "addFriend"
+//     },
+
+//     addFriend: function(){
+//       var _this = this; 
+
+//       var friend_request = this.$el.find('#friend_request').val();
+
+//       if(friend_request){
+//         $.ajax({
+//             type: 'POST', 
+//             url: '', 
+//             data: {
+//               username: friend_request
+//             }, 
+//             success: function(data){
+//               //add friend to list 
+//             }
+//         })
+//       }
+
+//     }
+// });
