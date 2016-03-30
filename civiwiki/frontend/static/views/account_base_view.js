@@ -32,19 +32,6 @@ var AccountBaseView = Backbone.View.extend({
         }));      
         
     },
-
-    // getUserInfo: function(){
-    //     $.ajax({
-    //         type: 'POST', 
-    //         url: 'api/getUser', 
-    //         data: {
-    //             'username': 'a'
-    //         },
-    //         success: function(data){
-    //             console.log(data.result);
-    //         }
-    //     });
-    // },
     events: {
     }
 });
