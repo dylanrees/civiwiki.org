@@ -49,14 +49,20 @@ var AccountBaseView = Backbone.View.extend({
     },
         events: {
         'click .followInterest': 'editFollowInterest',
+        'click .yolo': 'editYolo',
+
     },
 
     editFollowInterest: function(event){
        var _this = this;
+       console.log(_this.userModel.get("interests"));
+              console.log("Even Before: " +_this.userModel.get("interests"));
+
        var tempInterest = JSON.parse(_this.userModel.get("interests"));
-       var follow = true;
+       console.log(Object.prototype.toString.call(tempInterest));
        var unfollow = tempInterest.indexOf(event.target.id);
        var temp1 = event.target.id;
+       console.log(temp1);
        var temp = temp1.replace(/ /g,'');
        console.log("Before: " +tempInterest);
 
@@ -74,7 +80,26 @@ var AccountBaseView = Backbone.View.extend({
             type: 'POST',
             url: '/api/edituser',
             data: {
-                //data : JSON.stringify({interests: tempInterest})
+              //  data : JSON.stringify({interests: tempInterest})
+              interests: JSON.stringify(tempInterest)
+            },
+            success: function (data) {
+                console.log("yes");
+            },
+            error: function(data){
+                console.log("no");                
+            }
+        });
+
+    },
+    editYolo: function(event){
+        var _this = this;
+        console.log(_this.userModel.get("interests"));
+        var tempInterest = [];
+            $.ajax({
+            type: 'POST',
+            url: '/api/edituser',
+            data: {
                 interests: JSON.stringify(tempInterest)
             },
             success: function (data) {
