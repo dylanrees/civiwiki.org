@@ -60,8 +60,13 @@
 <script id="interest-tab-template" type="text/template">
     <div>
     <p><a class = "yolo" href="javascript:void(0);" id ="yolo">Reset Database</a></p>
+        <% console.log(user.interests)%>
+        <% console.log(user.interests.length)%>
+
+        <% var interestSize = interest.length %>
         <% _.each(interest, function(eachInterest) { %>
             <% var temp = eachInterest.name.replace(/ /g,'') %>
+            <% var temp1 = parseInt(eachInterest.id)+parseInt(interestSize)%>
             <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
             <div class="card interest-item small" data-id="<%= eachInterest.name %>">
                 <div class="card-image waves-effect waves-block waves-light">
@@ -72,15 +77,19 @@
                     <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
                     <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                         <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
-                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> <%};%>
+                        <%  console.log(user.interests + " " + eachInterest.id + " follow")        %>
+                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> 
+
+                        <%  console.log(user.interests + " " + eachInterest.id + " unfollow")        %>
+                    <%};%>
                 </div>
 
                 <div class="card-reveal red">
                     <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
                     <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
                      <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
-                        <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
-                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> <%};%>
+                        <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Follow</a></p>
+                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Unfollow</a></p> <%};%>
                 </div>
 
             </div>

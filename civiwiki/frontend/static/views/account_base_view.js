@@ -55,26 +55,36 @@ var AccountBaseView = Backbone.View.extend({
 
     editFollowInterest: function(event){
        var _this = this;
-       console.log(_this.userModel.get("interests"));
-              console.log("Even Before: " +_this.userModel.get("interests"));
-
-       var tempInterest = JSON.parse(_this.userModel.get("interests"));
-       debugger;
-       console.log(Object.prototype.toString.call(tempInterest));
-       var unfollow = tempInterest.indexOf(event.target.id);
-       var temp1 = event.target.id;
-       console.log(temp1);
-       var temp = temp1.replace(/ /g,'');
-       console.log("Before: " +tempInterest);
-
-       if (unfollow == -1){
-            tempInterest.push(parseInt(event.target.id));
-            document.getElementById(event.target.id).innerHTML = "Click Here to Unfollow";
-            //document.getElementById(temp).innerHTML = "Click Here to Unfollow";
+       var tempInterest = _this.userModel.get("interests");
+       if (event.target.id >= 15){
+         var temp1 = (event.target.id -15);
+         temp = (event.target.id);
        }else{
-            tempInterest.splice(unfollow, 1);
-            document.getElementById(event.target.id).innerHTML = "Click Here to Follow";
-            //document.getElementById(temp).innerHTML = "Click Here to Follow";
+         var temp1 = (event.target.id);
+         var temp = parseInt(event.target.id)+parseInt(15);
+       }
+
+       var unfollow = tempInterest.indexOf(temp1 + "");
+       console.log(temp1);
+       console.log(temp)
+       console.log("Before: " +tempInterest);
+       if (unfollow == -1){
+            tempInterest.push(temp1+"");
+            document.getElementById(temp1).innerHTML = "Click Here to Unfollow";
+            document.getElementById(temp).innerHTML = "Click Here to Unfollow";
+       }else{
+            if(tempInterest.length > 1){
+                tempInterest.splice(unfollow, 1);
+                document.getElementById(temp1).innerHTML = "Click Here to Follow";
+                document.getElementById(temp).innerHTML = "Click Here to Follow";
+            }else{
+                tempInterest.push("-2");
+                document.getElementById(temp1).innerHTML = "Click Here to Follow";
+                document.getElementById(temp).innerHTML = "Click Here to Follow";
+
+                console.log("im in this loop");
+
+            }
        }
        console.log("After: " +tempInterest);
        $.ajax({
@@ -82,8 +92,8 @@ var AccountBaseView = Backbone.View.extend({
             url: '/api/edituser',
             data: {
               //  data : JSON.stringify({interests: tempInterest})
-              interests: JSON.stringify(tempInterest)
-            },
+              data : JSON.stringify({interests: tempInterest})            
+          },
             success: function (data) {
                 console.log("yes");
             },
