@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
-from models import Account
+from models import Category, Account
 import json
 
 def login_view(request):
@@ -13,7 +13,6 @@ def login_view(request):
 
 	return TemplateResponse(request, 'login.html', {})
 
-@login_required
 def beta_view(request):
 	return TemplateResponse(request, 'beta_blocker.html', {})
 
@@ -26,12 +25,12 @@ def home_view(request):
 	return TemplateResponse(request, 'home.html', {})
 
 @login_required
-def create_page(request):
+def create_group(request):
 
 	if not request.user.is_active:
 		return HttpResponseRedirect('/beta')
 
-	return TemplateResponse(request, 'newpage.html', {})
+	return TemplateResponse(request, 'newgroup.html', {})
 
 
 def does_not_exist(request):
@@ -39,6 +38,11 @@ def does_not_exist(request):
 
 def support_us_view(request):
 	return TemplateResponse(request, 'supportus.html', {})
+
+def dbview(request):
+	result = [{'id': c.id, 'name': c.name} for c in Category.objects.all()]
+
+	return TemplateResponse(request, 'dbview.html', {'categories': json.dumps(result)})
 
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
