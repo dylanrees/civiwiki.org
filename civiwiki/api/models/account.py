@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+import json
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
@@ -8,13 +9,21 @@ from civi import Civi
 # Create your models here.
 class AccountManager(models.Manager):
 
+    def summarize(self, account):
+        return {
+            "first_name": account.first_name,
+            "last_name": account.last_name,
+            "profile_image": account.profile_image,
+            "id": account.id
+        }
+
     def serialize(self, account, filter=None):
-        tmp = {
+        data = {
             "username": account.user.username,
             "first_name": account.first_name,
             "last_name": account.last_name,
             "email": account.email,
-            "last_login": account.last_login.strftime("%d/%m/%y"),
+            "last_login": str(account.last_login),
             "about_me": account.about_me,
             "valid": account.valid,
             "profile_image": account.profile_image,
@@ -32,35 +41,18 @@ class AccountManager(models.Manager):
             "country": account.country,
             "address1": account.address1,
             "address2": account.address2,
-            "pages": [{str('name'):str(page.title), str('id'):page.id} for page in account.pages.all()],
-            "friends": [{str('name'): str(a.user.username), str('profile_image'): str(a.profile_image), str('id'): a.id} for a in account.friends.all()]
+            "groups": [{'name':group.title, 'id':group.id} for group in account.groups.all()],
+            "friends": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in account.friends.all()]
         }
-        data = {}
-        for el in tmp.items():
-            if type(el[1]) is list:
-                data[str(el[0])] = [str(a) for a in el[1]]
-
-            elif type(el[1]) is unicode:
-                data[str(el[0])] = str(el[1])
-
-            elif type(el[1]) is bool:
-                data[str(el[0])] = str("true" if el[1] else "false")
-
-            elif el[1] is None:
-                continue;
-
-            else:
-                data[str(el[0])] = el[1]
-
         if filter and filter in data:
-            return {filter: data[filter]}
-        return data
+            return json.dumps({filter: data[filter]})
+        return json.dumps(data)
 
     def getObjects(self, account, attribute):
         if attribute == "friends":
             return [f for f in account.friends.all()]
-        elif attribute == "pages":
-            return [p for p in account.pages.all()]
+        elif attribute == "groups":
+            return [p for p in account.groups.all()]
         elif attribute == "friend_requests":
             return [f for f in account.objects.filter(pk_in=account.friend_requests)]
         elif attribute == "history":
@@ -99,5 +91,5 @@ class Account(models.Model):
     city = models.CharField(max_length=63, null=True)
     address1 = models.CharField(max_length=255, null=True)
     address2 = models.CharField(max_length=255, null=True)
-    pages = models.ManyToManyField('Page', related_name='user_pages')
+    groups = models.ManyToManyField('Group', related_name='user_groups')
     friends = models.ManyToManyField('Account', related_name='friended_account')
