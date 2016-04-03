@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.db.models import Q
 from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag
 import sys, json, random, hashlib
@@ -51,30 +51,44 @@ def getTopics(request):
 	return JsonResponse({"result":result})
 
 def getUser(request):
+	try:
+		id = request.POST.get("id", False)
+		result = [{'id':a.id,
+					'about_me': a.about_me,
+					'last_name':a.last_name,
+				   	'first_name':a.first_name,
+					'email':a.email,
+					'cover': a.cover_image,
+					'profile': a.profile_image,
+					'statistics': a.statistics,
+					'friend_requests': [{'first':f.first_name, 'last': f.last_name, 'id': f.id} for f in Account.objects.filter(id__in=a.friend_requests)],
+					'friends': [{'first':f.first_name, 'last': f.last_name, 'id': f.id} for f in a.friends.all()],
+					'history': a.civi_history,
+					'pinned': a.civi_pins,
+					'awards': a.award_list,
+					'interests': a.interests,
+					'groups': [p.id for p in a.groups.all()]
+					} for a in Account.objects.filter(id=id)]
+		return JsonResponse({"result":result})
+	except Exception as e:
+		return HttpResponseBadRequest(reason=str(e))
+
+def getIdByUsername(request):
 	'''
-	takes in username and responds with all user fields
+	takes in username and responds with an accountid
 
 	image fields are going to be urls in which you can access as base.com/media/<image_url>
 
 	:param request: with username
 	:return: user object
 	'''
-	result = [{'id':a.id,
-				'about_me': a.about_me,
-				'last_name':a.last_name,
-			   	'first_name':a.first_name,
-				'email':a.email,
-				'cover': a.cover_image,
-				'profile': a.profile_image,
-				'statistics': a.statistics,
-				'friends': a.friend_list,
-				'history': a.civi_history,
-				'pinned': a.civi_pins,
-				'awards': a.award_list,
-				'interests': a.interests,
-				'groups': [p.id for p in a.groups.all()]
-				} for a in Account.objects.filter(id=1)]
-	return JsonResponse({"result":result})
+	try:
+		username = request.POST.get("username", False)
+		id = Account.objects.filter(user__username=username)
+		return JsonResponse({"result": id})
+	except Exception as e:
+		return HttpResponseBadRequest()
+
 
 def getCivi(request):
 	id = request.POST.get('id', -1)
