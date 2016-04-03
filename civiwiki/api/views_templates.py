@@ -25,12 +25,12 @@ def home_view(request):
 	return TemplateResponse(request, 'home.html', {})
 
 @login_required
-def create_page(request):
+def create_group(request):
 
 	if not request.user.is_active:
 		return HttpResponseRedirect('/beta')
 
-	return TemplateResponse(request, 'newpage.html', {})
+	return TemplateResponse(request, 'newgroup.html', {})
 
 
 def does_not_exist(request):
