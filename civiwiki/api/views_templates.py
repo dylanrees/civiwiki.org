@@ -21,7 +21,7 @@ def home_view(request):
 
 	if not request.user.is_active:
 		return HttpResponseRedirect('/beta')
-
+	
 	return TemplateResponse(request, 'home.html', {})
 
 @login_required
@@ -49,4 +49,5 @@ def about_view(request):
 
 def account_home(request):
 	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
+	dummy = "dummy"
 	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})

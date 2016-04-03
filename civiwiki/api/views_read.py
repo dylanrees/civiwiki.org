@@ -4,7 +4,6 @@ from django.db.models import Q
 from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag
 import sys, json, random, hashlib
 
-
 # Create your views here.
 def topTen(request):
 	'''

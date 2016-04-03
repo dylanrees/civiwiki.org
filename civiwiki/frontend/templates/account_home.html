@@ -40,9 +40,12 @@
                 </ul>
             </div>
             <div id="following" class="col s9">
-
+                <% for (var tag in user.civi_pins) { %>
+                    <%- user.civi_pins[tag] %>
+                <% } %>
+                
             </div>
-            <div id="friends" class="col s9">
+            <div id="f riends" class="col s9">
 
             </div>
             <div id="interests" class="col s9">
