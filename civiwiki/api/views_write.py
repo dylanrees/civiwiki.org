@@ -29,24 +29,24 @@ def createGroup(request):
 	pi = request.FILES.get('profile', False)
 	ci = request.FILES.get('cover', False)
 	if pi:
-		url = "{media}/{type}/{title}.png".format(media=settings.MEDIA_ROOT, type='profile',title=title)
+		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
 		with open( url , 'wb+') as destination:
 			for chunk in pi.chunks():
 				destination.write(chunk)
-		profile_image = "{media}/{type}/{title}.png".format(media=settings.MEDIA_URL, type='profile',title=title)
+		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
 	else:
-		profile_image = "{media}/{type}/{title}.png".format(media=settings.MEDIA_URL, type='profile',title='generic')
+		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title='generic')
 
 
 	if ci:
-		url = "{media}/{type}/{title}.png".format(media=settings.MEDIA_ROOT, type='cover',title=title)
+		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT, type='cover',title=title)
 		with open( url , 'wb+') as destination:
 			for chunk in ci.chunks():
 				destination.write(chunk)
 
-		cover_image = "{media}/{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title=title)
+		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title=title)
 	else:
-		cover_image = "{media}/{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title='generic')
+		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title='generic')
 
 	data = {
 		"owner": account,
@@ -170,24 +170,24 @@ def editUser(request):
 	pi = request.FILES.get('profile', False)
 	ci = request.FILES.get('cover', False)
 	if pi:
-		url = "{media}/{type}/{username}.png".format(media=settings.MEDIA_ROOT, type='profile',username=account.user.username)
+		url = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',username=account.user.username)
 		with open( url , 'wb+') as destination:
 			for chunk in pi.chunks():
 				destination.write(chunk)
-		profile_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='profile',username=account.user.username)
+		profile_image = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',username=account.user.username)
 	else:
-		profile_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='profile',username='generic')
+		profile_image = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',username='generic')
 
 
 	if ci:
-		url = "{media}/{type}/{username}.png".format(media=settings.MEDIA_ROOT, type='cover',username=account.user.username)
+		url = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',username=account.user.username)
 		with open( url , 'wb+') as destination:
 			for chunk in ci.chunks():
 				destination.write(chunk)
 
-		cover_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='cover',username=account.user.username)
+		cover_image = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',username=account.user.username)
 	else:
-		cover_image = "{media}/{type}/{username}.png".format(media=settings.MEDIA_URL, type='cover',username='generic')
+		cover_image = "{media}{type}/{username}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',username='generic')
 
 	data = {
 		"first_name":r.get('first_name', account.first_name),
