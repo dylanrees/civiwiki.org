@@ -84,10 +84,10 @@ def getIdByUsername(request):
 	'''
 	try:
 		username = request.POST.get("username", False)
-		id = Account.objects.filter(user__username=username)
+		id = Account.objects.filter(user__username=username)[0].id
 		return JsonResponse({"result": id})
 	except Exception as e:
-		return HttpResponseBadRequest()
+		return HttpResponseBadRequest(reason="No user with that name exists.")
 
 
 def getCivi(request):
