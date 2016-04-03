@@ -1,7 +1,42 @@
 from __future__ import unicode_literals
 from django.db import models
 from hashtag import Hashtag
+from group import Group
 from django.contrib.postgres.fields import ArrayField
+
+class CiviManager(models.Manager):
+
+    def summarize(self, civi):
+
+        return {
+            "id": civi.id,
+            "title": civi.title,
+            "group": Group.objects.summarize(civi.group),
+            "body": civi.body[0:150]
+        }
+
+    def serialize(self, civi, filter=None):
+
+        data = {
+            "title": civi.title,
+            "body": civi.body,
+            "group": Account.objects.summarize(civi.group),
+            "creator": Account.objects.summarize(civi.creator),
+            "visits": civi.visits,
+            "topic": civi.topic,
+            "hashtags": [h.title for h in civi.hashtags.all()],
+            "type": civi.type,
+            "id": civi.id,
+            "REF": civi.reference_id,
+            "AT": civi.at_id,
+            "AND_NEGATIVE": civi.and_negative_id,
+            "AND_POSITIVE": civi.and_positive_id
+	    }
+
+        if filter and filter in data:
+            return json.dumps({filter: data[filter]})
+        return json.dumps(data)
+
 
 # Create your models here.
 class Civi(models.Model):
@@ -35,21 +70,6 @@ class Civi(models.Model):
     and_negative = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
     and_positive = ArrayField(models.CharField(max_length=127, null=True), default=[], blank=True)
 
-    def string(self):
-        result = {
-            "title": self.title,
-            "body": self.body,
-            "author": self.author.title,
-            "visits": self.visits,
-            "topic": self.topic.topic,
-            "type": self.type,
-            "id": self.id,
-            "REF": self.reference_id,
-            "AT": self.at_id,
-            "AND_NEGATIVE": self.and_negative_id,
-            "AND_POSITIVE": self.and_positive_id
-	    }
-        return result
 
     NEG2_WEIGHT = 2
     NEG1_WEIGHT = 1
