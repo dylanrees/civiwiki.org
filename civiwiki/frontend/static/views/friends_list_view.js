@@ -32,17 +32,21 @@ var FriendsListView = Backbone.View.extend({
       var _this = this; 
       var friend_request = this.$el.find('#friend_request').val(); 
 
+      console.log(_this.user_id);
+
       if(friend_request){
         $.ajax({
           type: 'POST', 
-          url: 'api/user', //url for getting friends
+          url: 'api/user',
           data: {
             user_id: _this.user_id
           },
           success: function(data){
+
+
             //get ID of user receiving friend request 
             //get ID of user sending friend request 
-            console.log(data.results);
+            console.log(data);
           }
         })
       }
