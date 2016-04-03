@@ -39,14 +39,14 @@ def createGroup(request):
 
 
 	if ci:
-		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT, type='cover',title=title)
+		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
 		with open( url , 'wb+') as destination:
 			for chunk in ci.chunks():
 				destination.write(chunk)
 
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title=title)
+		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
 	else:
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_URL, type='cover',title='generic')
+		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title='generic')
 
 	data = {
 		"owner": account,
