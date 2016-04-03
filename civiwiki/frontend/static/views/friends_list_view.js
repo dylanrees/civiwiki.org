@@ -5,10 +5,14 @@ var FriendsListView = Backbone.View.extend({
 
     initialize: function(options){
       var _this = this; 
+
       options = options || {}; 
 
-      _this.friends = options.friends; 
+      _this.friends = options.friend_requests; 
+      _this.user_id = options.user_id;
+      console.log(_this.user_id);
       _this.render();
+
     }, 
 
     render: function(){
@@ -16,28 +20,30 @@ var FriendsListView = Backbone.View.extend({
 
        _this.$el.empty().append(_this.friendsTemplate({
             //temporary data 
-            friend_data : [{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]
+            friends : [{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]
+            //friends : _this.friends; 
         }));      
     }, 
 
     events: {
-      "click #addFriend"
+      "click #add_friend": "addFriend",
     }, 
 
     addFriend: function(){
       var _this = this; 
-
       var friend_request = this.$el.find('#friend_request').val(); 
 
       if(friend_request){
         $.ajax({
           type: 'POST', 
-          url: '', //url for friends
+          url: 'api/user', //url for getting friends
           data: {
-            username: friend_request
-          }
+            user_id: _this.user_id
+          },
           success: function(data){
-            //add to friend database?? bleh
+            //get ID of user receiving friend request 
+            //get ID of user sending friend request 
+            console.log(data.results);
           }
         })
       }

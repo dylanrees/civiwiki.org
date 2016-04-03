@@ -59,7 +59,7 @@
 <script id="friends-template" type="text/template">
 <div class="container">
     <ul class="collection friends">
-    <% _.each(friend_data, function(friend){ console.log('here');%>
+    <% _.each(friends, function(friend){%>
         <li class="collection-item avatar">
             <img class="circle" src="/static/img/team_profile/team_default.png">
             <span class="title"><%- friend.name %></span>
@@ -95,6 +95,7 @@
     var accountBaseView = new AccountBaseView({
         userModel: userModel
     });
+
 </script>
 
 </html>
