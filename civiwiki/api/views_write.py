@@ -357,3 +357,51 @@ def unfollowGroup(request):
 		return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
+
+@login_required
+@require_post_params(params=['civi'])
+def pinCivi(request):
+	'''
+		USAGE:
+			given a civi ID numer, pin the civi.
+
+		Text POST:
+			civi
+
+		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
+	'''
+
+	account = Account.objects.get(user=request.user)
+	id = request.POST.get('civi', '')
+	if  ! Civi.objects.filter(id=id).exists():
+		return HttpResponseBadRequest(reason="Invalid Civi ID")
+
+	if id not in account.pinned:
+		account.pinned += civi.id
+		account.save()
+
+	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+
+@login_required
+@require_post_params(params=['civi'])
+def unpinCivi(request):
+	'''
+		USAGE:
+			given a civi ID numer, unpin the civi.
+
+		Text POST:
+			civi
+
+		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
+	'''
+
+	account = Account.objects.get(user=request.user)
+	cid = request.POST.get('civi', '')
+	if  ! Civi.objects.filter(id=cid).exists():
+		return HttpResponseBadRequest(reason="Invalid Civi ID")
+
+	if cid in account.pinned:
+		account.pinned = [e for e in account.pinned if e != cid]
+		account.save()
+
+	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
