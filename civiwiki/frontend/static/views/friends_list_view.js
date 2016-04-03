@@ -10,7 +10,6 @@ var FriendsListView = Backbone.View.extend({
 
       _this.friends = options.friend_requests; 
       _this.user_id = options.user_id;
-      console.log(_this.user_id);
       _this.render();
 
     }, 
