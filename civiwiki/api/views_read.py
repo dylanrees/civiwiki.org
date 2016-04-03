@@ -52,7 +52,7 @@ def getTopics(request):
 
 def getUser(request):
 	try:
-		id = request.POST.get("id", False)
+		id = request.POST.get("user_id", False)
 		result = [{'id':a.id,
 					'about_me': a.about_me,
 					'last_name':a.last_name,
