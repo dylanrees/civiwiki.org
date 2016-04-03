@@ -72,7 +72,7 @@ def getUser(request):
 				'pinned': a.civi_pins,
 				'awards': a.award_list,
 				'interests': a.interests,
-				'pages': [p.id for p in a.pages.all()]
+				'groups': [p.id for p in a.groups.all()]
 				} for a in Account.objects.filter(id=1)]
 	return JsonResponse({"result":result})
 
