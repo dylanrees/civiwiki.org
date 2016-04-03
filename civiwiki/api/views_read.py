@@ -84,7 +84,7 @@ def getIdByUsername(request):
 	'''
 	try:
 		username = request.POST.get("username", False)
-		id = Account.objects.filter(user__username=username)[0].id
+		id = Account.objects.get(user__username=username).id
 		return JsonResponse({"result": id})
 	except Exception as e:
 		return HttpResponseBadRequest(reason="No user with that name exists.")
