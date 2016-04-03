@@ -373,7 +373,7 @@ def pinCivi(request):
 
 	account = Account.objects.get(user=request.user)
 	id = request.POST.get('civi', '')
-	if  ! Civi.objects.filter(id=id).exists():
+	if  not Civi.objects.filter(id=id).exists():
 		return HttpResponseBadRequest(reason="Invalid Civi ID")
 
 	if id not in account.pinned:
@@ -397,7 +397,7 @@ def unpinCivi(request):
 
 	account = Account.objects.get(user=request.user)
 	cid = request.POST.get('civi', '')
-	if  ! Civi.objects.filter(id=cid).exists():
+	if  not Civi.objects.filter(id=cid).exists():
 		return HttpResponseBadRequest(reason="Invalid Civi ID")
 
 	if cid in account.pinned:
