@@ -1,28 +1,40 @@
 from __future__ import unicode_literals
 from django.db import models
+import json
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.postgres.fields import ArrayField
+from group import Group
 from civi import Civi
-
 # Create your models here.
 class AccountManager(models.Manager):
+
+    def summarize(self, account):
+
+        return {
+            "first_name": account.first_name,
+            "last_name": account.last_name,
+            "profile_image": account.profile_image,
+            "id": account.id
+        }
+
     def serialize(self, account, filter=None):
-        tmp = {
+
+        data = {
             "username": account.user.username,
             "first_name": account.first_name,
             "last_name": account.last_name,
             "email": account.email,
-            "last_login": account.last_login.strftime("%d/%m/%y"),
+            "last_login": str(account.last_login),
             "about_me": account.about_me,
             "valid": account.valid,
             "profile_image": account.profile_image,
             "cover_image": account.cover_image,
             "statistics": account.statistics,
             "interests": account.interests,
-            "pins": [{'id':c.id, 'title':c.title} for c in Civi.objects.filter(pk__in=account.civi_pins)],
-            "history": [{'id':c.id, 'title':c.title} for c in Civi.objects.filter(pk__in=account.civi_history)],
-            "friend_requests": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in self.filter(pk__in=account.friend_requests)],
+            "pins": [Civi.objects.summarize(c) for c in Civi.objects.filter(pk__in=account.civi_pins)],
+            "history": [Civi.objects.summarize(c) for c in Civi.objects.filter(pk__in=account.civi_history)],
+            "friend_requests": [self.objects.summarize(a) for a in self.filter(pk__in=account.friend_requests)],
             "awards": [award for a in account.award_list],
             "zip_code": account.zip_code,
             "country": account.country,
@@ -31,8 +43,8 @@ class AccountManager(models.Manager):
             "country": account.country,
             "address1": account.address1,
             "address2": account.address2,
-            "groups": [{'name':group.title, 'id':group.id} for group in account.groups.all()],
-            "friends": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in account.friends.all()]
+            "groups": [Group.objects.summarize(g) for g in account.groups.all()],
+            "friends": [self.objects.summarize(a) for a in account.friends.all()]
         }
         data = {}
         for el in tmp.items():
@@ -52,23 +64,8 @@ class AccountManager(models.Manager):
                 data[str(el[0])] = el[1]
 
         if filter and filter in data:
-            return {filter: data[filter]}
-        return data
-
-
-    def getObjects(self, account, attribute):
-        if attribute == "friends":
-            return [f for f in account.friends.all()]
-        elif attribute == "groups":
-            return [p for p in account.groups.all()]
-        elif attribute == "friend_requests":
-            return [f for f in account.objects.filter(pk_in=account.friend_requests)]
-        elif attribute == "history":
-            return [c for c in Civi.objects.filter(pk__in=account.civi_history)]
-        elif attribute == "pins":
-            return [c for c in Civi.objects.filter(pk__in=account.civi_pins)]
-        else:
-            return False
+            return json.dumps({filter: data[filter]})
+        return json.dumps(data)
 
     def retrieve(self, user):
         return self.find(user=user)[0]

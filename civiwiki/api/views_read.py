@@ -12,22 +12,7 @@ def topTen(request):
 		(the chain heads)
 	'''
 	topic_id = request.POST.get('id', 1)
-	result = [{'id': c.id, 'title': c.title, 'body': c.body, 'shortened': c.body[0:150]} for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
-	# c_tuples = sorted([
-	# 	(c, c.rank()) for c in civi
-	# ], key=lambda c: c[1], reverse=True)
-	#
-	# print c_tuples
-	#
-	# result = [{
-	# 	"title": c[0].title,
-	# 	"body": c[0].body,
-	# 	"author": c[0].author.username,
-	# 	"visits": c[0].visits,
-	# 	"topic": c[0].topic.topic,
-	# 	"type": c[0].type,
-	# 	"id": c[0].id
-	# } for c in c_tuples]
+	result = [Civi.objects.summarize(c) for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
 
 	if len(result) > 10:
 		del result[10:]
@@ -61,8 +46,8 @@ def getUser(request):
 					'cover': a.cover_image,
 					'profile': a.profile_image,
 					'statistics': a.statistics,
-					'friend_requests': [{'first':f.first_name, 'last': f.last_name, 'id': f.id} for f in Account.objects.filter(id__in=a.friend_requests)],
-					'friends': [{'first':f.first_name, 'last': f.last_name, 'id': f.id} for f in a.friends.all()],
+					'friend_requests': [Account.objects.summarize(tmp) for tmp in Account.objects.filter(id__in=a.friend_requests)],
+					'friends': [Account.objects.summarize(tmp) for tmp in a.friends.all()],
 					'history': a.civi_history,
 					'pinned': a.civi_pins,
 					'awards': a.award_list,

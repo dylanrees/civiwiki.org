@@ -1,36 +1,25 @@
-var interest_views = Backbone.Collection.extend({
-
-    url: '/api/categories',
-
-    parse: function (data) {
-        return data.result;
-    }
-
-});
-
-
-
 var AccountBaseView = Backbone.View.extend({
 
     el: '#account-base',
 
-
     baseTemplate: _.template($('#base-template').html()),
-    interestTemplate: _.template($('#interest-tab-template').html()),
 
     initialize: function (options) {
         var _this = this;
-        this.interests = new interest_views();
+
         options = options || {};
         _this.userModel = options.userModel;
+
         _this.render();
     },
 
     render: function () {
         var _this = this;
+
         _this.$el.empty().append(_this.baseTemplate({
             user: _this.userModel.toJSON()
         }));
+<<<<<<< HEAD
         this.getInterests();
 
     },
@@ -60,12 +49,12 @@ var AccountBaseView = Backbone.View.extend({
          var temp1 = (event.target.id -15);
          var temp = (event.target.id);
          var temp2 = parseInt(temp1) + parseInt(30);
-         var temp3 = parseInt(temp1) + parseInt(45);         
+         var temp3 = parseInt(temp1) + parseInt(45);
        }else{
          var temp1 = (event.target.id);
          var temp = parseInt(event.target.id)+parseInt(15);
          var temp2 = parseInt(temp1) + parseInt(30);
-         var temp3 = parseInt(temp1) + parseInt(45);           
+         var temp3 = parseInt(temp1) + parseInt(45);
        }
 
        var unfollow = tempInterest.indexOf(temp1 + "");
@@ -111,7 +100,7 @@ var AccountBaseView = Backbone.View.extend({
             url: '/api/edituser',
             data: {
               //  data : JSON.stringify({interests: tempInterest})
-              data : JSON.stringify({interests: tempInterest})            
+              data : JSON.stringify({interests: tempInterest})
           },
             success: function (data) {
                 console.log("yes");
@@ -141,6 +130,5 @@ var AccountBaseView = Backbone.View.extend({
         });
 
     }
-
 
 });

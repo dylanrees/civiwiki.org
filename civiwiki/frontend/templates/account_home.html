@@ -31,9 +31,9 @@
             </div>
             <div class="col s9">
                 <ul class="tabs purple-text">
-                    <li class="tab col s3"><a class="purple-text" href="#following">Following</a></li>
+                    <li class="tab col s3"><a class="active purple-text" href="#following">Following</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#friends">Friends</a></li>
-                    <li class="tab col s3"><a class="active purple-text" href="#interests">Interests</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#interests">Interests</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#groups">Groups</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#user_data">Your Account</a></li>
                     <div class="indicator purple-background" style="z-index:1"></div>
@@ -82,7 +82,7 @@
                         <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                             <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
                             <%  console.log(user.interests + " " + eachInterest.id + " follow")        %>
-                        <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> 
+                        <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p>
 
                             <%  console.log(user.interests + " " + eachInterest.id + " unfollow")        %>
                         <%};%>
