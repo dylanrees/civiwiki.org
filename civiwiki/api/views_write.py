@@ -1,5 +1,5 @@
 import os, sys, json, pdb, random, hashlib
-from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Page
+from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag, Group
 from django.http import JsonResponse, HttpResponse, HttpResponseServerError
 from utils.custom_decorators import require_post_params
 from django.contrib.auth.decorators import login_required
@@ -9,10 +9,10 @@ from django.db.models import Q
 
 @login_required
 @require_post_params(params=['title', 'description'])
-def createPage(request):
+def createGroup(request):
 	'''
 		USAGE:
-			create a civi page responsible for creating and managing civi content.
+			create a civi Group responsible for creating and managing civi content.
 			Please validate file uploads as valid images on the frontend.
 
 		File Uploads:
@@ -23,7 +23,7 @@ def createPage(request):
 			title
 			description
 
-		:returns: (200, ok, page_id) (500, error)
+		:returns: (200, ok, group_id) (500, error)
 	'''
 	account = Account.objects.get(user=request.uer)
 	pi = request.FILES.get('profile', False)
@@ -57,22 +57,22 @@ def createPage(request):
 	}
 
 	try:
-		page = Page(**data)
-		page.save()
-		account.pages.add(page)
-		return JsonResponse({'id':page.id})
+		group = Group(**data)
+		group.save()
+		account.groups.add(group)
+		return JsonResponse({'id':group.id})
 	except Exception as e:
 		return HttpResponseServerError(reason=e)
 
 @login_required
-@require_post_params(params=['page', 'creator', 'topic', 'category', 'title', 'body', 'type'])
+@require_post_params(params=['group', 'creator', 'topic', 'category', 'title', 'body', 'type'])
 def createCivi(request):
 	'''
 	USAGE:
 		use this function to insert a new connected civi into the database.
 
 	Text POST:
-		page
+		group
 		creator
 		topic
 		category
@@ -88,7 +88,7 @@ def createCivi(request):
 	'''
 	civi = Civi()
 	data = {
-		'page_id': request.POST.get('page', ''),
+		'group_id': request.POST.get('group', ''),
 		'creator_id': request.POST.get('creator', ''),
 		'topic_id': request.POST.get('topic', ''),
 		'title': request.POST.get('title', ''),
@@ -308,52 +308,100 @@ def removeFriend(request):
 		return HttpResponseServerError(reason=str(e))
 
 @login_required
-@require_post_params(params=['page'])
-def followPage(request):
+@require_post_params(params=['group'])
+def followGroup(request):
 	'''
 		USAGE:
-			given a page ID number, add user as follower of that page.
+			given a group ID number, add user as follower of that group.
 
 		Text POST:
-			page
+			group
 
-		:return: (200, ok, list of page information) (400, bad request) (500, error)
+		:return: (200, ok, list of group information) (400, bad request) (500, error)
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Page.objects.filter(id=request.POST.get('page', '')).exists():
-		page = Page.objects.get(id=request.POST.get('page', ''))
+	if Group.objects.filter(id=request.POST.get('group', '')).exists():
+		group = Group.objects.get(id=request.POST.get('group', ''))
 	else:
-		return HttpResponseBadRequest(reason="Invalid Page ID")
+		return HttpResponseBadRequest(reason="Invalid Group ID")
 
 	try:
-		account.pages.add(page)
+		account.group.add(group)
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "pages"), safe=False)
+		return JsonResponse(Account.objects.serialize(account, "groups"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
 @login_required
-@require_post_params(params=['page'])
-def unfollowPage(request):
+@require_post_params(params=['group'])
+def unfollowGroup(request):
 	'''
 		USAGE:
-			given a page ID numer, remove user as a follower of that page.
+			given a group ID numer, remove user as a follower of that group.
 
 		Text POST:
-			page
+			group
 
-		:return: (200, ok, list of page information) (400, bad request) (500, error)
+		:return: (200, ok, list of group information) (400, bad request) (500, error)
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Page.objects.filter(id=request.POST.get('page', '')).exists():
-		page = Page.objects.get(id=request.POST.get('page', ''))
+	if Group.objects.filter(id=request.POST.get('group', '')).exists():
+		group = group.objects.get(id=request.POST.get('group', ''))
 	else:
-		return HttpResponseBadRequest(reason="Invalid Page ID")
+		return HttpResponseBadRequest(reason="Invalid Group ID")
 
 	try:
-		account.pages.remove(page)
-		return JsonResponse(Account.objects.serialize(account, "pages"), safe=False)
+		account.group.remove(group)
+		return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
+
+@login_required
+@require_post_params(params=['civi'])
+def pinCivi(request):
+	'''
+		USAGE:
+			given a civi ID numer, pin the civi.
+
+		Text POST:
+			civi
+
+		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
+	'''
+
+	account = Account.objects.get(user=request.user)
+	id = request.POST.get('civi', '')
+	if  not Civi.objects.filter(id=id).exists():
+		return HttpResponseBadRequest(reason="Invalid Civi ID")
+
+	if id not in account.pinned:
+		account.pinned += civi.id
+		account.save()
+
+	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+
+@login_required
+@require_post_params(params=['civi'])
+def unpinCivi(request):
+	'''
+		USAGE:
+			given a civi ID numer, unpin the civi.
+
+		Text POST:
+			civi
+
+		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
+	'''
+
+	account = Account.objects.get(user=request.user)
+	cid = request.POST.get('civi', '')
+	if  not Civi.objects.filter(id=cid).exists():
+		return HttpResponseBadRequest(reason="Invalid Civi ID")
+
+	if cid in account.pinned:
+		account.pinned = [e for e in account.pinned if e != cid]
+		account.save()
+
+	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)

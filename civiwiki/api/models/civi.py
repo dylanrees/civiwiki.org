@@ -12,7 +12,7 @@ class Civi(models.Model):
     implementation but it simplifies things such as searching.
     '''
     objects = models.Manager()
-    page = models.ForeignKey('Page', default=None, null=True)
+    group = models.ForeignKey('Group', default=None, null=True)
     creator = models.ForeignKey('Account', default=None, null=True)
     category = models.ForeignKey('Category', default=None, null=True)
     topic = models.ForeignKey('Topic', default=None, null=True)
