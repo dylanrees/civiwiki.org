@@ -46,8 +46,8 @@ class AccountManager(models.Manager):
             "groups": [Group.objects.summarize(g) for g in account.groups.all()],
             "friends": [self.objects.summarize(a) for a in account.friends.all()]
         }
-        data = {}
-        for el in tmp.items():
+
+        for el in data.items():
             if type(el[1]) is list:
                 data[str(el[0])] = [str(a) for a in el[1]]
 
