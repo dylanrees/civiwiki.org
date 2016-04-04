@@ -1,8 +1,19 @@
+var interest_views = Backbone.Collection.extend({
+
+    url: '/api/categories',
+
+    parse: function (data) {
+        return data.result;
+    }
+
+});
+
 var AccountBaseView = Backbone.View.extend({
 
     el: '#account-base',
 
     baseTemplate: _.template($('#base-template').html()),
+    interestTemplate: _.template($('#interest-tab-template').html()),
 
     initialize: function (options) {
         var _this = this;
@@ -15,11 +26,11 @@ var AccountBaseView = Backbone.View.extend({
 
     render: function () {
         var _this = this;
+        this.interests = new interest_views();
 
         _this.$el.empty().append(_this.baseTemplate({
             user: _this.userModel.toJSON()
         }));
-<<<<<<< HEAD
         this.getInterests();
 
     },
