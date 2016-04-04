@@ -2,7 +2,8 @@ from django.conf.urls import url
 import views_templates as v
 
 urlpatterns = [
-    url(r'^createpage', v.create_page, name='add page'),
+    url(r'^creategroup', v.create_group, name='add group'),
+    url(r'^dbview$', v.dbview, name='dbview'),
     url(r'^login', v.login_view, name='login'),
     url(r'^supportus', v.support_us_view, name='support us'),
     url(r'^beta', v.beta_view, name='beta'),

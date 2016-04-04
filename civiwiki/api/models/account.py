@@ -31,8 +31,8 @@ class AccountManager(models.Manager):
             "country": account.country,
             "address1": account.address1,
             "address2": account.address2,
-            "pages": [{str('name'):str(page.title), str('id'):page.id} for page in account.pages.all()],
-            "friends": [{str('name'): str(a.user.username), str('profile_image'): str(a.profile_image), str('id'): a.id} for a in account.friends.all()]
+            "groups": [{'name':group.title, 'id':group.id} for group in account.groups.all()],
+            "friends": [{'name': a.user.username, 'profile_image': a.profile_image, 'id': a.id} for a in account.friends.all()]
         }
         data = {}
         for el in tmp.items():
@@ -59,8 +59,8 @@ class AccountManager(models.Manager):
     def getObjects(self, account, attribute):
         if attribute == "friends":
             return [f for f in account.friends.all()]
-        elif attribute == "pages":
-            return [p for p in account.pages.all()]
+        elif attribute == "groups":
+            return [p for p in account.groups.all()]
         elif attribute == "friend_requests":
             return [f for f in account.objects.filter(pk_in=account.friend_requests)]
         elif attribute == "history":
@@ -99,5 +99,5 @@ class Account(models.Model):
     city = models.CharField(max_length=63, null=True)
     address1 = models.CharField(max_length=255, null=True)
     address2 = models.CharField(max_length=255, null=True)
-    pages = models.ManyToManyField('Page', related_name='user_pages')
+    groups = models.ManyToManyField('Group', related_name='user_groups')
     friends = models.ManyToManyField('Account', related_name='friended_account')
