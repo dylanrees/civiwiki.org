@@ -26,12 +26,13 @@ var AddCiviView = Backbone.View.extend({
 
     newCivi: function () {
         var title = $('.title').val(),
-            category = $('.category').find(":selected").text(),
-            topic = $('.topic').find(":selected").text(),
-            ics = $('.ics').find(":selected").text(),
+            category = $('.category').val(),
+            topic = $('.topic').val(),
+            ics = $('.ics').val(),
             body = $('.body').val();
 
-        $.post({
+        $.ajax({
+            type: 'POST',
             url: '/createCivi',
             data: {
                 title: title,
@@ -41,7 +42,7 @@ var AddCiviView = Backbone.View.extend({
                 body: body,
                 creator: '5'
             },
-            success: function (data) {
+            success: function () {
 
             }
         });
