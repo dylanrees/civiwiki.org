@@ -62,38 +62,51 @@
     <p><a class = "yolo" href="javascript:void(0);" id ="yolo">Reset Database</a></p>
         <% console.log(user.interests)%>
         <% console.log(user.interests.length)%>
-
         <% var interestSize = interest.length %>
         <% _.each(interest, function(eachInterest) { %>
             <% var temp = eachInterest.name.replace(/ /g,'') %>
             <% var temp1 = parseInt(eachInterest.id)+parseInt(interestSize)%>
+            <% var temp2 = parseInt(eachInterest.id)+parseInt(interestSize*2)%>
+            <% var temp3 = parseInt(eachInterest.id)+parseInt(interestSize*3)%>
             <% temp =  "static/img/interest_pics/" + temp+".jpg"%>
+            <div class = "col s5">
             <div class="card interest-item small" data-id="<%= eachInterest.name %>">
                 <div class="card-image waves-effect waves-block waves-light">
                     <img class="activator" src=<%= temp %>>
                 </div>
-
-                <div class="card-content red">
-                    <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
                     <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
-                        <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
-                        <%  console.log(user.interests + " " + eachInterest.id + " follow")        %>
-                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> 
+                        <div class="card-content red" id = "<%= temp2 %>">
+                <%} else{ %> <div class="card-content teal" id = "<%= temp2 %>">
+                <%};%>
+                        <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
+                        <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
+                            <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
+                            <%  console.log(user.interests + " " + eachInterest.id + " follow")        %>
+                        <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Unfollow</a></p> 
 
-                        <%  console.log(user.interests + " " + eachInterest.id + " unfollow")        %>
-                    <%};%>
-                </div>
+                            <%  console.log(user.interests + " " + eachInterest.id + " unfollow")        %>
+                        <%};%>
+                    </div>
 
-                <div class="card-reveal red">
-                    <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
-                    <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
                      <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
-                        <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Follow</a></p>
-                    <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Unfollow</a></p> <%};%>
+                             <div class="card-reveal red" id = "<%= temp3 %>">
+                                        <% console.log(temp3) %>
+                                <%} else{ %> <div class="card-reveal teal" id = "<%= temp3 %>">
+                                        <% console.log(temp3) %>
+                                <%};%>
+                        <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
+                        <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
+                         <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
+                            <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Follow</a></p>
+                                  <%  console.log(user.interests + " " + temp1 + " follow")        %>
+
+                        <%} else{ %>  <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Unfollow</a></p>
+                            <%  console.log(user.interests + " " + temp1 + " unfollow")        %>
+                         <%};%>
                 </div>
-
+                    </div>
             </div>
-
+            </div>
         <% }); %>
     </div>
 </script>

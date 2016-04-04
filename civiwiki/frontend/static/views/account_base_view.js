@@ -58,29 +58,48 @@ var AccountBaseView = Backbone.View.extend({
        var tempInterest = _this.userModel.get("interests");
        if (event.target.id >= 15){
          var temp1 = (event.target.id -15);
-         temp = (event.target.id);
+         var temp = (event.target.id);
+         var temp2 = parseInt(temp1) + parseInt(30);
+         var temp3 = parseInt(temp1) + parseInt(45);         
        }else{
          var temp1 = (event.target.id);
          var temp = parseInt(event.target.id)+parseInt(15);
+         var temp2 = parseInt(temp1) + parseInt(30);
+         var temp3 = parseInt(temp1) + parseInt(45);           
        }
 
        var unfollow = tempInterest.indexOf(temp1 + "");
        console.log(temp1);
        console.log(temp)
        console.log("Before: " +tempInterest);
+       var NAME2 = document.getElementById(temp2);
+       var NAME3 = document.getElementById(temp3)
+       console.log(NAME2);
+              console.log(NAME3);
+              console.log(temp3);
        if (unfollow == -1){
             tempInterest.push(temp1+"");
             document.getElementById(temp1).innerHTML = "Click Here to Unfollow";
             document.getElementById(temp).innerHTML = "Click Here to Unfollow";
+            NAME2.className = "card-content teal";
+            NAME3.className = "card-reveal teal";
+
        }else{
-            if(tempInterest.length > 1){
+            if(tempInterest.length >1){
                 tempInterest.splice(unfollow, 1);
                 document.getElementById(temp1).innerHTML = "Click Here to Follow";
                 document.getElementById(temp).innerHTML = "Click Here to Follow";
+                NAME2.className = "card-content red";
+                NAME3.className = "card-reveal red";
+
             }else{
+                tempInterest.splice(0,tempInterest.length);
                 tempInterest.push("-2");
+
                 document.getElementById(temp1).innerHTML = "Click Here to Follow";
                 document.getElementById(temp).innerHTML = "Click Here to Follow";
+                NAME2.className = "card-content red";
+                NAME3.className = "card-reveal red";
 
                 console.log("im in this loop");
 
