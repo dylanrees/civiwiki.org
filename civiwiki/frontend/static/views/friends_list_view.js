@@ -8,8 +8,10 @@ var FriendsListView = Backbone.View.extend({
 
       options = options || {}; 
 
-      _this.friends = options.friend_requests; 
+      _this.friends = options.friends;
       _this.user_id = options.user_id;
+      _this.userModel = options.userModel; 
+      console.log(_this.userModel);
       _this.render();
 
     }, 
@@ -19,7 +21,7 @@ var FriendsListView = Backbone.View.extend({
 
        _this.$el.empty().append(_this.friendsTemplate({
             //temporary data 
-            friends : [{name: 'Mitchell', s: 'a'}, {name: 'Dan', s: 'b'}, {name: 'Darius', s: 'c'}, {name: 'Joohee', s: 'd'}]
+            friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}]
             //friends : _this.friends; 
         }));      
     }, 
@@ -41,10 +43,33 @@ var FriendsListView = Backbone.View.extend({
           },
           success: function(data){
 
-            
-            //get ID of user receiving friend request 
-            //get ID of user sending friend request 
-            console.log(data);
+            $.ajax({
+              type: 'POST', 
+              url: 'api/requestFriend', 
+              data: {
+                id: data.result
+              },
+              success: function(data){
+                Materialize.toast("Your friend request has been sent!", 3000);
+              }, 
+              error: function(data){
+                Materialize.toast("Could not successfully send friend request", 3000);
+              }
+            });
+            // //add userid to friend_requests
+
+            // //if friend_requests list is empty, set it to the id of the friend_requested 
+            // var current_friend_requests = _this.userModel.get('friend_requests');
+            // console.log(current_friend_requests);
+            // current_friend_requests = [data.result]; 
+            // //if it isn't, just append it to the array 
+            // console.log(current_friend_requests);
+            // current_friend_requests.push(data.result);
+            // console.log(current_friend_requests);
+
+          },
+          error: function(data){
+            Materialize.toast("Sorry, this username doesn't exist!", 3000);
           }
         })
       }
