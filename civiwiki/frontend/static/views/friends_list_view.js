@@ -39,10 +39,9 @@ var FriendRequestView = Backbone.View.extend({
             username: friend_request
           },
           success: function(data){
-
             $.ajax({
               type: 'POST', 
-              url: 'api/requestFriend', 
+              url: 'api/requestfriend', 
               data: {
                 id: data.result
               },
@@ -74,6 +73,11 @@ var FriendRequestView = Backbone.View.extend({
     acceptFriend: function(){
       var _this = this; 
 
+      // $.ajax({
+      //   type: 'POST', 
+      //   url: 'api/acceptFriend', 
+
+      // });
 
     }, 
     rejectFriend: function(){
