@@ -71,7 +71,14 @@
         </ul>
     </div>
     </div>
-    <h4><b>Friend Requests</b></h4>
+    <div id="friend_requests">
+    </div>
+</div>
+</script>
+
+<script id="friend-request-template" type="text/template">
+<h4><b>Friend Requests</b></h4>
+    <% _.each(friend_requests, function(request){console.log(request);%>
     <div class="col l11">
         <ul class="collection friend-requests">
             <li class="collection-item avatar">
@@ -87,6 +94,7 @@
             <a href="#!"><i class="material-icons">not_interested</i></a>
         </ul>
     </div>
+    <% }); %>
     <div class="row">
         <div class="input-field col s12 l8">
             <input id="friend_request" type="text" class="validate">
@@ -96,9 +104,7 @@
             <div id="add_friend" class="btn waves-effect waves-light custom-button blue-background">Add Friend</div>
         </div>
     </div>
-</div>
 </script>
-
 <body>
     <div id="account-base">
     </div>

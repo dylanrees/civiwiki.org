@@ -1,34 +1,27 @@
-var FriendsListView = Backbone.View.extend({
-    el: '#friends', 
+var FriendRequestView = Backbone.View.extend({
+    el: '#friend_requests', 
 
-    friendsTemplate: _.template($('#friends-template').html()),
+    friendRequestTemplate: _.template($('#friend-request-template').html()),
 
     initialize: function(options){
       var _this = this; 
 
       options = options || {}; 
 
-      _this.friends = options.friends;
-      _this.user_id = options.user_id;
-      _this.userModel = options.userModel; 
-      console.log(_this.userModel);
-      _this.render();
-
     }, 
 
     render: function(){
       var _this = this; 
+       _this.$el.empty().append(_this.friendRequestTemplate({
+          friend_requests: [1,2,3]
+       }));      
 
-       _this.$el.empty().append(_this.friendsTemplate({
-            //temporary data 
-            friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}]
-            //friends : _this.friends; 
-        }));      
-    }, 
-
+    },
     events: {
       "click #add_friend": "addFriend",
-    }, 
+      "click " : "acceptFriend", 
+      "click " : "rejectFriend"
+    },
 
     addFriend: function(){
       var _this = this; 
@@ -71,7 +64,53 @@ var FriendsListView = Backbone.View.extend({
           error: function(data){
             Materialize.toast("Sorry, this username doesn't exist!", 3000);
           }
-        })
+        });
       }
+    }, 
+    acceptFriend: function(){
+      var _this = this; 
+
+
+    }, 
+    rejectFriend: function(){
+      var _this = this; 
     }
 });
+
+
+
+
+var FriendsListView = Backbone.View.extend({
+    el: '#friends', 
+
+    friendsTemplate: _.template($('#friends-template').html()),
+
+    initialize: function(options){
+      var _this = this; 
+
+      options = options || {}; 
+
+      _this.friends = options.friends;
+      _this.user_id = options.user_id;
+      _this.userModel = options.userModel; 
+      console.log(_this.userModel);
+      _this.render();
+
+
+    }, 
+
+    render: function(){
+      var _this = this; 
+
+       _this.$el.empty().append(_this.friendsTemplate({
+            //temporary data 
+            friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}]
+            //friends : _this.friends; 
+        }));      
+
+    }, 
+
+});
+
+
+

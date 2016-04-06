@@ -18,6 +18,10 @@ var AccountBaseView = Backbone.View.extend({
         });
         
         this.friendsTab.render();
+
+        this.friendRequestView = new FriendRequestView();
+        this.friendRequestView.render();
+
     },
 
     render: function () {
