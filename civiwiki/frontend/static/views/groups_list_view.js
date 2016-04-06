@@ -8,6 +8,7 @@ var GroupsListView = Backbone.View.extend({
         options = options || {};
 
         _this.groups = options.groups;
+        console.log(options);
         _this.render();
     },
 
