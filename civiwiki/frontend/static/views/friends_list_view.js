@@ -8,11 +8,15 @@ var FriendRequestView = Backbone.View.extend({
 
       options = options || {}; 
 
+      _this.friend_requests = options.friend_requests;
+
     }, 
 
     render: function(){
       var _this = this; 
        _this.$el.empty().append(_this.friendRequestTemplate({
+
+        //friend_requests: _this.friend_requests
           friend_requests: [1,2,3]
        }));      
 

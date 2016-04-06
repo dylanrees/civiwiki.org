@@ -17,7 +17,9 @@ var AccountBaseView = Backbone.View.extend({
             user_id: _this.userModel.toJSON().user_id, 
         });
         
-        this.friendRequestView = new FriendRequestView();
+        this.friendRequestView = new FriendRequestView({
+            friend_requests: _this.userModel.toJSON().friend_requests
+        });
         this.friendRequestView.render();
 
     },
