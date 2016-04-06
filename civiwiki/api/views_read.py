@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.db.models import Q
 from models import Account, Topic, Attachment, Category, Civi, Comment, Hashtag
 import sys, json, random, hashlib
@@ -12,22 +12,7 @@ def topTen(request):
 		(the chain heads)
 	'''
 	topic_id = request.POST.get('id', 1)
-	result = [{'id': c.id, 'title': c.title, 'body': c.body, 'shortened': c.body[0:150]} for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
-	# c_tuples = sorted([
-	# 	(c, c.rank()) for c in civi
-	# ], key=lambda c: c[1], reverse=True)
-	#
-	# print c_tuples
-	#
-	# result = [{
-	# 	"title": c[0].title,
-	# 	"body": c[0].body,
-	# 	"author": c[0].author.username,
-	# 	"visits": c[0].visits,
-	# 	"topic": c[0].topic.topic,
-	# 	"type": c[0].type,
-	# 	"id": c[0].id
-	# } for c in c_tuples]
+	result = [Civi.objects.summarize(c) for c in Civi.objects.filter(topic_id=int(topic_id), type='I')]
 
 	if len(result) > 10:
 		del result[10:]
@@ -51,30 +36,43 @@ def getTopics(request):
 	return JsonResponse({"result":result})
 
 def getUser(request):
+	try:
+		id = request.POST.get("user_id", False)
+		result = [{'id':a.id,
+					'about_me': a.about_me,
+					'last_name':a.last_name,
+				   	'first_name':a.first_name,
+					'email':a.email,
+					'cover': a.cover_image,
+					'profile': a.profile_image,
+					'statistics': a.statistics,
+					'friend_requests': [Account.objects.summarize(tmp) for tmp in Account.objects.filter(id__in=a.friend_requests)],
+					'friends': [Account.objects.summarize(tmp) for tmp in a.friends.all()],
+					'history': a.civi_history,
+					'pinned': a.civi_pins,
+					'awards': a.award_list,
+					'interests': a.interests,
+					'groups': [p.id for p in a.groups.all()]
+					} for a in Account.objects.filter(id=id)]
+		return JsonResponse({"result":result})
+	except Exception as e:
+		return HttpResponseBadRequest(reason=str(e))
+
+def getIdByUsername(request):
 	'''
-	takes in username and responds with all user fields
+	takes in username and responds with an accountid
 
 	image fields are going to be urls in which you can access as base.com/media/<image_url>
 
 	:param request: with username
 	:return: user object
 	'''
-	result = [{'id':a.id,
-				'about_me': a.about_me,
-				'last_name':a.last_name,
-			   	'first_name':a.first_name,
-				'email':a.email,
-				'cover': a.cover_image,
-				'profile': a.profile_image,
-				'statistics': a.statistics,
-				'friends': a.friend_list,
-				'history': a.civi_history,
-				'pinned': a.civi_pins,
-				'awards': a.award_list,
-				'interests': a.interests,
-				'groups': [p.id for p in a.groups.all()]
-				} for a in Account.objects.filter(id=1)]
-	return JsonResponse({"result":result})
+	try:
+		username = request.POST.get("username", False)
+		id = Account.objects.filter(user__username=username)
+		return JsonResponse({"result": id})
+	except Exception as e:
+		return HttpResponseBadRequest()
 
 def getCivi(request):
 	id = request.POST.get('id', -1)
