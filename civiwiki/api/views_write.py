@@ -110,12 +110,25 @@ def createCivi(request):
 
 		hashtags = request.POST.get('hashtags', '')
 		split = [x.strip() for x in hashtags.split(',')]
-		for str in split:
-			if not Hashtag.objects.filter(title=str).exists():
-				hash = Hashtag(title=str)
+		'''
+		Darius used a keyword as a variable name ...
+		'''
+		# for str in split:
+		# 	if not Hashtag.objects.filter(title=str).exists():
+		# 		hash = Hashtag(title=str)
+		# 		hash.save()
+		# 	else:
+		# 		hash = Hashtag.objects.get(title=str)
+
+		# 	civi.hashtags.add(hash.id)
+		# civi.save()
+		# return HttpResponse()
+		for mystr in split:
+			if not Hashtag.objects.filter(title=mystr).exists():
+				hash = Hashtag(title=mystr)
 				hash.save()
 			else:
-				hash = Hashtag.objects.get(title=str)
+				hash = Hashtag.objects.get(title=mystr)
 
 			civi.hashtags.add(hash.id)
 		civi.save()

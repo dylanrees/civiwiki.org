@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
 from models import Category, Account
+import views_write
 import json
 
 def login_view(request):
@@ -49,5 +50,8 @@ def about_view(request):
 
 def account_home(request):
 	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
-	dummy = "dummy"
+	# dummy = "dummy"
+	# views_write.createCivi("my civi", "a a", "prototyping", "software development", "my prototyping", "sup man", "some type")
+	views_write.createCivi(request)
+	# views_write.pinCivi(request)
 	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})

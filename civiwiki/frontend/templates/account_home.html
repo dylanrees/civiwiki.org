@@ -40,6 +40,20 @@
                 </ul>
             </div>
             <div id="following" class="col s9">
+                <form method="post">                
+                    Group: <input type="text" name="group"><br>
+                    Creator: <input type="text" name="creator"><br>
+                    Topic: <input type="text" name="topic"><br>
+                    Category: <input type="text" name="category"><br>
+                    Title: <input type="text" name="title"><br>
+                    Body: <input type="text" name="body"><br>
+                    Type: <input type="text" name="type"><br>
+                    <input type="submit" value="Submit">
+                </form>
+                <form method="post">                
+                    Civi: <input type="text" name="civi"><br>                  
+                    <input type="submit" value="Submit">
+                </form>
                 <% for (var tag in user.civi_pins) { %>
                     <%- user.civi_pins[tag] %>
                 <% } %>
