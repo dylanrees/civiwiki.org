@@ -53,5 +53,5 @@ def account_home(request):
 	# dummy = "dummy"
 	# views_write.createCivi("my civi", "a a", "prototyping", "software development", "my prototyping", "sup man", "some type")
 	views_write.createCivi(request)
-	# views_write.pinCivi(request)
+	views_write.pinCivi(request)
 	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})
