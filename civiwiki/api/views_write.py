@@ -223,7 +223,7 @@ def requestFriend(request):
 
 		:return: (200, okay) (500, error)
 	'''
-	account = Account.objects.get(user=requst.user)
+	account = Account.objects.get(user=request.user)
 	friend = Account.objects.get(id=request.POST.get('friend', ''))
 	friend.friend_requests += [account.id]
 	try:
