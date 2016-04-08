@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^topten$', v.topTen, name='example'),
     url(r'^topics$', v.getTopics, name='get topics'),
     url(r'^categories$', v.getCategories, name='get categories'),
+    url(r'^useridbyusername$', v.getIdByUsername, name='get id by username'),
     url(r'^user$', v.getUser, name='get user'),
     url(r'^getblock$', v.getBlock, name='get block'),
 ]
