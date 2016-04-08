@@ -66,28 +66,26 @@ def getIdByUsername(request):
 def getCivi(request):
 	'''
 		takes in a civi ID and returns a civi and all its descendents.
-
 	'''
-	id = request.POST.get('id', -1)
+	id = request.POST.get("id", -1)
 	try:
 		c = Civi.objects.get(id=id)
-		data = json.dumps(Civi.objects.serialize())
+		data = json.dumps(Civi.objects.serialize(c))
 		return JsonResponse({"result":data})
 
 	except Exception as e:
 		return HttpResponseBadRequest(reason=str(e))
 
 
-@require_post_params(params=['id','start','size'])
+@require_post_params(params=['id'])
 def getBlock(request):
-	topic_id = request.POST.get('topic_id', False)
+	topic_id = request.POST.get("id", False)
 	try:
 		topic = Topic.objects.get(id=topic_id)
-		start = request.POST.get('start', 0)
-		end = request.POST.get('end', 0)
+		start = request.POST.get("start", 0)
+		end = request.POST.get("end", 0)
 		if start < 0 or end < 0:
 			throw
 		return JsonResponse({"result":Civi.objects.block(topic, start if start > 0 else 0, end if end > 0 else 0)})
 	except Exception as e:
 		return HttpResponseBadRequest(reason=str(e))
-		

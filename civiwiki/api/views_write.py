@@ -386,7 +386,7 @@ def pinCivi(request):
 	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
 
 @login_required
-@require_post_params(params=['civi'])
+@require_post_params(params=['id'])
 def unpinCivi(request):
 	'''
 		USAGE:
@@ -397,14 +397,15 @@ def unpinCivi(request):
 
 		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
 	'''
+	try:
+		account = Account.objects.get(user=request.user)
+	except Exception as e:
+		return HttpResponseBadRequest(reason=str(e))
 
-	account = Account.objects.get(user=request.user)
-	cid = request.POST.get('civi', '')
-	if  not Civi.objects.filter(id=cid).exists():
-		return HttpResponseBadRequest(reason="Invalid Civi ID")
+	cid = request.POST.get("id", False) if Civi.objects.filter(id=request.POST.get("id", False)).exists() else -1
 
 	if cid in account.pinned:
 		account.pinned = [e for e in account.pinned if e != cid]
 		account.save()
 
-	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+	return JsonResponse({"result":Account.objects.serialize(account, "group")}, safe=False)
