@@ -47,8 +47,8 @@ class AccountManager(models.Manager):
             "friends": [self.objects.summarize(a) for a in account.friends.all()]
         }
         if filter and filter in data:
-            return json.dumps({filter: data[filter]})
-        return json.dumps(data)
+            return {filter: data[filter]}
+        return data
 
     def retrieve(self, user):
         return self.find(user=user)[0]
@@ -81,5 +81,3 @@ class Account(models.Model):
     address2 = models.CharField(max_length=255, null=True)
     groups = models.ManyToManyField('Group', related_name='user_groups')
     friends = models.ManyToManyField('Account', related_name='friended_account')
-
-    
