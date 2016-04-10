@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class CategoryManager(models.Manager):
-   def summarizer(self, category):
+   def summarize(self, category):
       return {
          "name": category.name,
       }
