@@ -13,7 +13,7 @@ var FriendsListView = Backbone.View.extend({
       _this.userModel = options.userModel; 
       console.log(_this.userModel);
 
-      _this.listenTo(_this.friend_requests, "change", _this.render);
+      _this.listenTo(_this.friend_requests, "change", _this.render); //supposed to listen for a change in the friend_requests attribute of the model and rerender the view accordingly
 
     }, 
 
@@ -23,7 +23,7 @@ var FriendsListView = Backbone.View.extend({
        _this.$el.empty().append(_this.friendsTemplate({
             //temporary friend data 
             friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}], 
-            friend_requests: _this.friend_requests
+            friend_requests: _this.friend_requests 
         }));      
     }, 
      events: {
