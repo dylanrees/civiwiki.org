@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 class CommentManager(models.Manager):
-   def serialize(self, comm):
+   def serialize(self, comment):
       data ={
          "civi": comment.civi,
          "author": comment.author,
