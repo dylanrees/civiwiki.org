@@ -51,3 +51,6 @@ def about_view(request):
 def account_home(request):
 	acc = Account.objects.get(user_id=request.user.id)
 	return TemplateResponse(request, 'account_home.html', {'user_data': Account.objects.serialize(acc)})
+
+def declaration(request):
+	return TemplateResponse(request, 'declaration.html')
