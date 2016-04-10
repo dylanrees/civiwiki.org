@@ -12,18 +12,11 @@ var AccountBaseView = Backbone.View.extend({
         _this.render();
         this.friendsTab = new FriendsListView({
             userModel : _this.userModel,
-            friends: _this.userModel.toJSON().friend_requests,
+            friend_requests: _this.userModel.toJSON().friend_requests,
             user_id: _this.userModel.toJSON().user_id,
         });
 
         this.friendsTab.render();
-        
-        this.friendRequestView = new FriendRequestView({
-            friend_requests: _this.userModel.toJSON().friend_requests
-        });
-
-        this.friendRequestView.render();
-
     },
 
     render: function () {

@@ -71,25 +71,21 @@
         </ul>
     </div>
     </div>
-    <div id="friend_requests"></div>
-</script>
-
-<script id="friend-request-template" type="text/template">
-<h4><b>Friend Requests</b></h4>
-    <% _.each(friend_requests, function(request_id){%>
+    <h4><b>Friend Requests</b></h4>
+    <% _.each(friend_requests, function(request){%>
     <div class="col l11">
         <ul class="collection friend-requests">
-            <li class="collection-item avatar">
+            <li class="collection-item avatar <%=request.id %>">
                 <img class="circle" src="/static/img/team_profile/team_default.png">
-                <span class="title"><%- request_id.first_name %> <%- request_id.last_name%></span>            
+                <span class="title"><%- request.first_name %> <%- request.last_name%></span>            
             </li>
         </ul>
     </div>
     <div class="col l1">
-        <ul>
-            <a href="#!" class="accept" id=><i class="material-icons">done</i></a>
+        <ul class="friend_buttons">
+            <a href="#!" class="accept <%=request.id %>"><i class="material-icons">done</i></a>
             <br><br>
-            <a href="#!" class="reject"><i class="material-icons">not_interested</i></a>
+            <a href="#!" class="reject <%=request.id %>"><i class="material-icons">not_interested</i></a>
         </ul>
     </div>
     <% }); %>

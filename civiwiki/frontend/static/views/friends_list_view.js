@@ -1,29 +1,35 @@
-var FriendRequestView = Backbone.View.extend({
-    el: '#friend_requests', 
+var FriendsListView = Backbone.View.extend({
+    el: '#friends', 
 
-    friendRequestTemplate: _.template($('#friend-request-template').html()),
+    friendsTemplate: _.template($('#friends-template').html()),
 
     initialize: function(options){
       var _this = this; 
 
       options = options || {}; 
 
+      _this.user_id = options.user_id;
       _this.friend_requests = options.friend_requests;
+      _this.userModel = options.userModel; 
+      console.log(_this.userModel);
+
+      _this.listenTo(_this.friend_requests, "change", _this.render);
 
     }, 
 
     render: function(){
       var _this = this; 
-       _this.$el.empty().append(_this.friendRequestTemplate({
 
-        friend_requests: _this.friend_requests
+       _this.$el.empty().append(_this.friendsTemplate({
+            //temporary friend data 
+            friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}], 
+            friend_requests: _this.friend_requests
         }));      
-
-    },
-    events: {
+    }, 
+     events: {
       "click #add_friend": "addFriend",
-      // "click " : "acceptFriend", 
-      // "click " : "rejectFriend"
+      "click .accept" : "acceptFriend", 
+      "click .reject" : "rejectFriend"
     },
 
     addFriend: function(){
@@ -53,18 +59,6 @@ var FriendRequestView = Backbone.View.extend({
               }
             });
 
-
-            // //add userid to friend_requests
-
-            // //if friend_requests list is empty, set it to the id of the friend_requested 
-            // var current_friend_requests = _this.userModel.get('friend_requests');
-            // console.log(current_friend_requests);
-            // current_friend_requests = [data.result]; 
-            // //if it isn't, just append it to the array 
-            // console.log(current_friend_requests);
-            // current_friend_requests.push(data.result);
-            // console.log(current_friend_requests);
-
           },
           error: function(data){
             Materialize.toast("Sorry, this username doesn't exist!", 3000);
@@ -72,9 +66,10 @@ var FriendRequestView = Backbone.View.extend({
         });
       }
     }, 
-    acceptFriend: function(){
+    acceptFriend: function(event){
       var _this = this; 
 
+      var accept_id = $(event.target).parent().attr('class').substr(-1);
       // $.ajax({
       //   type: 'POST', 
       //   url: 'api/acceptFriend', 
@@ -82,39 +77,25 @@ var FriendRequestView = Backbone.View.extend({
       // });
 
     }, 
-    rejectFriend: function(){
+    rejectFriend: function(event){
       var _this = this; 
+
+      var rejected_id = $(event.target).parent().attr('class').substr(-1); //gets the ID of rejected friend
+
+      $.ajax({
+        type:'POST', 
+        url:'api/rejectfriend',
+        data:{
+          friend:rejected_id, 
+        }, 
+        success: function(data){
+          Materialize.toast('Friend successfully rejected', 3000); //removes friends from friend_requests list
+        }, 
+        error: function(data){
+          Materialize.toast('Friend not rejected', 3000);
+        }
+      });
     }
-});
-
-
-
-
-var FriendsListView = Backbone.View.extend({
-    el: '#friends', 
-
-    friendsTemplate: _.template($('#friends-template').html()),
-
-    initialize: function(options){
-      var _this = this; 
-
-      options = options || {}; 
-
-      _this.friends = options.friends;
-      _this.user_id = options.user_id;
-      _this.userModel = options.userModel; 
-      console.log(_this.userModel);
-    }, 
-
-    render: function(){
-      var _this = this; 
-
-       _this.$el.empty().append(_this.friendsTemplate({
-            //temporary data 
-            friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}]
-            //friends : _this.friends; 
-        }));      
-    }, 
 
 });
 

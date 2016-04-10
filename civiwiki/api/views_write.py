@@ -285,7 +285,7 @@ def rejectFriend(request):
 	account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
 	try:
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "friends"))
+		return JsonResponse(Account.objects.serialize(account, "friends"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -306,7 +306,7 @@ def removeFriend(request):
 	try:
 		account.friends.remove(friend_id)
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "friends"))
+		return JsonResponse(Account.objects.serialize(account, "friends"), safe=False)
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 

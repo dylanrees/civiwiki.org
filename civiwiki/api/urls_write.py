@@ -7,6 +7,7 @@ urlpatterns = [
     url(r'^edituser$',v.editUser, name='edit user'),
     url(r'^requestfriend$',v.requestFriend, name='request friend'),
     url(r'^acceptfriend$',v.acceptFriend, name='accept friend'),
+    url(r'^rejectfriend$',v.rejectFriend,name='reject friend'),
     url(r'^removefriend$',v.removeFriend, name='remove friend'),
     url(r'^followgroup$',v.followGroup, name='follow group'),
     url(r'^unfollowgroup$', v.unfollowGroup, name='unfollow group'),
