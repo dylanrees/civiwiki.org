@@ -16,15 +16,14 @@ var FriendRequestView = Backbone.View.extend({
       var _this = this; 
        _this.$el.empty().append(_this.friendRequestTemplate({
 
-        //friend_requests: _this.friend_requests
-          friend_requests: [1,2,3]
-       }));      
+        friend_requests: _this.friend_requests
+        }));      
 
     },
     events: {
       "click #add_friend": "addFriend",
-      "click " : "acceptFriend", 
-      "click " : "rejectFriend"
+      // "click " : "acceptFriend", 
+      // "click " : "rejectFriend"
     },
 
     addFriend: function(){
@@ -43,15 +42,18 @@ var FriendRequestView = Backbone.View.extend({
               type: 'POST', 
               url: 'api/requestfriend', 
               data: {
-                id: data.result
+                friend: data.result
               },
               success: function(data){
                 Materialize.toast("Your friend request has been sent!", 3000);
               }, 
               error: function(data){
+                console.log(data.result);
                 Materialize.toast("Could not successfully send friend request", 3000);
               }
             });
+
+
             // //add userid to friend_requests
 
             // //if friend_requests list is empty, set it to the id of the friend_requested 
@@ -102,9 +104,6 @@ var FriendsListView = Backbone.View.extend({
       _this.user_id = options.user_id;
       _this.userModel = options.userModel; 
       console.log(_this.userModel);
-      _this.render();
-
-
     }, 
 
     render: function(){
@@ -115,7 +114,6 @@ var FriendsListView = Backbone.View.extend({
             friends : [{first_name: 'Mitchell', last_name: 'West'}, {first_name: 'Dan', last_name:'Borstelmann'}, {first_name: 'Darius', last_name: 'Calliet'}, {first_name: 'Joohee', last_name:'Lee'}]
             //friends : _this.friends; 
         }));      
-
     }, 
 
 });
