@@ -2,12 +2,11 @@ from __future__ import unicode_literals
 from django.db import models
 
 class CommentManager(models.Manager):
-   def serialize(self, account, filter=None):
+   def serialize(self, comm):
       data ={
-         "civi": Comment.civi,
-         "author": Comment.author,
-         "comment": Comment.comment,
-         "all_objects": Comment.objects,
+         "civi": comment.civi,
+         "author": comment.author,
+         "comment": comment.comment,
       }
       return json.dumps(data)
 # Create your models here.
@@ -17,7 +16,7 @@ class Comment(models.Model):
     are associated with. As well as their author and
     the text.
     '''
-    objects = models.Manager()
+    objects = CommentManager()
     civi = models.ForeignKey('Civi')
     author = models.ForeignKey('Account')
     comment = models.CharField(max_length=511, default="")
