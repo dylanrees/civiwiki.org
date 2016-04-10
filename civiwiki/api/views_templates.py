@@ -50,4 +50,4 @@ def about_view(request):
 @login_required
 def account_home(request):
 	acc = Account.objects.get(user_id=request.user.id)
-	return TemplateResponse(request, 'account_home.html', {'results'': json.dumps(Account.objects.serialize(acc))})
+	return TemplateResponse(request, 'account_home.html', {'results': json.dumps(Account.objects.serialize(acc))})
