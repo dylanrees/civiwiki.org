@@ -3,6 +3,10 @@ from django.db import models
 
 # Create your models here.
 class CategoryManager(models.Manager):
+   def summarizer(self, category):
+      return {
+         "name": category.name,
+      }
    def serialize(self, category):
       data ={
          "name": category.name,

@@ -5,7 +5,7 @@ from django.db import models
 class TopicManager(models.Manager):
    def serialize(self, topic):
       data ={
-         "category": topic.category,
+         "category": Category.objects.summarize(topic.category),
          "topic": topic.topic,
          "bill": topic.bill,
       }

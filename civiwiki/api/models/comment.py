@@ -4,8 +4,8 @@ from django.db import models
 class CommentManager(models.Manager):
    def serialize(self, comment):
       data ={
-         "civi": comment.civi,
-         "author": comment.author,
+         "civi": Civi.objects.summarize(comment.civi),
+         "author": Account.objects.summarize(comment.author),
          "comment": comment.comment,
       }
       return json.dumps(data)

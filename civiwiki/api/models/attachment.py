@@ -5,7 +5,7 @@ class AttachmentManager(models.Manager):
    def serialize(self, attachment):
       data ={
          "attachment": attachment.attachment,
-         "civi": attachment.bill,
+         "civi": Civi.objects.summarize(attachment.civi),
       }
       return json.dumps(data)
 # Create your models here.
