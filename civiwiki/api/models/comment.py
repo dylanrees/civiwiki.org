@@ -1,6 +1,15 @@
 from __future__ import unicode_literals
 from django.db import models
 
+class CommentManager(models.Manager):
+   def serialize(self, account, filter=None):
+      data ={
+         "civi": Comment.civi,
+         "author": Comment.author,
+         "comment": Comment.comment,
+         "all_objects": Comment.objects,
+      }
+      return json.dumps(data)
 # Create your models here.
 class Comment(models.Model):
     '''

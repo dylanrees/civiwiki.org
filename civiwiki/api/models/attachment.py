@@ -1,6 +1,14 @@
 from __future__ import unicode_literals
 from django.db import models
 
+class AttachmentManager(models.Manager):
+   def serialize(self, account, filter=None):
+      data ={
+         "attachment": Attachment.attachment,
+         "civi": Attachment.bill,
+         "all_objects": Attachment.objects,
+      }
+      return json.dumps(data)
 # Create your models here.
 class Attachment(models.Model):
     '''
