@@ -3,11 +3,11 @@ from django.db import models
 from hashtag import Hashtag
 from group import Group
 from django.contrib.postgres.fields import ArrayField
+from operator import itemgetter
+import math
 
 class CiviManager(models.Manager):
-
     def summarize(self, civi):
-
         return {
             "id": civi.id,
             "title": civi.title,
@@ -16,7 +16,6 @@ class CiviManager(models.Manager):
         }
 
     def serialize(self, civi, filter=None):
-
         data = {
             "title": civi.title,
             "body": civi.body,
@@ -28,15 +27,36 @@ class CiviManager(models.Manager):
             "type": civi.type,
             "id": civi.id,
             "REF": civi.reference_id,
-            "AT": civi.at_id,
-            "AND_NEGATIVE": civi.and_negative_id,
-            "AND_POSITIVE": civi.and_positive_id
+            "AT": getChain(civi.at_id),
+            "AND_NEGATIVE": getChain(civi.and_negative_id),
+            "AND_POSITIVE": getChain(civi.and_positive_id)
 	    }
 
         if filter and filter in data:
             return json.dumps({filter: data[filter]})
         return json.dumps(data)
 
+    def getChain(self, id_list):
+        if len(id_list):
+            return [self.serialize(self.get(id)) for id in id_list]
+        return  []
+
+    def block(self, topic, start=0, end=0):
+        '''
+            Scores Civis and sorts them returning the block.
+            TODO: this may get slow in the long run. Maybe we should keep a score on every civi that is updated when a civi is
+            voted on?
+        '''
+        def score(c):
+            return int(c.aveScore() * c.calcPolarity())
+
+        if end == 0:
+            end = start + 10
+        id_and_score = [{'id':c.id, 'score': score(c)} for c in self.filter(topic=topic, type='I')]
+        id_and_score = sorted(id_and_score, key=itemgetter('score'), reverse=True )[start:end]
+
+        ids = [a['id'] for a in id_and_score]
+        return [self.summarize(civi) for civi in self.filter(id__in=ids)]
 
 # Create your models here.
 class Civi(models.Model):
@@ -46,7 +66,7 @@ class Civi(models.Model):
     references to other objects. Maybe not the fastest
     implementation but it simplifies things such as searching.
     '''
-    objects = models.Manager()
+    objects = CiviManager()
     group = models.ForeignKey('Group', default=None, null=True)
     creator = models.ForeignKey('Account', default=None, null=True)
     category = models.ForeignKey('Category', default=None, null=True)
@@ -82,43 +102,32 @@ class Civi(models.Model):
 
     def calcPolarity(self):
         '''
-        :param civi: Calculates polarity of the inputted civi
-        :return: polarity score
+            polarity : ( positive2 / visits ) + ( .5 * positive / visits ) + (.5 * negative / visits ) + ( negative2 / visits )
+            polarity takes a value between 0 and 1, approaching 0 as votes cluster around neutral, and approach one as votes
+            cluster amoung stronger alignments.
+
         '''
-        score = self.votes_negative2 * self.NEG2_WEIGHT + self.votes_negative1 * self.NEG1_WEIGHT
-        score += self.votes_positive1 * self.POS1_WEIGHT + self.votes_positive2 * self.POS2_WEIGHT
-        score /= self.visits*1.0
-        score /= self.SCALE_POLARITY #Scaling polarity so it is a value between 0 and 1 rather than 0 and 2
-        return score
+        polarity = ( self.votes_positive2 + self.votes_negative1 + .5 * ( self.votes_positive1 + self.votes_negative2 ) )
+        polarity /= self.visits
+        return polarity
 
 
     def aveVote(self):
         '''
-        Returns average vote of civi
-        :param civi:
-        :return:
+            average vote ranges between 0 and 5. Scaled like this so it can be used as a direct multiplier for score and ignore votes with heavily negative weights.
         '''
-        ave = self.votes_negative1 + self.votes_negative2 + self.votes_positive2 + self.votes_positive1
+        ave = -1 * ( self.votes_negative1 + 2 * self.votes_negative2 ) + ( 2 * self.votes_positive2 + self.votes_positive1 )
         ave /= self.visits
-        return ave
+        return ave + 5
 
-    # def topNCivis(civis, N):
-    #     '''
-    #     Returns the top ranked N civis that are passed in
-    #     :param civis:
-    #     :return:
-    #     '''
-    #     # averages=aveVotes(civis)
-    #     # for thing in averages:
-    #     # 	if thing[ave] < -1.0:
+    def aveScore(self):
+        '''
+            Average score is a summation of the vote values recieved,
+            - moved onto a logarithmic scale
+            - lastly scaled by amplifier to allow an integer effect by the Polarity.
+        '''
+        score = -1 * ( self.votes_negative1 + 2 * self.votes_negative2 ) + ( 2 * self.votes_positive2 + self.votes_positive1 )
+        log_shift = math.log(self.visits)
+        amplifier = math.pow(10,10)
 
-    def rank(self):
-        '''
-        Ranks civis on a 0 to 1 scale based on polarity score,
-        sets rank of civis with average votes to 0 (not polar)
-        :return:
-        '''
-        result = self.calcPolarity()
-        if self.aveVote() <= self.RANK_CUTOFF:
-            result = 0.0
-        return result
+        return score * log_shift * amplifier

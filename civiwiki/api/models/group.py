@@ -24,6 +24,7 @@ class GroupManager(models.Manager):
 
 # Create your models here.
 class Group(models.Model):
+    objects = GroupManager()
     owner = models.ForeignKey('Account', related_name='group_owner')
     title = models.CharField(max_length=63, default='')
     description = models.TextField(max_length=4095)
