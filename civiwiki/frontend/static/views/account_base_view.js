@@ -11,10 +11,8 @@ var interest_views = Backbone.Collection.extend({
 var AccountBaseView = Backbone.View.extend({
 
     el: '#account-base',
-
     baseTemplate: _.template($('#base-template').html()),
     interestTemplate: _.template($('#interest-tab-template').html()),
-
     initialize: function (options) {
         var _this = this;
 
@@ -52,20 +50,31 @@ var AccountBaseView = Backbone.View.extend({
         'click .yolo': 'editYolo',
 
     },
-
-    editFollowInterest: function(event){
+      editFollowInterest: function(event){
        var _this = this;
+
+    var yolo = 0;
+
+       this.interests.fetch({
+            success: function (collection, response) {
+                yolo = response.result.length;
+            }
+        });
+
+        console.log("hi " + yolo);
+        console.log(yolo);
        var tempInterest = _this.userModel.get("interests");
-       if (event.target.id >= 15){
-         var temp1 = (event.target.id -15);
+       var interestSize = 15;
+       if (event.target.id >= interestSize){
+         var temp1 = (event.target.id - interestSize);
          var temp = (event.target.id);
-         var temp2 = parseInt(temp1) + parseInt(30);
-         var temp3 = parseInt(temp1) + parseInt(45);
+         var temp2 = parseInt(temp1) + parseInt(interestSize*2);
+         var temp3 = parseInt(temp1) + parseInt(interestSize*3);
        }else{
          var temp1 = (event.target.id);
-         var temp = parseInt(event.target.id)+parseInt(15);
-         var temp2 = parseInt(temp1) + parseInt(30);
-         var temp3 = parseInt(temp1) + parseInt(45);
+         var temp = parseInt(event.target.id)+parseInt(interestSize);
+         var temp2 = parseInt(temp1) + parseInt(interestSize*2);
+         var temp3 = parseInt(temp1) + parseInt(interestSize*3);
        }
 
        var unfollow = tempInterest.indexOf(temp1 + "");
@@ -81,25 +90,24 @@ var AccountBaseView = Backbone.View.extend({
             tempInterest.push(temp1+"");
             document.getElementById(temp1).innerHTML = "Click Here to Unfollow";
             document.getElementById(temp).innerHTML = "Click Here to Unfollow";
-            NAME2.className = "card-content teal";
-            NAME3.className = "card-reveal teal";
+            NAME2.className = "card-content purple-background";
+            NAME3.className = "card-reveal purple-background";
 
        }else{
             if(tempInterest.length >1){
                 tempInterest.splice(unfollow, 1);
                 document.getElementById(temp1).innerHTML = "Click Here to Follow";
                 document.getElementById(temp).innerHTML = "Click Here to Follow";
-                NAME2.className = "card-content red";
-                NAME3.className = "card-reveal red";
+                NAME2.className = "card-content grey darken-3";
+                NAME3.className = "card-reveal grey darken-3";
 
             }else{
                 tempInterest.splice(0,tempInterest.length);
-                tempInterest.push("-2");
 
                 document.getElementById(temp1).innerHTML = "Click Here to Follow";
                 document.getElementById(temp).innerHTML = "Click Here to Follow";
-                NAME2.className = "card-content red";
-                NAME3.className = "card-reveal red";
+                NAME2.className = "card-content grey darken-3";
+                NAME3.className = "card-reveal grey darken-3";
 
                 console.log("im in this loop");
 
@@ -114,29 +122,32 @@ var AccountBaseView = Backbone.View.extend({
               data : JSON.stringify({interests: tempInterest})
           },
             success: function (data) {
-                console.log("yes");
+                console.log("yesyes");
             },
             error: function(data){
-                console.log("no");
+                console.log("nono");
             }
         });
 
     },
+
     editYolo: function(event){
         var _this = this;
-        console.log(_this.userModel.get("interests"));
-        var tempInterest = [];
-            $.ajax({
+       var tempInterest = _this.userModel.get("interests");
+                tempInterest.splice(0,tempInterest.length);
+
+             $.ajax({
             type: 'POST',
             url: '/api/edituser',
             data: {
-                interests: JSON.stringify(tempInterest)
-            },
+              //  data : JSON.stringify({interests: tempInterest})
+              data : JSON.stringify({interests: tempInterest})
+          },
             success: function (data) {
-                console.log("yes");
+                console.log("yesyes");
             },
             error: function(data){
-                console.log("no");
+                console.log("nono");
             }
         });
 

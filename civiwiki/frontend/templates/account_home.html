@@ -31,9 +31,9 @@
             </div>
             <div class="col s9">
                 <ul class="tabs purple-text">
-                    <li class="tab col s3"><a class="active purple-text" href="#following">Following</a></li>
+                    <li class="tab col s3"><a class="purple-text" href="#following">Following</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#friends">Friends</a></li>
-                    <li class="tab col s3"><a class="purple-text" href="#interests">Interests</a></li>
+                    <li class="tab col s3"><a class="active purple-text" href="#interests">Interests</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#groups">Groups</a></li>
                     <li class="tab col s3"><a class="purple-text" href="#user_data">Your Account</a></li>
                     <div class="indicator purple-background" style="z-index:1"></div>
@@ -75,10 +75,10 @@
                     <img class="activator" src=<%= temp %>>
                 </div>
                     <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
-                        <div class="card-content red" id = "<%= temp2 %>">
-                <%} else{ %> <div class="card-content teal" id = "<%= temp2 %>">
+                        <div class="card-content grey darken-3" id = "<%= temp2 %>">
+                <%} else{ %> <div class="card-content purple-background" id = "<%= temp2 %>">
                 <%};%>
-                        <span class="card-title activator grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
+                        <span class="card-title activator white-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">more_vert</i></span>
                         <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                             <p><a class = "followInterest" href="javascript:void(0);" id ="<%= eachInterest.id %>">Click Here to Follow</a></p>
                             <%  console.log(user.interests + " " + eachInterest.id + " follow")        %>
@@ -89,13 +89,13 @@
                     </div>
 
                      <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
-                             <div class="card-reveal red" id = "<%= temp3 %>">
+                             <div class="card-reveal grey darken-3" id = "<%= temp3 %>">
                                         <% console.log(temp3) %>
-                                <%} else{ %> <div class="card-reveal teal" id = "<%= temp3 %>">
+                                <%} else{ %> <div class="card-reveal purple-background" id = "<%= temp3 %>">
                                         <% console.log(temp3) %>
                                 <%};%>
-                        <span class="card-title grey-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
-                        <p><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
+                        <span class="card-title white-text text-darken-4"><%- eachInterest.name %><i class="material-icons right">close</i></span>
+                        <p class = "white-text"><%- eachInterest.name %> has an id of <%- eachInterest.id %></p>
                          <% if (user.interests.indexOf(eachInterest.id + "") == -1 ) {%>
                             <p><a class = "followInterest" href="javascript:void(0);" id ="<%= temp1 %>">Click Here to Follow</a></p>
                                   <%  console.log(user.interests + " " + temp1 + " follow")        %>
