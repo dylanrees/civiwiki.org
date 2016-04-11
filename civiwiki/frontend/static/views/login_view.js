@@ -49,7 +49,7 @@ var LoginView = Backbone.View.extend({
                       window.location.href = _this.findURLParameter('next');
                 },
                 error: function (data) {
-                  
+
                   if (data.status === 400) {
                       Materialize.toast(data.statusText, 2000);
                   } else if(data.status === 500 && data.statusText == "inactive account"){
@@ -84,6 +84,7 @@ var LoginView = Backbone.View.extend({
             password = this.$el.find('#password').val(),
             firstName = this.$el.find('#first-name').val(),
             lastName = this.$el.find('#last-name').val(),
+            zip = this.$el.find('#zip-code').val(),
             birthday = this.$el.find('#bday').val();
 
         if (!this.calculateAge(birthday)) {
@@ -91,7 +92,7 @@ var LoginView = Backbone.View.extend({
             return;
         }
 
-        if (email && password && firstName && lastName && username) {
+        if (email && password && firstName && lastName && username && zip) {
 
             $.ajax({
                 type: 'POST',
@@ -102,7 +103,8 @@ var LoginView = Backbone.View.extend({
                     password: password,
                     first_name: firstName,
                     last_name: lastName,
-                    birthday: birthday
+                    birthday: birthday,
+                    zip: zip
                 },
                 success: function (data) {
                     if (data.status_code === 200) {
