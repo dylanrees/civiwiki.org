@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
-from models import Category, Account
+from models import Category, Account, Topic
 import json
 
 def login_view(request):
@@ -51,3 +51,9 @@ def about_view(request):
 def account_home(request):
 	acc = Account.objects.get(user_id=request.user.id)
 	return TemplateResponse(request, 'account_home.html', {'result': json.dumps(Account.objects.serialize(acc))})
+
+def add_civi(request):
+	categories = [{'id': c.id, 'name': c.name} for c in Category.objects.all()]
+	topics = [{'id': c.id, 'topic': c.topic} for c in Topic.objects.all()]
+
+	return TemplateResponse(request, 'add_civi.html', {'categories': json.dumps(categories), 'topics': json.dumps(topics)})
