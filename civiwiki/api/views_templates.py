@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
-from models import Category, Account
+from models import Category, Account, Topic
 import json
 
 def login_view(request):
@@ -42,7 +42,7 @@ def support_us_view(request):
 def dbview(request):
 	result = [{'id': c.id, 'name': c.name} for c in Category.objects.all()]
 
-	return TemplateResponse(request, 'dbview.html', {'categories': json.dumps(result)})
+	return TemplateResponse(request, 'dbview.html', {'result': json.dumps(result)})
 
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
@@ -50,4 +50,13 @@ def about_view(request):
 @login_required
 def account_home(request):
 	acc = Account.objects.get(user_id=request.user.id)
-	return TemplateResponse(request, 'account_home.html', {'user_data': Account.objects.serialize(acc)})
+	return TemplateResponse(request, 'account_home.html', {'result': json.dumps(Account.objects.serialize(acc))})
+
+def add_civi(request):
+	categories = [{'id': c.id, 'name': c.name} for c in Category.objects.all()]
+	topics = [{'id': c.id, 'topic': c.topic} for c in Topic.objects.all()]
+
+	return TemplateResponse(request, 'add_civi.html', {'categories': json.dumps(categories), 'topics': json.dumps(topics)})
+
+def declaration(request):
+	return TemplateResponse(request, 'declaration.html', {})

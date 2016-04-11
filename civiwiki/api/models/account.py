@@ -34,7 +34,7 @@ class AccountManager(models.Manager):
             "interests": account.interests,
             "pins": [Civi.objects.summarize(c) for c in Civi.objects.filter(pk__in=account.civi_pins)],
             "history": [Civi.objects.summarize(c) for c in Civi.objects.filter(pk__in=account.civi_history)],
-            "friend_requests": [self.objects.summarize(a) for a in self.filter(pk__in=account.friend_requests)],
+            "friend_requests": [self.summarize(a) for a in self.filter(pk__in=account.friend_requests)],
             "awards": [award for a in account.award_list],
             "zip_code": account.zip_code,
             "country": account.country,
@@ -44,7 +44,7 @@ class AccountManager(models.Manager):
             "address1": account.address1,
             "address2": account.address2,
             "groups": [Group.objects.summarize(g) for g in account.groups.all()],
-            "friends": [self.objects.summarize(a) for a in account.friends.all()]
+            "friends": [self.summarize(a) for a in account.friends.all()]
         }
 
         for el in data.items():
@@ -64,8 +64,8 @@ class AccountManager(models.Manager):
                 data[str(el[0])] = el[1]
 
         if filter and filter in data:
-            return json.dumps({filter: data[filter]})
-        return json.dumps(data)
+            return {filter: data[filter]}
+        return data
 
     def retrieve(self, user):
         return self.find(user=user)[0]

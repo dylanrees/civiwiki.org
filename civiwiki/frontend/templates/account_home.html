@@ -119,9 +119,13 @@
 <script src="/static/views/account_base_view.js" type="text/javascript"></script>
 
 <script>
+<<<<<<< HEAD
     var data = {{user_data|safe}};
 
     var userModel = new Backbone.Model(data);
+=======
+    var userModel = new Backbone.Model({{result|safe}});
+>>>>>>> master
     var accountBaseView = new AccountBaseView({
         userModel: userModel
     });
