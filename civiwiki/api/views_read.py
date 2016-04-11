@@ -13,9 +13,12 @@ def topTen(request):
 		Given an topic ID, returns the top ten Civis of type Issue
 		(the chain heads)
 	'''
-	topic_id = request.POST.get('id', '')
-	topic = Topic.objects.get(id=topic_id)
-	return JsonResponse({'result':Civi.objects.block(topic)})
+	topic_id = request.POST.get('id', -1)
+	try:
+		topic = Topic.objects.get(id=int(topic_id))
+		return JsonResponse({'result':Civi.objects.block(topic)})
+	except Topic.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 
 def getCategories(request):
 	'''
@@ -29,10 +32,16 @@ def getTopics(request):
 	'''
 		Takes in a category ID, returns a list of topics under the category.
 	'''
-	category_id = request.POST.get('id', '')
-	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=int(category_id))]
+	category_id = request.POST.get('id', -1)
 
+	try:
+		Category.objects.get(id=category_id)
+	except Category.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
+
+	result = [{'id':a.id, 'topic': a.topic, 'bill': a.bill} for a in Topic.objects.filter(category_id=category_id)]
 	return JsonResponse({"result":result})
+
 
 @require_post_params(params=['id'])
 def getUser(request):
@@ -42,7 +51,7 @@ def getUser(request):
 	try:
 		a = Account.objects.get(id=request.POST.get("id", -1))
 		return JsonResponse({"result":Account.objects.serialize(a)})
-	except Exception as e:
+	except Account.DoesNotExist as e:
 		return HttpResponseBadRequest(reason=str(e))
 
 @require_post_params(params=['username'])
@@ -57,10 +66,9 @@ def getIdByUsername(request):
 	'''
 	try:
 		username = request.POST.get("username", False)
-		id = Account.objects.filter(user__username=username)
-		return JsonResponse({"result": id})
-	except Exception as e:
-		return HttpResponseBadRequest()
+		return JsonResponse({"result": Account.objects.get(user__username=username).id})
+	except Account.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 
 @require_post_params(params=['id'])
 def getCivi(request):
@@ -70,22 +78,22 @@ def getCivi(request):
 	id = request.POST.get("id", -1)
 	try:
 		c = Civi.objects.get(id=id)
-		data = json.dumps(Civi.objects.serialize(c))
-		return JsonResponse({"result":data})
-
-	except Exception as e:
+		return JsonResponse({"result":json.dumps(Civi.objects.serialize(c))})
+	except Civi.DoesNotExist as e:
 		return HttpResponseBadRequest(reason=str(e))
 
 
 @require_post_params(params=['id'])
 def getBlock(request):
-	topic_id = request.POST.get("id", False)
+	topic_id = request.POST.get("id", -1)
 	try:
 		topic = Topic.objects.get(id=topic_id)
 		start = request.POST.get("start", 0)
 		end = request.POST.get("end", 0)
-		if start < 0 or end < 0:
-			throw
+		if start < 0 or end < 0 or end < start:
+			raise Exception("Invalid start or end parameters.")
 		return JsonResponse({"result":Civi.objects.block(topic, start if start > 0 else 0, end if end > 0 else 0)})
+	except Topic.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseBadRequest(reason=str(e))
