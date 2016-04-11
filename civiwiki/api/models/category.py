@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 from django.db import models
+import json
 
 # Create your models here.
 class CategoryManager(models.Manager):

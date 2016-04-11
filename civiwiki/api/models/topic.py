@@ -1,6 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
-
+from category import Category
+import json
 # Create your models here.
 class TopicManager(models.Manager):
    def serialize(self, topic):

@@ -1,5 +1,5 @@
 from account import Account
-from article import Topic
+from topic import Topic
 from attachment import Attachment
 from category import Category
 from civi import Civi

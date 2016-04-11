@@ -1,5 +1,7 @@
 from __future__ import unicode_literals
 from django.db import models
+import json
+from civi import Civi
 
 class AttachmentManager(models.Manager):
    def serialize(self, attachment):

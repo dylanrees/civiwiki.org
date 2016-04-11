@@ -3,11 +3,10 @@ from django.db import models
 from hashtag import Hashtag
 from group import Group
 from django.contrib.postgres.fields import ArrayField
-
+import json
 class CiviManager(models.Manager):
 
     def summarize(self, civi):
-
         return {
             "id": civi.id,
             "title": civi.title,
