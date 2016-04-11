@@ -88,11 +88,11 @@ def getBlock(request):
 	topic_id = request.POST.get("id", -1)
 	try:
 		topic = Topic.objects.get(id=topic_id)
-		start = request.POST.get("start", 0)
-		end = request.POST.get("end", 0)
+		start = int(request.POST.get("start", 0))
+		end = int(request.POST.get("end", 0))
 		if start < 0 or end < 0 or end < start:
 			raise Exception("Invalid start or end parameters.")
-		return JsonResponse({"result":Civi.objects.block(topic, start if start > 0 else 0, end if end > 0 else 0)})
+		return JsonResponse({"result":Civi.objects.block(topic, start, end)})
 	except Topic.DoesNotExist as e:
 		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
