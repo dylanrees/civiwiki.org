@@ -25,42 +25,22 @@ def createGroup(request):
 
 		:returns: (200, ok, group_id) (500, error)
 	'''
-	account = Account.objects.get(user=request.uer)
 	pi = request.FILES.get('profile', False)
 	ci = request.FILES.get('cover', False)
-	if pi:
-		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
-		with open( url , 'wb+') as destination:
-			for chunk in pi.chunks():
-				destination.write(chunk)
-		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
-	else:
-		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title='generic')
-
-
-	if ci:
-		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
-		with open( url , 'wb+') as destination:
-			for chunk in ci.chunks():
-				destination.write(chunk)
-
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
-	else:
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title='generic')
-
+	title = request.POST.get(title, '')
 	data = {
-		"owner": account,
-		"title": request.POST.get('title',''),
+		"owner": Account.objects.get(user=request.user),
+		"title": title,
 		"description": request.POST.get('description',''),
-		"profile_image": profile_image,
-		"cover_image": cover_image
+		"profile_image": writeImage('profile', pi, title),
+		"cover_image": writeImage('cover', ci, title)
 	}
 
 	try:
 		group = Group(**data)
 		group.save()
 		account.groups.add(group)
-		return JsonResponse({'id':group.id})
+		return JsonResponse({'result':group.id})
 	except Exception as e:
 		return HttpResponseServerError(reason=e)
 
@@ -209,7 +189,7 @@ def editUser(request):
 		Account.objects.filter(id=account.id).update(**data)
 		account.refresh_from_db()
 
-		return JsonResponse(Account.objects.serialize(account))
+		return JsonResponse({"result":Account.objects.serialize(account)})
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -224,14 +204,19 @@ def requestFriend(request):
 		Text POST:
 			friend
 
-		:return: (200, okay) (500, error)
+		:return: (200, okay) (400, error) (500, error)
 	'''
-	account = Account.objects.get(user=requst.user)
-	friend = Account.objects.get(id=request.POST.get('friend', ''))
-	friend.friend_requests += [account.id]
 	try:
+		account = Account.objects.get(user=request.user)
+		friend = Account.objects.get(id=request.POST.get('friend', -1))
+		if account.id in friend.friend_requests:
+			raise Exception("Request has already been sent to user")
+
+		friend.friend_requests += [int(account.id)]
 		friend.save()
 		return HttpResponse()
+	except Account.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -248,18 +233,19 @@ def acceptFriend(request):
 
 		:return: (200, okay, list of friend information) (400, bad lookup) (500, error)
 	'''
-	a = Account.objects.filter(user=request.user)
-	account = Account.objects.get(user=request.user)
-	stranger_id = request.POST.get('friend', '')
-
-	if stranger_id not in account.friend_requests:
-		return HttpResponseBadRequest(reason="No request was sent from this person.")
-
-	account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
 	try:
-		account.friends.add(Account.objects.get(id=stranger_id))
+		account = Account.objects.get(user=request.user)
+		stranger = Account.objects.get(id=request.POST.get('friend', -1))
+
+		if stranger_id not in account.friend_requests:
+			raise Exception(reason="No request was sent from this person.")
+
+		account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
+		account.friends.add(stranger)
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "friends"))
+		return JsonResponse({"result":Account.objects.serialize(account, "friends")})
+	except Account.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -275,17 +261,19 @@ def rejectFriend(request):
 
 		:return: (200, okay, list of friend information) (400, bad lookup) (500, error)
 	'''
-	a = Account.objects.filter(user=request.user)
-	account = Account.objects.get(user=request.user)
-	stranger_id = request.POST.get('friend', '')
-
-	if stranger_id not in account.friend_requests:
-		return HttpResponseBadRequest(reason="No request was sent from this person.")
-
-	account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
 	try:
+		account = Account.objects.get(user=request.user)
+		stranger = Account.objects.get(id=request.POST.get('friend', -1))
+
+		if stranger.id not in account.friend_requests:
+			raise Exception("No request was sent from this person.")
+
+		account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "friends"))
+
+		return JsonResponse({"result":Account.objects.serialize(account, "friends")})
+	except Account.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -302,12 +290,12 @@ def removeFriend(request):
 		:return: (200, okay, list of friend information) (500, error)
 	'''
 	account = Account.objects.get(user=request.user)
-	friend_id = request.POST.get('friend', '')
 	try:
-		account.friends.remove(friend_id)
+		friend = Account.objects.get(id=request.POST.get('friend', -1))
+		account.friends.remove(friend)
 		account.save()
 		return JsonResponse(Account.objects.serialize(account, "friends"))
-	except Exception as e:
+	except Account.DoesNotExist as e:
 		return HttpResponseServerError(reason=str(e))
 
 @login_required
@@ -324,15 +312,13 @@ def followGroup(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Group.objects.filter(id=request.POST.get('group', '')).exists():
-		group = Group.objects.get(id=request.POST.get('group', ''))
-	else:
-		return HttpResponseBadRequest(reason="Invalid Group ID")
-
 	try:
+		group = Group.objects.get(id=request.POST.get('group', -1))
 		account.group.add(group)
 		account.save()
-		return JsonResponse(Account.objects.serialize(account, "groups"), safe=False)
+		return JsonResponse({"result":Account.objects.serialize(account, "groups")}, safe=False)
+	except Group.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
 
@@ -350,16 +336,15 @@ def unfollowGroup(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	if Group.objects.filter(id=request.POST.get('group', '')).exists():
-		group = group.objects.get(id=request.POST.get('group', ''))
-	else:
-		return HttpResponseBadRequest(reason="Invalid Group ID")
-
 	try:
+		group = Group.objects.get(id=request.POST.get('group', -1))
 		account.group.remove(group)
-		return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+		return JsonResponse({"result":Account.objects.serialize(account, "group")}, safe=False)
+	except Group.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
+
 
 @login_required
 @require_post_params(params=['civi'])
@@ -375,18 +360,22 @@ def pinCivi(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	id = request.POST.get('civi', '')
-	if  not Civi.objects.filter(id=id).exists():
-		return HttpResponseBadRequest(reason="Invalid Civi ID")
+	try:
+		civi = Civi.objects.get(id=request.POST.get('civi', -1))
+		if civi.id not in account.pinned:
+			account.pinned += civi.id
+			account.save()
+		return JsonResponse({"result":Account.objects.serialize(account, "group")}, safe=False)
 
-	if id not in account.pinned:
-		account.pinned += civi.id
-		account.save()
+	except Civi.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
+	except Exception as e:
+		return HttpResponseServerError(reson=str(e))
 
-	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+
 
 @login_required
-@require_post_params(params=['civi'])
+@require_post_params(params=['id'])
 def unpinCivi(request):
 	'''
 		USAGE:
@@ -397,14 +386,25 @@ def unpinCivi(request):
 
 		:return: (200, ok, list of pinned civis) (400, bad request) (500, error)
 	'''
-
 	account = Account.objects.get(user=request.user)
-	cid = request.POST.get('civi', '')
-	if  not Civi.objects.filter(id=cid).exists():
-		return HttpResponseBadRequest(reason="Invalid Civi ID")
+	try:
+		cid = Civi.objects.get(id=request.POST.get("id", -1))
+		if cid in account.pinned:
+			account.pinned = [e for e in account.pinned if e != cid]
+			account.save()
 
-	if cid in account.pinned:
-		account.pinned = [e for e in account.pinned if e != cid]
-		account.save()
+		return JsonResponse({"result":Account.objects.serialize(account, "group")}, safe=False)
+	except Civi.DoesNotExist as e:
+		return HttpResponseBadRequest(reason=str(e))
+	except Exception as e:
+		return HttpResponseServerError(reason=str(e))
 
-	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+def writeImage(type, img,  title):
+	if img:
+		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type=type,title=title)
+		with open( url , 'wb+') as destination:
+			for chunk in img.chunks():
+				destination.write(chunk)
+		return url
+	else:
+		return "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type=type,title='generic')
