@@ -9,10 +9,12 @@ var FriendsListView = Backbone.View.extend({
       options = options || {}; 
 
       _this.user_id = options.user_id;
-      _this.friend_requests = options.friend_requests;
       _this.userModel = options.userModel; 
+      _this.friend_requests = new Backbone.Collection(_this.userModel.toJSON().friend_requests);
+
       console.log(_this.userModel);
 
+      console.log(_this.friend_requests);
       _this.listenTo(_this.friend_requests, "change", _this.render); //supposed to listen for a change in the friend_requests attribute of the model and rerender the view accordingly
 
     }, 
@@ -86,7 +88,7 @@ var FriendsListView = Backbone.View.extend({
         type:'POST', 
         url:'api/rejectfriend',
         data:{
-          friend:rejected_id, 
+          id:rejected_id, 
         }, 
         success: function(data){
           Materialize.toast('Friend successfully rejected', 3000); //removes friends from friend_requests list
@@ -95,6 +97,7 @@ var FriendsListView = Backbone.View.extend({
           Materialize.toast('Friend not rejected', 3000);
         }
       });
+      console.log(_this.userModel);
     }
 
 });
