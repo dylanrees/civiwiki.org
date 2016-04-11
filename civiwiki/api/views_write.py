@@ -25,35 +25,15 @@ def createGroup(request):
 
 		:returns: (200, ok, group_id) (500, error)
 	'''
-	account = Account.objects.get(user=request.uer)
 	pi = request.FILES.get('profile', False)
 	ci = request.FILES.get('cover', False)
-	if pi:
-		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
-		with open( url , 'wb+') as destination:
-			for chunk in pi.chunks():
-				destination.write(chunk)
-		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title=title)
-	else:
-		profile_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='profile',title='generic')
-
-
-	if ci:
-		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
-		with open( url , 'wb+') as destination:
-			for chunk in ci.chunks():
-				destination.write(chunk)
-
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title=title)
-	else:
-		cover_image = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type='cover',title='generic')
-
+	title = request.POST.get(title, '')
 	data = {
-		"owner": account,
-		"title": request.POST.get('title',''),
+		"owner": Account.objects.get(user=request.user),
+		"title": title,
 		"description": request.POST.get('description',''),
-		"profile_image": profile_image,
-		"cover_image": cover_image
+		"profile_image": writeImage('profile', pi, title),
+		"cover_image": writeImage('cover', ci, title)
 	}
 
 	try:
@@ -380,10 +360,9 @@ def pinCivi(request):
 	'''
 
 	account = Account.objects.get(user=request.user)
-	id =
 	try:
 		civi = Civi.objects.get(id=request.POST.get('civi', -1))
-		if id not in account.pinned:
+		if civi.id not in account.pinned:
 			account.pinned += civi.id
 			account.save()
 		return JsonResponse({"result":Account.objects.serialize(account, "group")}, safe=False)
@@ -419,3 +398,13 @@ def unpinCivi(request):
 		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
 		return HttpResponseServerError(reason=str(e))
+
+def writeImage(type, img,  title):
+	if img:
+		url = "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type=type,title=title)
+		with open( url , 'wb+') as destination:
+			for chunk in img.chunks():
+				destination.write(chunk)
+		return url
+	else:
+		return "{media}{type}/{title}.png".format(media=settings.MEDIA_ROOT_URL, type=type,title='generic')
