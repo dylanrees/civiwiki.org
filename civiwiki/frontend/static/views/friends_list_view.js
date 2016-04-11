@@ -10,11 +10,11 @@ var FriendsListView = Backbone.View.extend({
 
       _this.user_id = options.user_id;
       _this.userModel = options.userModel; 
-      _this.friend_requests = new Backbone.Collection(_this.userModel.toJSON().friend_requests);
+      _this.friend_requests = options.friend_requests
 
       console.log(_this.userModel);
 
-      _this.listenTo(_this.friend_requests, "change", _this.render); //supposed to listen for a change in the friend_requests attribute of the model and rerender the view accordingly
+      _this.listenTo(_this.userModel, 'change', this.changed); //supposed to listen for a change in the friend_requests attribute of the model and rerender the view accordingly
 
     }, 
 
@@ -81,23 +81,25 @@ var FriendsListView = Backbone.View.extend({
     rejectFriend: function(event){
       var _this = this; 
 
-      var rejected_id = $(event.target).parent().attr('class').substr(-1); //gets the ID of rejected friend
+      var class_name = $(event.target).parent().attr('class'); //gets the ID of rejected friend
+      var rejected_id = class_name.slice(class_name.lastIndexOf(' ') + 1); 
 
-      console.log(rejected_id);
-      console.log(_this.friend_requests);
       $.ajax({
         type:'POST', 
         url:'api/rejectfriend',
         data:{
-          friend:rejected_id, 
+          friend: rejected_id, 
         }, 
         success: function(data){
           Materialize.toast('Friend successfully rejected', 3000); //removes friends from friend_requests list
+          setTimeout(function(){ console.log(_this.userModel); }, 10000); //used to see if there's a change in userModel
         }, 
         error: function(data){
           Materialize.toast('Friend not rejected', 3000);
         }
       });
+    }, 
+    changed: function(){
     }
 
 });

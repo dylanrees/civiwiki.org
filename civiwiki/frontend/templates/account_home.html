@@ -19,7 +19,7 @@
                     </span>
                 </div>
                 <div class="center-align">
-                    <img class="user-profile-pic" src="<%= user.profile_image %>">
+                    <img class="user-profile-pic" src="<%= user.profile_image %>"> 
                 </div>
                 <div class="center-align">
                     <span class="user-description">
@@ -72,20 +72,20 @@
     </div>
     </div>
     <h4><b>Friend Requests</b></h4>
-    <% _.each(friend_requests.models, function(model){%>
+    <% _.each(friend_requests, function(request){%>
     <div class="col l11">
         <ul class="collection friend-requests">
-            <li class="collection-item avatar <%=model.get('id') %>">
+            <li class="collection-item avatar <%=request.id %>">
                 <img class="circle" src="/static/img/team_profile/team_default.png">
-                <span class="title"><%- model.get('first_name') %> <%- model.get('last_name')%></span>            
+                <span class="title"><%- request.first_name %> <%- request.last_name%></span>            
             </li>
         </ul>
     </div>
     <div class="col l1">
         <ul class="friend_buttons">
-            <a href="#!" class="accept <%=model.get('id') %>"><i class="material-icons">done</i></a>
+            <a href="#!" class="accept <%=request.id %>"><i class="material-icons">done</i></a>
             <br><br>
-            <a href="#!" class="reject <%=model.get('id') %>"><i class="material-icons">not_interested</i></a>
+            <a href="#!" class="reject <%=request.id %>"><i class="material-icons">not_interested</i></a>
         </ul>
     </div>
     <% }); %>
