@@ -47,8 +47,8 @@ class AccountManager(models.Manager):
             "friends": [self.summarize(a) for a in account.friends.all()]
         }
         if filter and filter in data:
-            return json.dumps({filter: data[filter]})
-        return json.dumps(data)
+            return {filter: data[filter]}
+        return data
 
     def retrieve(self, user):
         return self.find(user=user)[0]

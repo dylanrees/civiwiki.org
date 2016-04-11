@@ -12,7 +12,9 @@ def require_post_params(params):
         @wraps(func, assigned=available_attrs(func))
         def inner(request, *args, **kwargs):
             if not all(param in request.POST for param in params):
-                return HttpResponseBadRequest()
+                missing_params = [p for p in params if p not in request.POST].join(" ")
+                reason = "Missing required parameter(s): {p}".format(p=missing_params)
+                return HttpResponseBadRequest(reason=reason)
             return func(request, *args, **kwargs)
         return inner
     return decorator
