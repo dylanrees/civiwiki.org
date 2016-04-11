@@ -57,3 +57,6 @@ def add_civi(request):
 	topics = [{'id': c.id, 'topic': c.topic} for c in Topic.objects.all()]
 
 	return TemplateResponse(request, 'add_civi.html', {'categories': json.dumps(categories), 'topics': json.dumps(topics)})
+
+def declaration(request):
+	return TemplateResponse(request, 'declaration.html', {})
