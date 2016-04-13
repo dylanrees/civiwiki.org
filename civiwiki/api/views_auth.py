@@ -11,7 +11,7 @@ def cw_login(request):
 	'''
 	USAGE:
 
-	'''	
+	'''
 	username = request.POST.get('username', '')
 	password = request.POST.get('password', '')
 	remember = request.POST.get('remember', 'false')
