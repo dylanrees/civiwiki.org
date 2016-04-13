@@ -48,10 +48,15 @@ def dbview(request):
 def about_view(request):
 	return TemplateResponse(request, 'about.html', {})
 
+# def account_home(request):
+# 	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
+# 	# dummy = "dummy"
+# 	# views_write.createCivi("my civi", "a a", "prototyping", "software development", "my prototyping", "sup man", "some type")
+# 	views_write.createCivi(request)
+# 	views_write.pinCivi(request)
+# 	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})
+
+@login_required
 def account_home(request):
-	user_data = Account.objects.filter(user_id=request.user.id)[0].__dict__
-	# dummy = "dummy"
-	# views_write.createCivi("my civi", "a a", "prototyping", "software development", "my prototyping", "sup man", "some type")
-	views_write.createCivi(request)
-	views_write.pinCivi(request)
-	return TemplateResponse(request, 'account_home.html', {'user_data': json.dumps({k: str(v) for k, v in user_data.items()})})
+	acc = Account.objects.get(user_id=request.user.id)
+	return TemplateResponse(request, 'account.html', {'user_data': Account.objects.serialize(acc)})

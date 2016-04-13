@@ -418,3 +418,15 @@ def unpinCivi(request):
 		account.save()
 
 	return JsonResponse(Account.objects.serialize(account, "group"), safe=False)
+@login_required
+@require_post_params
+def getCivi(request):
+	id = request.POST.get('id', -1)
+	c = Civi.objects.filter(id=id)
+	if len(c):
+		if c[0].type == 'I':
+			return JsonResponse({'result':getCivicChain(c[0])})
+		else:
+			return JsonResponse({'result':c[0].string()})
+	else:
+		return JsonResponse({'result':'No Civi Returned matching that ID'})

@@ -40,9 +40,12 @@
                 </ul>
             </div>
             <div id="following" class="col s9">                
+                <div>Here are the civi ids: </div>
                 <% for (var myPin in user.civi_pins) { %>
                     <%- myPin %>
                 <% } %>
+                <div>Here should be a civi: </div>
+                <% views_write.getCivi(request) %>
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 <form method="post">                
                     Group: <input type="text" name="group"><br>
@@ -56,6 +59,10 @@
                 </form>
                 <form method="post">                
                     Civi: <input type="text" name="civi"><br>                  
+                    <input type="submit" value="Submit">
+                </form>
+                <form method="post">                
+                    Id: <input type="text" name="id"><br>
                     <input type="submit" value="Submit">
                 </form>
 
