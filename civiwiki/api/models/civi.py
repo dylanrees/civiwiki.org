@@ -3,8 +3,14 @@ from django.db import models
 from hashtag import Hashtag
 from group import Group
 from django.contrib.postgres.fields import ArrayField
+<<<<<<< Updated upstream
 from operator import itemgetter
 import math, json
+=======
+from account import Account
+import json
+class CiviManager(models.Manager):
+>>>>>>> Stashed changes
 
 class CiviManager(models.Manager):
     def summarize(self, civi):
