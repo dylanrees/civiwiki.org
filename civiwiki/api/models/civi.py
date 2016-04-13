@@ -5,7 +5,7 @@ from group import Group
 from django.contrib.postgres.fields import ArrayField
 from operator import itemgetter
 import math, json
-
+from account import Account
 
 class CiviManager(models.Manager):
     def summarize(self, civi):

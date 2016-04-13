@@ -7,3 +7,5 @@
 # Python Files
 *.pyc
 civiwiki/civiwiki/media
+
+venv/

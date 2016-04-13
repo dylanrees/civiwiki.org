@@ -34,4 +34,4 @@ class Group(models.Model):
     admins = models.ManyToManyField('Account', related_name='group_admin')
 
     def retrieve(self, user):
-        return self.find(user=user)[0]
+      return self.find(user=user)[0]
