@@ -114,6 +114,15 @@ else:
 
 LOGIN_URL = '/login'
 
+# Email settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mitchell.west@civiwiki.org'
+EMAIL_HOST_PASSWORD = 'Hamilton8'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'mitchell.west@civiwiki.org'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 

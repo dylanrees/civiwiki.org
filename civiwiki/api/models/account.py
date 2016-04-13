@@ -81,3 +81,5 @@ class Account(models.Model):
     address2 = models.CharField(max_length=255, null=True)
     groups = models.ManyToManyField('Group', related_name='user_groups')
     friends = models.ManyToManyField('Account', related_name='friended_account')
+
+    activation_key = models.CharField(max_length=40, blank=True)
