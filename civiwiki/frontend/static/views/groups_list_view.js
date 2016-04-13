@@ -8,7 +8,6 @@ var GroupsListView = Backbone.View.extend({
         options = options || {};
 
         _this.groups = options.groups;
-        console.log(options);
         _this.render();
     },
 
@@ -21,6 +20,13 @@ var GroupsListView = Backbone.View.extend({
     },
 
     events: {
+        'click .groups-item': 'clickGroup'
+    },
+
+    // Redirects User to selected group page
+    clickGroup: function(event) {
+        var _this = this;
+        // TODO: Link to Groups Pages once they are implemented
     },
 
     // Sample Data As a Placeholder

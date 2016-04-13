@@ -10,10 +10,10 @@ var AccountBaseView = Backbone.View.extend({
         _this.render();
 
         //Child Views
-        this.groupsTab = new GroupsListView({
-            groups: _this.userModel.toJSON()
+        _this.groupsTab = new GroupsListView({
+            groups: _this.userModel.toJSON().groups
         });
-        this.subRender();
+        _this.groupsTab.render();
     },
 
     render: function () {
@@ -22,10 +22,6 @@ var AccountBaseView = Backbone.View.extend({
             user: _this.userModel.toJSON()
         }));
     },
-
-    subRender: function () {
-         this.groupsTab.render();
-     },
 
     events: {
     },
