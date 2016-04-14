@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-from utils.db_info import database_creds
+from utils.db_info import DATABASES as database_creds
 import os
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
