@@ -237,13 +237,13 @@ def acceptFriend(request):
 		account = Account.objects.get(user=request.user)
 		stranger = Account.objects.get(id=request.POST.get('friend', -1))
 
-		if stranger_id not in account.friend_requests:
-			raise Exception(reason="No request was sent from this person.")
+		if str(stranger.id) not in account.friend_requests:
+			raise Exception("No request was sent from this person.")
 
-		account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
+		account.friend_requests = [fr for fr in account.friend_requests if fr != stranger.id]
 		account.friends.add(stranger)
 		account.save()
-		return JsonResponse({"result":Account.objects.serialize(account, "friends")})
+		return JsonResponse({"result":Account.objects.serialize(account, "friends")}, safe=False)
 	except Account.DoesNotExist as e:
 		return HttpResponseBadRequest(reason=str(e))
 	except Exception as e:
@@ -265,10 +265,10 @@ def rejectFriend(request):
 		account = Account.objects.get(user=request.user)
 		stranger = Account.objects.get(id=request.POST.get('friend', -1))
 
-		if stranger.id not in account.friend_requests:
-			raise Exception("No request was sent from this person.")
+		if str(stranger.id) not in account.friend_requests:
+			raise Exception(reason="No request was sent from this person.")
 
-		account.friend_requests = [fr for fr in account.friend_requests if fr != stranger_id]
+		account.friend_requests = [fr for fr in account.friend_requests if fr != str(stranger.id)]
 		account.save()
 
 

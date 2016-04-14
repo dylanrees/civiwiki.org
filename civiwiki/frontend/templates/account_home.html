@@ -62,7 +62,7 @@
     <div class="row">
     <div class="col l12">
         <ul class="collection friends">
-        <% _.each(friends, function(friend){console.log(friend)%>
+        <% _.each(friends, function(friend){ %>
             <li class="collection-item avatar">
                 <img class="circle" src="/static/img/team_profile/team_default.png">
                 <span class="title"><%- friend.first_name %> <%-friend.last_name %></span>
@@ -114,10 +114,11 @@
 
 <script>
     var userModel = new Backbone.Model({{result|safe}});
+    userModel.on({'change': Backbone.Events.trigger("userModelChanged")}); //trigger that shows userModel changed 
+    
     var accountBaseView = new AccountBaseView({
         userModel: userModel
     });
-
 </script>
 
 </html>
