@@ -41,7 +41,7 @@ def cw_logout(request):
 	logout(request)
 	return HttpResponseRedirect('/')
 
-@require_post_params(params=['username', 'password', 'email', 'first_name', 'last_name'])
+@require_post_params(params=['username', 'password', 'email', 'first_name', 'last_name', 'zip'])
 def cw_register(request):
 	# TODO: This should work but hasn't been super tested. If something goes wrong
 	# don't assume this isn't the root of the problem.
@@ -51,6 +51,7 @@ def cw_register(request):
 	email = request.POST.get('email', '')
 	first_name = request.POST.get('first_name', '')
 	last_name = request.POST.get('last_name', '')
+	zip_code = request.POST.get('zip', '')
 	if User.objects.filter(email=email).exists():
 		return HttpResponseBadRequest(reason='An account exists for this email address.')
 
@@ -66,7 +67,7 @@ def cw_register(request):
 		return HttpResponseServerError(reason=str(e))
 
 	try:
-		account = Account(user=user, email=email, first_name=first_name, last_name=last_name)
+		account = Account(user=user, email=email, first_name=first_name, last_name=last_name, zip_code=zip_code)
 		account.save()
 		login(request, user)
 	except Exception as e:
