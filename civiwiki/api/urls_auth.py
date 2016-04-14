@@ -4,5 +4,5 @@ urlpatterns = [
     url(r'^login', v.cw_login, name='login'),
     url(r'^logout', v.cw_logout, name='logout'),
     url(r'^register', v.cw_register, name='register'),
-    url(r'^sendemail', v.send_validation_email)
+    url(r'^validate/(?P<activation_key>\w+)/$', v.cw_validate, name='validate')
 ]

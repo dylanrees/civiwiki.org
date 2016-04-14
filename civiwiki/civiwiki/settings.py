@@ -76,7 +76,9 @@ WSGI_APPLICATION = 'civiwiki.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DEBUG = True
+BASE_URL = 'localhost:8000'
 if 'RDS_DB_NAME' in os.environ:
+    BASE_URL = 'civiwiki.org'
     DATABASE = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
