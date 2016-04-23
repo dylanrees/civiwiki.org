@@ -39,3 +39,4 @@ I want to keep track of how Civiwiki is doing.
 * **Twitter:** [@CiviWiki](https://twitter.com/civiwiki)
 * **Web:** http://civiwiki.org/
 * **Crowdfunding Page:** https://www.generosity.com/community-fundraising/civiwiki-org-plugging-in-democracy
+* **Subreddit:** https://www.reddit.com/r/civiwiki
